@@ -6,14 +6,9 @@ export const LayoutStyle = styled.div`
         padding:0 18px;
     }
 
-    & > a {
-        color:white;
+    a {
+        color: ${props => props.theme.colors.white};
         text-decoration:none;
-        transition:color 0.15s ease-in-out;
-
-        &:hover {
-            color:rgba(255,255,255,0.8);
-        }
     }
 
     header {
@@ -25,8 +20,13 @@ export const LayoutStyle = styled.div`
         display:flex;
         align-items:center;
         justify-content:space-between;
-        padding:0 10%;
+        padding:0 20px;
         box-sizing:border-box;
+
+        & > img {
+            height:24px;
+            width:auto;
+        }
     }
 
     footer {
@@ -38,7 +38,18 @@ export const LayoutStyle = styled.div`
         display:flex;
         align-items:center;
         justify-content:space-between;
-        padding:0 20%;
+        padding:0 15%;
         box-sizing:border-box;
+
+        & > a {
+            display:flex;
+            flex-direction:column;
+            font-size:0.75rem;
+
+            & > img {
+                height:20px;
+                width:auto;
+            }
+        }
     }
 `

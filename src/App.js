@@ -13,10 +13,13 @@ import tracks from './data/tracks.json';
 
 import StartPage from './pages/StartPage';
 import EpisodePage from './pages/EpisodePage';
+import BookmarksPage from './pages/BookmarksPage';
 
 const data = [playlists, youtube, tracks].flat();
 
-const App = ({ history }) => {
+const App = (props, { history }) => {
+  console.log(props);
+  
   return (
     <Router history={history}>
       <GlobalStyle />
@@ -25,6 +28,7 @@ const App = ({ history }) => {
         <Switch>
           <Route exact path="/" component={StartPage} />
           <Route path="/avsnitt" component={EpisodePage} />
+          <Route path="/bookmarks" component={BookmarksPage} />
         </Switch>
       </Layout>
       </ThemeProvider>
