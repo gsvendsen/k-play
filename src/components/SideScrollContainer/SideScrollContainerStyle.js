@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const SideScrollContainerStyle = styled.section`
-  /* background-color: ${props => props.theme.colors.grey}; */
-  height: 20vh;
+  height: 25vh;
   display: flex;
-  margin: 5% 0;
-  
+  margin: 8% 0;
+
   ::-webkit-scrollbar {
-  display: none;
-}
+    display: none;
+  }
 `;
