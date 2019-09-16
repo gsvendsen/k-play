@@ -3,12 +3,12 @@ import { SideScrollContainerStyle } from './SideScrollContainerStyle';
 import { SideScrollLabel } from './SideScrollLabel';
 
 const SideScrollContainer = props => {
-  console.log(props);
-
   return (
     <SideScrollLabel>
       {props.label && <label>{props.label}</label>}
-      <SideScrollContainerStyle>{props.children}</SideScrollContainerStyle>
+      <section>
+        <SideScrollContainerStyle>{props.children}</SideScrollContainerStyle>
+      </section>
     </SideScrollLabel>
   );
 };
