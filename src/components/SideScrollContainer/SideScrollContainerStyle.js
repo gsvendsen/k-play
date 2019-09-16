@@ -5,6 +5,7 @@ export const SideScrollContainerStyle = styled.section`
   height: 20vh;
   overflow-x: auto;
   display: flex;
+  margin: 5% 0;
   
   ::-webkit-scrollbar {
   display: none;
