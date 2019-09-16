@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 export const LayoutStyle = styled.div`
 
+    & > section {
+        padding:0 18px;
+    }
+
     & > a {
         color:white;
         text-decoration:none;
@@ -15,7 +19,7 @@ export const LayoutStyle = styled.div`
     header {
         width:100vw;
         height:50px;
-        background-color:#C97C36;
+        background-color:${props => props.theme.colors.grey};
         position:fixed;
         top:0;
         display:flex;
@@ -28,7 +32,7 @@ export const LayoutStyle = styled.div`
     footer {
         width:100vw;
         height:50px;
-        background-color:#C97C36;
+        background-color:${props => props.theme.colors.grey};
         position:fixed;
         bottom:0;
         display:flex;

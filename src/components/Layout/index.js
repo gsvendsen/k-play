@@ -10,8 +10,10 @@ const Layout = (props) => {
                 <a href=".">Meny</a>
             </header>
 
+            <section>
             {props.children}
-
+            </section>
+            
             {/* Om context variable innehåller stream URL så visa audioplayer */}
             <AudioPlayer  />
             <footer>
