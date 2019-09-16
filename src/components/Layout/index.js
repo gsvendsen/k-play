@@ -11,7 +11,9 @@ const Layout = (props) => {
     return (
         <LayoutStyle>
             <header>
-                <img src="./svg/logo.svg" alt="K Play Logo"/>
+                <Link to="/">
+                    <img src="./svg/logo.svg" alt="K Play Logo"/>
+                </Link>
                 <HamburgerButton/>
             </header>
 
@@ -35,7 +37,7 @@ const Layout = (props) => {
                     Search
                 </Link>
                 <Link to="/bookmarks">
-                    {props.history.location.pathname === "/bookmark" ?
+                    {props.history.location.pathname === "/bookmarks" ?
                     <img src="./svg/bookmark-filled.svg" alt="Bookmark"/> :
                     <img src="./svg/bookmark.svg" alt="Bookmark"/>} 
                     Sparade
