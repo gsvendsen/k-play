@@ -17,8 +17,8 @@ const StartPage = () => {
               key={video.id}
               id={video.id}
               title={video.title}
-              mediaIcon={'./svg/video.png'}
-              ctaIcon={'./svg/cross.png'}
+              mediaIcon={'./svg/video.svg'}
+              ctaIcon={'./svg/cross.svg'}
               duration={formatDuration(YTDurationToSeconds(video.duration))}
               height="100%"
               margin="0% 5% 0 0"
