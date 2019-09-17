@@ -1,14 +1,18 @@
-import React from 'react'
-import {AudioPlayerStyle} from './AudioPlayerStyle'
-const AudioPlayer = (props) => {
+import React, { useContext } from 'react';
 
-    return (
-        <AudioPlayerStyle {...props}>
-            <audio>
-                <source></source>
-            </audio>
-        </AudioPlayerStyle>
-    )
-}
+import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
-export default AudioPlayer
+import { AudioPlayerStyle } from './AudioPlayerStyle';
+
+const AudioPlayer = props => {
+  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
+  return (
+    <AudioPlayerStyle isActive={audioPlayerUrl} {...props}>
+      <audio controls autoPlay>
+        {audioPlayerUrl && <source src={audioPlayerUrl}></source>}
+      </audio>
+    </AudioPlayerStyle>
+  );
+};
+
+export default AudioPlayer;
