@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {LayoutStyle} from './LayoutStyle'
 import AudioPlayer from '../AudioPlayer'
+import NotificationMessages from '../NotificationMessages'
 import HamburgerButton from '../HamburgerButton';
 import {withRouter} from 'react-router'
 
@@ -22,7 +23,11 @@ const Layout = (props) => {
             </section>
 
             {/* Om context variable innehåller stream URL så visa audioplayer */}
-            <AudioPlayer  />
+            <AudioPlayer />
+
+            {/* Om context variable innehåller data object för pop up messages*/}
+            <NotificationMessages />
+
             <footer>
                 <Link to=".">
                     {props.history.location.pathname === "/" ?
