@@ -12,6 +12,7 @@ export const VideoDescriptionStyle = styled.div`
 
         & > img {
             width:8%;
+            max-width:50px;
             height:auto;
         }
 
