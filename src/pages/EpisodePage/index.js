@@ -23,59 +23,101 @@ const episodeData = {
   type: 'video'
 };
 
+const EpisodePage = props => {
+  const megaData = [...tracks, ...videos];
 
-const EpisodePage = (props) => {
-    
-    const megaData = [...tracks, ...videos]
+  console.log(megaData);
 
-    console.log(megaData)
-    
+  const videoId = props.location.pathname.split('/')[2] || null;
 
-    const videoId = props.location.pathname.split('/')[2] || null
+  const videoData = megaData.find(video => {
+    return videoId.toString() === video.id.toString();
+  });
 
-    const videoData = megaData.find((video) => {
-        return videoId.toString() === video.id.toString()
-    })
+  const [isBookmarkToggled, setBookmarkToggle] = useState(false);
+  const { notificationMessage, setNotificationMessage } = useContext(
+    NotificationMessagesContext
+  );
 
-    const [isBookmarkToggled, setBookmarkToggle] = useState(false)
-    const {notificationMessage, setNotificationMessage} = useContext(NotificationMessagesContext)
+  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
+  // console.log(audioPlayerUrl);
 
   return (
     <div>
-        {
-            videoData === undefined ? <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>Avsnitt med ID "{videoId}" finns inte.</p> :
+      {videoData === undefined ? (
+        <p
+          style={{
+            color: 'white',
+            fontSize: '18px',
+            textAlign: 'center',
+            margin: '50px 0'
+          }}
+        >
+          Avsnitt med ID "{videoId}" finns inte.
+        </p>
+      ) : (
         <VideoContainer>
-            <section>
-                {videoData.type === 'video' ? 
-                <YouTube
-                    videoId={videoData.id}
-                /> : <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>MP3 Spelare Here</p>}
-            </section>
-            <VideoDescriptionStyle>
-                <aside>
-                    <h1>
-                        {videoData.title}
-                    </h1>
-                    {!isBookmarkToggled ?
-                    <img onClick={() => {
-                            setNotificationMessage({
-                                message: 'Bookmarked!',
-                                duration: 4,
-                            })
-                            setBookmarkToggle(true)
-                        }
-                    }  src="/svg/bookmark.svg" alt="Bookmark" />
-                        : <img onClick={() => setBookmarkToggle(false)} src="/svg/bookmark-filled.svg" alt="Bookmarked" />
-                }
-                </aside>
-                <h4>Torsdag 12 sep 12.00  -- 40 min</h4>
-                <p>
-                    {videoData.description}
-                </p>
-            </VideoDescriptionStyle>
+          <section>
+            {videoData.type === 'video' ? (
+              <YouTube videoId={videoData.id} />
+            ) : (
+              <p
+                onClick={() => {
+                  fetch(
+                    `http://api.soundcloud.com/tracks/${videoData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                  ).then(res => {
+                    // TEMPORÄR CONTEXT STRUKTUR
+                    console.log(res);
+                    setAudioPlayerUrl(null);
+
+                    setTimeout(() => {
+                      setAudioPlayerUrl({
+                        audioData: videoData,
+                        streamUrl: res.url
+                      });
+                    }, 250);
+                  });
+                }}
+                style={{
+                  color: 'white',
+                  fontSize: '18px',
+                  textAlign: 'center',
+                  margin: '50px 0'
+                }}
+              >
+                MP3 Spelare Here
+              </p>
+            )}
+          </section>
+          <VideoDescriptionStyle>
+            <aside>
+              <h1>{videoData.title}</h1>
+              {!isBookmarkToggled ? (
+                <img
+                  onClick={() => {
+                    setNotificationMessage({
+                      message: 'Bookmarked!',
+                      duration: 4
+                    });
+                    setBookmarkToggle(true);
+                  }}
+                  src="/svg/bookmark.svg"
+                  alt="Bookmark"
+                />
+              ) : (
+                <img
+                  onClick={() => setBookmarkToggle(false)}
+                  src="/svg/bookmark-filled.svg"
+                  alt="Bookmarked"
+                />
+              )}
+            </aside>
+            <h4>Torsdag 12 sep 12.00 -- 40 min</h4>
+            <p>{videoData.description}</p>
+          </VideoDescriptionStyle>
         </VideoContainer>
-        }
-        <SideScrollContainer label="Liknande Avsnitt">
+      )}
+      <SideScrollContainer label="Liknande Avsnitt">
         {videos.map(video => {
           return (
             <MediaCard
