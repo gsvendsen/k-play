@@ -22,6 +22,8 @@ const AudioPlayer = withSoundCloudAudio(props => {
     }
   }, [isReady, canAutoPlay, soundCloudAudio]);
 
+  console.log(audioPlayerUrl);
+
   return (
     <AudioPlayerStyle isActive={audioPlayerUrl} {...props}>
       <p>{track ? track.title : 'Loading...'}</p>

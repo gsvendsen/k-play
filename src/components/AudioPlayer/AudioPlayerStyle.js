@@ -9,7 +9,6 @@ export const AudioPlayerStyle = styled.div`
   display: ${props => (props.isActive ? 'flex' : 'none')};
   animation: slide-in 0.5s ease-in-out forwards;
   z-index: 777;
-  display: flex;
   justify-content: space-around;
   align-items: center;
   color: ${props => props.theme.colors.white};
@@ -27,11 +26,8 @@ export const AudioPlayerStyle = styled.div`
     width: 30px;
     border: 1.5px solid ${props => props.theme.colors.white};
     border-radius: 50%;
-    padding: 4px;
     background: inherit;
-    svg {
-      margin-left: 5px;
-    }
+    position: relative;
   }
 
   button:nth-of-type(2),
@@ -42,6 +38,13 @@ export const AudioPlayerStyle = styled.div`
     justify-content: space-around;
     width: 60px;
     border: none;
+  }
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0.5);
   }
 
   @keyframes slide-in {
