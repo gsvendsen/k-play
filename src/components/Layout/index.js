@@ -1,8 +1,8 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import {LayoutStyle} from './LayoutStyle'
-import AudioPlayer from '../AudioPlayer'
-import NotificationMessages from '../NotificationMessages'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { LayoutStyle } from './LayoutStyle';
+import AudioPlayer from '../AudioPlayer';
+import NotificationMessages from '../NotificationMessages';
 import HamburgerButton from '../HamburgerButton';
 import {withRouter} from 'react-router'
 

@@ -1,16 +1,27 @@
-import React, {useState, useContext} from 'react';
-import YouTube from 'react-youtube'
-import {NotificationMessagesContext} from '../../contexts/NotificationMessagesContext'
-import VideoContainer from '../../components/VideoContainer'
-import SideScrollContainer from '../../components/SideScrollContainer'
-import MediaCard from '../../components/MediaCard'
-import {VideoDescriptionStyle} from './VideoDescriptionStyle'
+import React, { useState, useContext } from 'react';
+import YouTube from 'react-youtube';
+import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
+import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
+import VideoContainer from '../../components/VideoContainer';
+import SideScrollContainer from '../../components/SideScrollContainer';
+import MediaCard from '../../components/MediaCard';
+import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
 import { whileStatement } from '@babel/types';
 
-const episodeData = {"id":"Nmf2V55mlgw","title":"Masterclass med Pia Olby - Vad är skönsång (del 3 av 4)","description":"Kulturakademin och Teateralliansens kursen i sånggestaltning erbjuder professionella skådespelare möjlighet att arbeta med och utveckla sin egen vokala och musikaliska potential - och att utmana sig själva sångmässigt. Här förklarar kursledare Pia Olby vad skönsång är för henne.","url":"http://youtube.com/watch?w=Nmf2V55mlgw","thumbnail":"https://i.ytimg.com/vi/Nmf2V55mlgw/hqdefault.jpg","tags":["dans","teater","scenkonst","koreografi","film"],"duration":"PT2M1S","type":"video"}
+const episodeData = {
+  id: 'Nmf2V55mlgw',
+  title: 'Masterclass med Pia Olby - Vad är skönsång (del 3 av 4)',
+  description:
+    'Kulturakademin och Teateralliansens kursen i sånggestaltning erbjuder professionella skådespelare möjlighet att arbeta med och utveckla sin egen vokala och musikaliska potential - och att utmana sig själva sångmässigt. Här förklarar kursledare Pia Olby vad skönsång är för henne.',
+  url: 'http://youtube.com/watch?w=Nmf2V55mlgw',
+  thumbnail: 'https://i.ytimg.com/vi/Nmf2V55mlgw/hqdefault.jpg',
+  tags: ['dans', 'teater', 'scenkonst', 'koreografi', 'film'],
+  duration: 'PT2M1S',
+  type: 'video'
+};
 
 
 const EpisodePage = (props) => {
@@ -84,6 +95,6 @@ const EpisodePage = (props) => {
       </SideScrollContainer>
     </div>
   );
-}
+};
 
 export default EpisodePage;
