@@ -34,9 +34,9 @@ export const AudioPlayerStyle = styled.div`
   button:first-of-type {
     /* BACK/FORWARD 15s BUTTONS */
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-around;
-    width: 60px;
+    width: 50px;
     border: none;
   }
 
@@ -47,13 +47,24 @@ export const AudioPlayerStyle = styled.div`
     transform: scale(0.5);
   }
 
+  div:nth-child(1) {
+    height: 6px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    div {
+      background: ${props => props.theme.colors.orange};
+    }
+  }
+
   @keyframes slide-in {
     from {
-      bottom: 140px;
+      bottom: -140px;
     }
 
     to {
-      bottom: 50px;
+      bottom: 48px;
     }
   }
 `;

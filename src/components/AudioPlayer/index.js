@@ -1,10 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { PlayButton, Timer } from 'react-soundplayer/components';
+import { PlayButton, Timer, Progress } from 'react-soundplayer/components';
 import { withCustomAudio } from 'react-soundplayer/addons';
 
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 import { AudioPlayerStyle } from './AudioPlayerStyle';
+import { log } from 'util';
 
 const AudioPlayer = withCustomAudio(props => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
@@ -15,9 +16,9 @@ const AudioPlayer = withCustomAudio(props => {
     duration,
     currentTime,
     isReady,
-    data
+    data,
+    onFastForward
   } = props;
-
   const [canAutoPlay, setCanAutoPlay] = useState(true);
 
   useEffect(() => {
@@ -25,14 +26,52 @@ const AudioPlayer = withCustomAudio(props => {
     setCanAutoPlay(false);
   }, [isReady, canAutoPlay, soundCloudAudio]);
 
+  console.log(props);
+
+  let episodeTitle = data.title.split(' ');
+  episodeTitle.shift();
+
   return (
-    <AudioPlayerStyle isActive={audioPlayerUrl} {...props}>
-      <p>{data ? data.title : 'Loading...'}</p>
-      <button>
+    <AudioPlayerStyle
+      currentTime={currentTime}
+      duration={duration}
+      isActive={audioPlayerUrl}
+      {...props}
+    >
+      <Progress
+        duration={data ? data.duration / 1000 : 0}
+        currentTime={currentTime}
+        {...props}
+      />
+      <p>
+        {data
+          ? episodeTitle.join(' ').length > 50
+            ? episodeTitle.join(' ').slice(0, 50) + '...'
+            : episodeTitle.join(' ')
+          : 'Loading...'}
+      </p>
+      <button
+        onClick={() => {
+          soundCloudAudio.audio.currentTime -= 15;
+          if (soundCloudAudio.audio.currentTime < 0) {
+            soundCloudAudio.audio.currentTime = 0;
+          }
+        }}
+      >
         <img src="/svg/back15s.svg" alt="" />
         15s
       </button>
-      <button>
+      <button
+        onClick={() => {
+          soundCloudAudio.audio.currentTime += 15;
+          if (
+            soundCloudAudio.audio.currentTime > soundCloudAudio.audio.duration
+          ) {
+            soundCloudAudio.audio.currentTime = 0;
+            soundCloudAudio.pause();
+          }
+        }}
+      >
         15s
         <img src="/svg/forward15s.svg" alt="" />
       </button>
@@ -49,6 +88,8 @@ const PodPlayer = ({ id }) => {
     setLoading(false);
   }, []);
 
+  const [progress, setProgress] = useState(0);
+
   return (
     <div>
       {!loading && audioPlayerUrl && (
@@ -56,6 +97,11 @@ const PodPlayer = ({ id }) => {
           clientId={''}
           streamUrl={audioPlayerUrl.streamUrl}
           data={audioPlayerUrl.audioData}
+          currentTime={15}
+          onFastForward={() => {
+            console.log(progress);
+            setProgress(progress + 15);
+          }}
         />
       )}
     </div>
