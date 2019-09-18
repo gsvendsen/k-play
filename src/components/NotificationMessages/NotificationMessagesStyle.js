@@ -12,7 +12,7 @@ export const NotificationMessagesStyle = styled.div`
   align-items:center;
   justify-content:space-between;
   padding:0 25px;
-  animation:slide-up forwards 0.42s ease-in-out;
+  animation:slide-up forwards 0.42s ease-in-out, slide-down forwards 0.42s ${props => props.isActive && props.isActive.duration+'s'};
   z-index:888;
 
   & > h3 {
@@ -33,6 +33,16 @@ export const NotificationMessagesStyle = styled.div`
 
       to {
           bottom:50px;
+      }
+  }
+
+  @keyframes slide-down {
+      from {
+          bottom:50px;
+      }
+
+      to {
+        bottom:5px;
       }
   }
 `;

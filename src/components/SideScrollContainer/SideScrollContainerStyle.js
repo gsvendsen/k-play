@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const SideScrollContainerStyle = styled.section`
-  height: 25vh;
+  height: 100%;
   display: flex;
-  margin: 8% 0;
+  margin: 8% 0 0 0;
 
   ::-webkit-scrollbar {
     display: none;

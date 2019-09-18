@@ -19,8 +19,7 @@ import BookmarksPage from './pages/BookmarksPage';
 
 const data = [playlists, youtube, tracks].flat();
 
-const App = (props, { history }) => {
-  console.log(props);
+const App = ({ history }) => {
 
   const [notificationMessage, setNotificationMessage] = useState(null)
   

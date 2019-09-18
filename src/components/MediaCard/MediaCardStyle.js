@@ -8,9 +8,11 @@ export const MediaCardStyle = styled.div`
 
   article {
     position: relative;
+    background-color:rgba(0,0,0,0.25);
 
     img {
       width: 100%;
+      height:80px;
       object-fit: contain;
     }
 
@@ -27,7 +29,7 @@ export const MediaCardStyle = styled.div`
   button {
     background-color: ${props => props.theme.colors.orange};
     width: 28px;
-    height: 28px
+    height: 28px;
     border-radius: 99%;
     position: absolute;
     right: -10%;

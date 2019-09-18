@@ -12,7 +12,7 @@ export const VideoDescriptionStyle = styled.div`
 
         & > img {
             width:8%;
-            max-width:50px;
+            max-width:20px;
             height:auto;
         }
 
@@ -23,7 +23,7 @@ export const VideoDescriptionStyle = styled.div`
             line-height: 119.5%;
             letter-spacing: 0.01em;
             color: #FFFFFF;
-            width:60%;
+            width:70%;
         }
 
         & > ::after {

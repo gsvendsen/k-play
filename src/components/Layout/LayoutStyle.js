@@ -28,6 +28,12 @@ export const LayoutStyle = styled.div`
             height:24px;
             width:auto;
         }
+
+        & > a {
+            height:auto;
+            display:flex;
+            align-items:center;
+        }
     }
 
     footer {
