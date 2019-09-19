@@ -1,58 +1,76 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { LayoutStyle } from './LayoutStyle';
 import AudioPlayer from '../AudioPlayer';
 import NotificationMessages from '../NotificationMessages';
 import HamburgerButton from '../HamburgerButton';
-import {withRouter} from 'react-router'
+import { withRouter } from 'react-router';
+import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
-const Layout = (props) => {
-    console.log(props)
-    
-    return (
-        <LayoutStyle>
-            <header>
-                <Link to="/">
-                    {props.location.pathname !== '/' && props.location.pathname !== '/bookmarks' ? <img src="/svg/down-arrow.svg" alt="Go Back"/> :
-                    <img src="/svg/logo.svg" alt="K Play Logo"/>}
-                </Link>
-                <HamburgerButton/>
-            </header>
+import videos from '../../data/youtube.json';
+import tracks from '../../data/tracks.json';
 
-            <section>
-            {props.children}
-            </section>
+const Layout = props => {
+  const megaData = [...tracks, ...videos];
 
-            {/* Om context variable innehåller stream URL så visa audioplayer */}
-            <AudioPlayer />
+  const videoId = props.location.pathname.split('/')[2] || null;
+  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
 
-            {/* Om context variable innehåller data object för pop up messages*/}
-            <NotificationMessages />
+  return (
+    <LayoutStyle>
+      <header>
+        <Link to="/">
+          {props.location.pathname !== '/' &&
+          props.location.pathname !== '/bookmarks' ? (
+            <img src="/svg/down-arrow.svg" alt="Go Back" />
+          ) : (
+            <img src="/svg/logo.svg" alt="K Play Logo" />
+          )}
+        </Link>
+        <HamburgerButton />
+      </header>
 
-            <footer>
-                <Link to="/">
-                    {props.history.location.pathname === "/" ?
-                        <img src="/svg/home-filled.svg" alt="Home"/> :
-                        <img src="/svg/home.svg" alt="Home"/>}
-                    Hem
-                </Link>
-                <Link to="/bookmarks">
-                    {props.history.location.pathname === "/search" ?
-                    <img src="/svg/search-icon-filled.svg" alt="Search"/> :
-                    <img src="/svg/search-icon.svg" alt="Search"/>} 
-                    Search
-                </Link>
-                <Link to="/bookmarks">
-                    {props.history.location.pathname === "/bookmarks" ?
-                    <img src="/svg/bookmark-filled.svg" alt="Bookmark"/> :
-                    <img src="/svg/bookmark.svg" alt="Bookmark"/>} 
-                    Sparade
-                </Link>
-            </footer>
-        </LayoutStyle>
+      <section>{props.children}</section>
 
-    )
-}
+      {/* Om context variable innehåller stream URL så visa audioplayer */}
+      {audioPlayerUrl &&
+      props.location.pathname === `/avsnitt/${audioPlayerUrl.audioData.id}` ? (
+        <AudioPlayer big />
+      ) : (
+        <AudioPlayer />
+      )}
 
-export default withRouter(Layout)
+      {/* Om context variable innehåller data object för pop up messages*/}
+      <NotificationMessages />
 
+      <footer>
+        <Link to="/">
+          {props.history.location.pathname === '/' ? (
+            <img src="/svg/home-filled.svg" alt="Home" />
+          ) : (
+            <img src="/svg/home.svg" alt="Home" />
+          )}
+          Hem
+        </Link>
+        <Link to="/bookmarks">
+          {props.history.location.pathname === '/search' ? (
+            <img src="/svg/search-icon-filled.svg" alt="Search" />
+          ) : (
+            <img src="/svg/search-icon.svg" alt="Search" />
+          )}
+          Search
+        </Link>
+        <Link to="/bookmarks">
+          {props.history.location.pathname === '/bookmarks' ? (
+            <img src="/svg/bookmark-filled.svg" alt="Bookmark" />
+          ) : (
+            <img src="/svg/bookmark.svg" alt="Bookmark" />
+          )}
+          Sparade
+        </Link>
+      </footer>
+    </LayoutStyle>
+  );
+};
+
+export default withRouter(Layout);

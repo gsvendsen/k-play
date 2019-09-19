@@ -22,10 +22,12 @@ const episodeData = {
   type: 'video'
 };
 
+const EpisodePage = props => {
 
-const EpisodePage = (props) => {
-    
-    const megaData = [...tracks, ...videos]
+
+  const megaData = [...tracks, ...videos];
+
+  console.log(megaData);
 
     const [videoPlayer, setVideoPlayer] = useState(null)
     const [videoDuration, setVideoDuration] = useState(null)
@@ -41,10 +43,10 @@ const EpisodePage = (props) => {
 
     const [isBookmarkToggled, setBookmarkToggle] = useState(false)
     const {notificationMessage, setNotificationMessage} = useContext(NotificationMessagesContext)
+    const {audioPlayerUrl, setAudioPlayerUrl} = useContext(AudioPlayerContext)
     const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)).progress || null)
 
     useEffect(() => {
-
         setInterval(() => { 
             if(videoPlayer){
                 if(videoPlayer.getCurrentTime() > 10 && videoDuration) {
@@ -88,7 +90,7 @@ const EpisodePage = (props) => {
     <div>
         {
             mediaData === undefined ? <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>Avsnitt med ID "{mediaId}" finns inte.</p> :
-        <VideoContainer>
+        (<VideoContainer>
             <section>
                 {mediaData.type === 'video' ? 
                 <YouTube
@@ -99,12 +101,60 @@ const EpisodePage = (props) => {
                     }}
 
                     onPlay={(event) => {
+
+                        setAudioPlayerUrl(null)
+
                         if(initalStartTime && !videoInitiated){
                             event.target.seekTo(initalStartTime)
                             setVideoInitiated(true)
                         }
                     }}
-                /> : <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>MP3 Spelare Here</p>}
+                /> : (
+                    <div
+                      style={{
+                        top: '0',
+                        background: '#343434',
+                        width: '100%',
+                        position: 'absolute',
+                        left: '0',
+                        height: '100%',
+                        border: '15px solid #1b1b1b',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                      onClick={() => {
+                        fetch(
+                          `http://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                        ).then(res => {
+                          // TEMPORÄR CONTEXT STRUKTUR
+                          console.log(res);
+                          setAudioPlayerUrl(null);
+      
+                          setTimeout(() => {
+                            setAudioPlayerUrl({
+                              audioData: mediaData,
+                              streamUrl: res.url
+                            });
+                          }, 250);
+                        });
+                      }}
+                    >
+                      <div
+                        style={{
+                          borderRadius: '50%',
+                          width: '50px',
+                          height: '50px',
+                          background: '#1b1b1b',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <img src="/svg/playbutton.svg" alt="Play" />
+                      </div>
+                    </div>
+                  )}
             </section>
             <VideoDescriptionStyle>
                 <aside>
@@ -129,8 +179,8 @@ const EpisodePage = (props) => {
                 </p>
             </VideoDescriptionStyle>
         </VideoContainer>
-        }
-        <SideScrollContainer label="Liknande Avsnitt">
+      )}
+      <SideScrollContainer label="Liknande Avsnitt">
         {videos.map(video => {
           return (
             <MediaCard

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SideScrollContainer from '../../components/SideScrollContainer';
 import MediaCard from '../../components/MediaCard';
@@ -10,11 +10,11 @@ import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
-const miniData = [...videos, ...tracks]
+const miniData = [...videos, ...tracks];
 
 const StartPage = () => {
+    const [filterState, setFilterState] = useState('all');
 
-    const [filterState, setFilterState] = useState('all')
     const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory || null)
     const [watchedVideos, setWatchedVideos] = useState([])
 

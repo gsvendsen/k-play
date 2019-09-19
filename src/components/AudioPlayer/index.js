@@ -1,75 +1,110 @@
 import React, { useContext, useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { PlayButton, Timer } from 'react-soundplayer/components';
-import { withSoundCloudAudio } from 'react-soundplayer/addons';
-
+import { PlayButton, Timer, Progress } from 'react-soundplayer/components';
+import { withCustomAudio } from 'react-soundplayer/addons';
+import { Link } from 'react-router-dom';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 import { AudioPlayerStyle } from './AudioPlayerStyle';
+import { log } from 'util';
 
-const clientId = '45ca7c7c9b41fdcb2501bb7dd27e168b';
-
-const AudioPlayer = withSoundCloudAudio(props => {
+const AudioPlayer = withCustomAudio(props => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
-  let { soundCloudAudio, track, duration, currentTime, isReady } = props;
-
-  const [canAutoPlay, setCanAutoPlay] = useState(false);
+  let {
+    streamUrl,
+    soundCloudAudio,
+    track,
+    duration,
+    currentTime,
+    isReady,
+    data,
+    onFastForward
+  } = props;
+  const [canAutoPlay, setCanAutoPlay] = useState(true);
 
   useEffect(() => {
-    if (isReady && canAutoPlay) {
-      soundCloudAudio.play();
-      setCanAutoPlay(false);
-    }
+    soundCloudAudio.play();
+    setCanAutoPlay(false);
   }, [isReady, canAutoPlay, soundCloudAudio]);
 
+  let episodeTitle = data.title.split(' ');
+  episodeTitle.shift();
+
   return (
-    <AudioPlayerStyle isActive={audioPlayerUrl} {...props}>
-      <p>{track ? track.title : 'Loading...'}</p>
-      <button>
-        <img src="./svg/back15s.svg" alt="" />
+    <AudioPlayerStyle
+      currentTime={currentTime}
+      duration={duration}
+      isActive={true}
+      {...props}
+    >
+      <Progress
+        duration={data ? data.duration / 1000 : 0}
+        currentTime={currentTime}
+        {...props}
+      />
+      {!props.big && (
+        <Link to={`/avsnitt/${data.id}`}>
+          <p>
+            {data
+              ? episodeTitle.join(' ').length > 50
+                ? episodeTitle.join(' ').slice(0, 50) + '...'
+                : episodeTitle.join(' ')
+              : 'Loading...'}
+          </p>
+        </Link>
+      )}
+      <button
+        onClick={() => {
+          soundCloudAudio.audio.currentTime -= 15;
+          if (soundCloudAudio.audio.currentTime < 0) {
+            soundCloudAudio.audio.currentTime = 0;
+          }
+        }}
+      >
+        <img src="/svg/back15s.svg" alt="" />
         15s
       </button>
-      <button>
+      <button
+        onClick={() => {
+          soundCloudAudio.audio.currentTime += 15;
+          if (
+            soundCloudAudio.audio.currentTime > soundCloudAudio.audio.duration
+          ) {
+            soundCloudAudio.audio.currentTime = 0;
+            soundCloudAudio.pause();
+          }
+        }}
+      >
         15s
-        <img src="./svg/forward15s.svg" alt="" />
+        <img src="/svg/forward15s.svg" alt="" />
       </button>
       <PlayButton {...props} />
-      {/* <audio controls autoPlay>
-        {audioPlayerUrl && <source src={audioPlayerUrl}></source>}
-      </audio> */}
     </AudioPlayerStyle>
   );
 });
 
-const StyledPodPlayer = styled.div``;
-
-const PodPlayer = ({ id }) => {
-  const [isReady, setIsReady] = useState(false);
-  const [track, setTrack] = useState({});
+const PodPlayer = (props, { id }) => {
+  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // setTrack(selectTrackById(id, tracks));
     setLoading(false);
   }, []);
 
+  const [progress, setProgress] = useState(0);
+
   return (
-    <StyledPodPlayer>
-      {!loading && (
+    <div>
+      {!loading && audioPlayerUrl && (
         <AudioPlayer
-          onReady={() => {
-            setIsReady(!isReady);
-          }}
-          isReady={isReady}
-          clientId={clientId}
-          resolveUrl={
-            'https://soundcloud.com/user-994747535/111-i-begynnelsen-var-ordet-ett-samtal-mellan-dramatiker-live-2019-05-17'
-          }
+          big={props.big}
+          clientId={''}
+          streamUrl={audioPlayerUrl.streamUrl}
+          data={audioPlayerUrl.audioData}
+          currentTime={15}
         />
       )}
-    </StyledPodPlayer>
+    </div>
   );
 };
 
 export default PodPlayer;
-
-// export default AudioPlayer;
