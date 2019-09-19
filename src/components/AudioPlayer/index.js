@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { PlayButton, Timer, Progress } from 'react-soundplayer/components';
 import { withCustomAudio } from 'react-soundplayer/addons';
-
+import { Link } from 'react-router-dom';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 import { AudioPlayerStyle } from './AudioPlayerStyle';
@@ -33,7 +33,7 @@ const AudioPlayer = withCustomAudio(props => {
     <AudioPlayerStyle
       currentTime={currentTime}
       duration={duration}
-      isActive={audioPlayerUrl}
+      isActive={true}
       {...props}
     >
       <Progress
@@ -41,13 +41,17 @@ const AudioPlayer = withCustomAudio(props => {
         currentTime={currentTime}
         {...props}
       />
-      <p>
-        {data
-          ? episodeTitle.join(' ').length > 50
-            ? episodeTitle.join(' ').slice(0, 50) + '...'
-            : episodeTitle.join(' ')
-          : 'Loading...'}
-      </p>
+      {!props.big && (
+        <Link to={`/avsnitt/${data.id}`}>
+          <p>
+            {data
+              ? episodeTitle.join(' ').length > 50
+                ? episodeTitle.join(' ').slice(0, 50) + '...'
+                : episodeTitle.join(' ')
+              : 'Loading...'}
+          </p>
+        </Link>
+      )}
       <button
         onClick={() => {
           soundCloudAudio.audio.currentTime -= 15;
@@ -78,7 +82,7 @@ const AudioPlayer = withCustomAudio(props => {
   );
 });
 
-const PodPlayer = ({ id }) => {
+const PodPlayer = (props, { id }) => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   const [loading, setLoading] = useState(true);
 
@@ -92,6 +96,7 @@ const PodPlayer = ({ id }) => {
     <div>
       {!loading && audioPlayerUrl && (
         <AudioPlayer
+          big={props.big}
           clientId={''}
           streamUrl={audioPlayerUrl.streamUrl}
           data={audioPlayerUrl.audioData}

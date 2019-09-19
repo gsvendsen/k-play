@@ -10,6 +10,7 @@ import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
 import { whileStatement } from '@babel/types';
+import AudioPlayer from '../../components/AudioPlayer';
 
 const episodeData = {
   id: 'Nmf2V55mlgw',
@@ -61,7 +62,19 @@ const EpisodePage = props => {
             {videoData.type === 'video' ? (
               <YouTube videoId={videoData.id} />
             ) : (
-              <p
+              <div
+                style={{
+                  top: '0',
+                  background: '#343434',
+                  width: '100%',
+                  position: 'absolute',
+                  left: '0',
+                  height: '100%',
+                  border: '15px solid #1b1b1b',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
                 onClick={() => {
                   fetch(
                     `http://api.soundcloud.com/tracks/${videoData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
@@ -78,15 +91,21 @@ const EpisodePage = props => {
                     }, 250);
                   });
                 }}
-                style={{
-                  color: 'white',
-                  fontSize: '18px',
-                  textAlign: 'center',
-                  margin: '50px 0'
-                }}
               >
-                MP3 Spelare Here
-              </p>
+                <div
+                  style={{
+                    borderRadius: '50%',
+                    width: '50px',
+                    height: '50px',
+                    background: '#1b1b1b',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <img src="/svg/playbutton.svg" alt="Play" />
+                </div>
+              </div>
             )}
           </section>
           <VideoDescriptionStyle>

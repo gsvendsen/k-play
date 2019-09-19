@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { LayoutStyle } from './LayoutStyle';
 import AudioPlayer from '../AudioPlayer';
@@ -6,6 +6,7 @@ import BigAudioPlayer from '../BigAudioPlayer';
 import NotificationMessages from '../NotificationMessages';
 import HamburgerButton from '../HamburgerButton';
 import { withRouter } from 'react-router';
+import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
@@ -14,6 +15,7 @@ const Layout = props => {
   const megaData = [...tracks, ...videos];
 
   const videoId = props.location.pathname.split('/')[2] || null;
+  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
 
   return (
     <LayoutStyle>
@@ -32,8 +34,9 @@ const Layout = props => {
       <section>{props.children}</section>
 
       {/* Om context variable innehåller stream URL så visa audioplayer */}
-      {props.location.pathname == `/avsnitt/${videoId}` ? (
-        <BigAudioPlayer />
+      {audioPlayerUrl &&
+      props.location.pathname === `/avsnitt/${audioPlayerUrl.audioData.id}` ? (
+        <AudioPlayer big />
       ) : (
         <AudioPlayer />
       )}
