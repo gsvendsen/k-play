@@ -5,7 +5,6 @@ export const SideScrollLabel = styled.div`
   font-size: 1.125rem;
   line-height: 1.4375rem;
   letter-spacing: 0.03em;
-  margin:0 -18px 0 0;
 
   > section {
     overflow-x: auto;

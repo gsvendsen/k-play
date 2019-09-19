@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
@@ -9,8 +9,6 @@ import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
-import { whileStatement } from '@babel/types';
-import AudioPlayer from '../../components/AudioPlayer';
 
 const episodeData = {
   id: 'Nmf2V55mlgw',
@@ -25,115 +23,161 @@ const episodeData = {
 };
 
 const EpisodePage = props => {
+
+
   const megaData = [...tracks, ...videos];
 
   console.log(megaData);
 
-  const videoId = props.location.pathname.split('/')[2] || null;
+    const [videoPlayer, setVideoPlayer] = useState(null)
+    const [videoDuration, setVideoDuration] = useState(null)
+    const [videoInitiated, setVideoInitiated] = useState(false)
 
-  const videoData = megaData.find(video => {
-    return videoId.toString() === video.id.toString();
-  });
 
-  const [isBookmarkToggled, setBookmarkToggle] = useState(false);
-  const { notificationMessage, setNotificationMessage } = useContext(
-    NotificationMessagesContext
-  );
+    const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')))
 
-  const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
-  // console.log(audioPlayerUrl);
+    const mediaId = props.location.pathname.split('/')[2] || null
+    const mediaData = megaData.find((media) => {
+        return mediaId.toString() === media.id.toString()
+    })
+
+    const [isBookmarkToggled, setBookmarkToggle] = useState(false)
+    const {notificationMessage, setNotificationMessage} = useContext(NotificationMessagesContext)
+    const {audioPlayerUrl, setAudioPlayerUrl} = useContext(AudioPlayerContext)
+    const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)).progress || null)
+
+    useEffect(() => {
+        setInterval(() => { 
+            if(videoPlayer){
+                if(videoPlayer.getCurrentTime() > 10 && videoDuration) {
+                    const updatedData = {
+                        watchHistory: [
+                            ...localData.watchHistory.filter((media) => {
+                                return media.id !== mediaId
+                            }),
+                            {
+                                id:mediaId,
+                                duration:videoDuration,
+                                progress:Math.round(videoPlayer.getCurrentTime()-1)
+                            }
+                        ]
+                    } 
+    
+                    localStorage.setItem('userData', JSON.stringify(updatedData))
+
+                }
+
+                if(videoDuration - videoPlayer.getCurrentTime() < 15) {
+                    const updatedData = {
+                        watchHistory: [
+                            ...localData.watchHistory.filter((media) => {
+                                return media.id !== mediaId
+                            })
+                        ]
+                    }
+
+                    localStorage.setItem('userData', JSON.stringify(updatedData))
+
+                }
+
+            }
+        }, 1000)
+
+        
+    }, [videoPlayer, videoDuration, localData])
 
   return (
     <div>
-      {videoData === undefined ? (
-        <p
-          style={{
-            color: 'white',
-            fontSize: '18px',
-            textAlign: 'center',
-            margin: '50px 0'
-          }}
-        >
-          Avsnitt med ID "{videoId}" finns inte.
-        </p>
-      ) : (
-        <VideoContainer>
-          <section>
-            {videoData.type === 'video' ? (
-              <YouTube videoId={videoData.id} />
-            ) : (
-              <div
-                style={{
-                  top: '0',
-                  background: '#343434',
-                  width: '100%',
-                  position: 'absolute',
-                  left: '0',
-                  height: '100%',
-                  border: '15px solid #1b1b1b',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-                onClick={() => {
-                  fetch(
-                    `http://api.soundcloud.com/tracks/${videoData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
-                  ).then(res => {
-                    // TEMPORÄR CONTEXT STRUKTUR
-                    console.log(res);
-                    setAudioPlayerUrl(null);
+        {
+            mediaData === undefined ? <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>Avsnitt med ID "{mediaId}" finns inte.</p> :
+        (<VideoContainer>
+            <section>
+                {mediaData.type === 'video' ? 
+                <YouTube
+                    videoId={mediaData.id}
+                    onReady={(event) => {
+                        setVideoDuration(event.target.getDuration())
+                        setVideoPlayer(event.target)
+                    }}
 
-                    setTimeout(() => {
-                      setAudioPlayerUrl({
-                        audioData: videoData,
-                        streamUrl: res.url
-                      });
-                    }, 250);
-                  });
-                }}
-              >
-                <div
-                  style={{
-                    borderRadius: '50%',
-                    width: '50px',
-                    height: '50px',
-                    background: '#1b1b1b',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}
-                >
-                  <img src="/svg/playbutton.svg" alt="Play" />
-                </div>
-              </div>
-            )}
-          </section>
-          <VideoDescriptionStyle>
-            <aside>
-              <h1>{videoData.title}</h1>
-              {!isBookmarkToggled ? (
-                <img
-                  onClick={() => {
-                    setNotificationMessage({
-                      message: 'Bookmarked!',
-                      duration: 4
-                    });
-                    setBookmarkToggle(true);
-                  }}
-                  src="/svg/bookmark.svg"
-                  alt="Bookmark"
-                />
-              ) : (
-                <img
-                  onClick={() => setBookmarkToggle(false)}
-                  src="/svg/bookmark-filled.svg"
-                  alt="Bookmarked"
-                />
-              )}
-            </aside>
-            <h4>Torsdag 12 sep 12.00 -- 40 min</h4>
-            <p>{videoData.description}</p>
-          </VideoDescriptionStyle>
+                    onPlay={(event) => {
+
+                        setAudioPlayerUrl(null)
+
+                        if(initalStartTime && !videoInitiated){
+                            event.target.seekTo(initalStartTime)
+                            setVideoInitiated(true)
+                        }
+                    }}
+                /> : (
+                    <div
+                      style={{
+                        top: '0',
+                        background: '#343434',
+                        width: '100%',
+                        position: 'absolute',
+                        left: '0',
+                        height: '100%',
+                        border: '15px solid #1b1b1b',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                      onClick={() => {
+                        fetch(
+                          `http://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                        ).then(res => {
+                          // TEMPORÄR CONTEXT STRUKTUR
+                          console.log(res);
+                          setAudioPlayerUrl(null);
+      
+                          setTimeout(() => {
+                            setAudioPlayerUrl({
+                              audioData: mediaData,
+                              streamUrl: res.url
+                            });
+                          }, 250);
+                        });
+                      }}
+                    >
+                      <div
+                        style={{
+                          borderRadius: '50%',
+                          width: '50px',
+                          height: '50px',
+                          background: '#1b1b1b',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                      >
+                        <img src="/svg/playbutton.svg" alt="Play" />
+                      </div>
+                    </div>
+                  )}
+            </section>
+            <VideoDescriptionStyle>
+                <aside>
+                    <h1>
+                        {mediaData.title}
+                    </h1>
+                    {!isBookmarkToggled ?
+                    <img onClick={() => {
+                            setNotificationMessage({
+                                message: 'Bookmarked!',
+                                duration: 4,
+                            })
+                            setBookmarkToggle(true)
+                        }
+                    }  src="/svg/bookmark.svg" alt="Bookmark" />
+                        : <img onClick={() => setBookmarkToggle(false)} src="/svg/bookmark-filled.svg" alt="Bookmarked" />
+                }
+                </aside>
+                <h4>Torsdag 12 sep 12.00    -    {videoDuration && formatDuration(videoDuration)}</h4>
+                <p>
+                    {mediaData.description}
+                </p>
+            </VideoDescriptionStyle>
         </VideoContainer>
       )}
       <SideScrollContainer label="Liknande Avsnitt">
