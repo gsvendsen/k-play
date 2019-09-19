@@ -2,12 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { LayoutStyle } from './LayoutStyle';
 import AudioPlayer from '../AudioPlayer';
+import BigAudioPlayer from '../BigAudioPlayer';
 import NotificationMessages from '../NotificationMessages';
 import HamburgerButton from '../HamburgerButton';
 import { withRouter } from 'react-router';
 
+import videos from '../../data/youtube.json';
+import tracks from '../../data/tracks.json';
+
 const Layout = props => {
-  console.log(props);
+  const megaData = [...tracks, ...videos];
+
+  const videoId = props.location.pathname.split('/')[2] || null;
 
   return (
     <LayoutStyle>
@@ -26,7 +32,11 @@ const Layout = props => {
       <section>{props.children}</section>
 
       {/* Om context variable innehåller stream URL så visa audioplayer */}
-      <AudioPlayer />
+      {props.location.pathname == `/avsnitt/${videoId}` ? (
+        <BigAudioPlayer />
+      ) : (
+        <AudioPlayer />
+      )}
 
       {/* Om context variable innehåller data object för pop up messages*/}
       <NotificationMessages />

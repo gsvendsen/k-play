@@ -26,8 +26,6 @@ const AudioPlayer = withCustomAudio(props => {
     setCanAutoPlay(false);
   }, [isReady, canAutoPlay, soundCloudAudio]);
 
-  console.log(props);
-
   let episodeTitle = data.title.split(' ');
   episodeTitle.shift();
 
@@ -98,10 +96,6 @@ const PodPlayer = ({ id }) => {
           streamUrl={audioPlayerUrl.streamUrl}
           data={audioPlayerUrl.audioData}
           currentTime={15}
-          onFastForward={() => {
-            console.log(progress);
-            setProgress(progress + 15);
-          }}
         />
       )}
     </div>
