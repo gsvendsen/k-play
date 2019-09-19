@@ -7,7 +7,7 @@ const MenuOption = props => {
 
   return (
     <MenuOptionStyle {...props}>
-        <h2 onClick={() => props.onSelect()}>{props.title}</h2>
+        <button onClick={() => props.onSelect()}>{props.title}</button>
     </MenuOptionStyle>
   );
 };

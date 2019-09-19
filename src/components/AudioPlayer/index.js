@@ -13,7 +13,7 @@ const AudioPlayer = withSoundCloudAudio(props => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   let { soundCloudAudio, track, duration, currentTime, isReady } = props;
 
-  const [canAutoPlay, setCanAutoPlay] = useState(true);
+  const [canAutoPlay, setCanAutoPlay] = useState(false);
 
   useEffect(() => {
     if (isReady && canAutoPlay) {
@@ -21,8 +21,6 @@ const AudioPlayer = withSoundCloudAudio(props => {
       setCanAutoPlay(false);
     }
   }, [isReady, canAutoPlay, soundCloudAudio]);
-
-  console.log(audioPlayerUrl);
 
   return (
     <AudioPlayerStyle isActive={audioPlayerUrl} {...props}>

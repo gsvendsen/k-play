@@ -21,7 +21,7 @@ const NotificationMessages = props => {
         <Fragment>
             <img src="/svg/bookmark.svg" alt="Ikon" />
             <h3>{notificationMessage.message}</h3>
-            <img onClick={() => setNotificationMessage(null)} src="/svg/cross.png" alt="cross" />
+            <img onClick={() => setNotificationMessage(null)} src="/svg/cross.svg" alt="cross" />
         </Fragment>
         }
     </NotificationMessagesStyle>

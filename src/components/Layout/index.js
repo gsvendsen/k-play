@@ -30,7 +30,7 @@ const Layout = (props) => {
             <NotificationMessages />
 
             <footer>
-                <Link to=".">
+                <Link to="/">
                     {props.history.location.pathname === "/" ?
                         <img src="/svg/home-filled.svg" alt="Home"/> :
                         <img src="/svg/home.svg" alt="Home"/>}

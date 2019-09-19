@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
@@ -9,7 +9,6 @@ import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
-import { whileStatement } from '@babel/types';
 
 const episodeData = {
   id: 'Nmf2V55mlgw',
@@ -28,33 +27,89 @@ const EpisodePage = (props) => {
     
     const megaData = [...tracks, ...videos]
 
-    console.log(megaData)
-    
+    const [videoPlayer, setVideoPlayer] = useState(null)
+    const [videoDuration, setVideoDuration] = useState(null)
+    const [videoInitiated, setVideoInitiated] = useState(false)
 
-    const videoId = props.location.pathname.split('/')[2] || null
 
-    const videoData = megaData.find((video) => {
-        return videoId.toString() === video.id.toString()
+    const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')))
+
+    const mediaId = props.location.pathname.split('/')[2] || null
+    const mediaData = megaData.find((media) => {
+        return mediaId.toString() === media.id.toString()
     })
 
     const [isBookmarkToggled, setBookmarkToggle] = useState(false)
     const {notificationMessage, setNotificationMessage} = useContext(NotificationMessagesContext)
+    const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)).progress || null)
+
+    useEffect(() => {
+
+        setInterval(() => { 
+            if(videoPlayer){
+                if(videoPlayer.getCurrentTime() > 10 && videoDuration) {
+                    const updatedData = {
+                        watchHistory: [
+                            ...localData.watchHistory.filter((media) => {
+                                return media.id !== mediaId
+                            }),
+                            {
+                                id:mediaId,
+                                duration:videoDuration,
+                                progress:Math.round(videoPlayer.getCurrentTime()-1)
+                            }
+                        ]
+                    } 
+    
+                    localStorage.setItem('userData', JSON.stringify(updatedData))
+
+                }
+
+                if(videoDuration - videoPlayer.getCurrentTime() < 15) {
+                    const updatedData = {
+                        watchHistory: [
+                            ...localData.watchHistory.filter((media) => {
+                                return media.id !== mediaId
+                            })
+                        ]
+                    }
+
+                    localStorage.setItem('userData', JSON.stringify(updatedData))
+
+                }
+
+            }
+        }, 1000)
+
+        
+    }, [videoPlayer, videoDuration, localData])
 
   return (
     <div>
         {
-            videoData === undefined ? <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>Avsnitt med ID "{videoId}" finns inte.</p> :
+            mediaData === undefined ? <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>Avsnitt med ID "{mediaId}" finns inte.</p> :
         <VideoContainer>
             <section>
-                {videoData.type === 'video' ? 
+                {mediaData.type === 'video' ? 
                 <YouTube
-                    videoId={videoData.id}
+                    videoId={mediaData.id}
+                    onReady={(event) => {
+                        setVideoDuration(event.target.getDuration())
+                        setVideoPlayer(event.target)
+                    }}
+
+                    onPlay={(event) => {
+                        if(initalStartTime && !videoInitiated){
+                            event.target.seekTo(initalStartTime)
+                            setVideoInitiated(true)
+                        }
+                    }}
                 /> : <p style={{color:'white', fontSize:'18px', textAlign:'center', margin:'50px 0'}}>MP3 Spelare Here</p>}
             </section>
             <VideoDescriptionStyle>
                 <aside>
                     <h1>
-                        {videoData.title}
+                        {mediaData.title}
                     </h1>
                     {!isBookmarkToggled ?
                     <img onClick={() => {
@@ -68,9 +123,9 @@ const EpisodePage = (props) => {
                         : <img onClick={() => setBookmarkToggle(false)} src="/svg/bookmark-filled.svg" alt="Bookmarked" />
                 }
                 </aside>
-                <h4>Torsdag 12 sep 12.00  -- 40 min</h4>
+                <h4>Torsdag 12 sep 12.00    -    {videoDuration && formatDuration(videoDuration)}</h4>
                 <p>
-                    {videoData.description}
+                    {mediaData.description}
                 </p>
             </VideoDescriptionStyle>
         </VideoContainer>

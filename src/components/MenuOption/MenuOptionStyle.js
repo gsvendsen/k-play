@@ -7,7 +7,9 @@ export const MenuOptionStyle = styled.div`
     align-items:center;
     position:relative;
 
-    &>h2 {
+    &>button {
+        background:none;
+        border:none;
         font-style: normal;
         font-weight: normal;
         font-size: 18px;
@@ -16,6 +18,11 @@ export const MenuOptionStyle = styled.div`
         align-items: flex-end;
         letter-spacing: 0.03em;
         color: ${props => props.theme.colors.white};
+
+        &:active, &:focus {
+            outline: none;
+            border: none;
+        }
     }
 
     ::after {

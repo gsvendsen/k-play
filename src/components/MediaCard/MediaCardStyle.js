@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const MediaCardStyle = styled.div`
   height: ${props => props.height};
   min-width: 40%;
+  max-width:40%;
   margin: ${props => props.margin};
   position: relative;
 
@@ -23,6 +24,22 @@ export const MediaCardStyle = styled.div`
       font-size: 0.75rem;
       background: rgba(0,0,0);
       padding: 0 3px 0 5px;
+    }
+
+    aside {
+      display:${props => props.hasProgress ? 'block' : 'none'};
+      width:100%;
+      position:absolute;
+      bottom:0;
+      left:0;
+      height:5px;
+      background-color:rgba(255,255,255,0.5);
+
+      & > div {
+        width:${props => props.hasProgress && (props.hasProgress.progress/props.hasProgress.duration)*100+'%' };
+        height:100%;
+        background-color:${props => props.theme.colors.orange}
+      }
     }
   }
 
@@ -47,6 +64,7 @@ export const MediaCardStyle = styled.div`
     align-items: center;
     justify-content: space-between;
     height: 50px;
+    padding:5px 0 0 0;
 
     img {
       width: 15%;
