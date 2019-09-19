@@ -3,6 +3,7 @@ import { PlayButton, Timer, Progress } from 'react-soundplayer/components';
 import { withCustomAudio } from 'react-soundplayer/addons';
 import { Link } from 'react-router-dom';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
+import { formatDuration } from '../../helpers/functions';
 
 import { AudioPlayerStyle } from './AudioPlayerStyle';
 import { log } from 'util';
@@ -41,6 +42,7 @@ const AudioPlayer = withCustomAudio(props => {
         currentTime={currentTime}
         {...props}
       />
+      {props.big && <p>{formatDuration(soundCloudAudio.audio.currentTime)}</p>}
       {!props.big && (
         <Link to={`/avsnitt/${data.id}`}>
           <p>
@@ -63,6 +65,7 @@ const AudioPlayer = withCustomAudio(props => {
         <img src="/svg/back15s.svg" alt="" />
         15s
       </button>
+      <PlayButton {...props} />
       <button
         onClick={() => {
           soundCloudAudio.audio.currentTime += 15;
@@ -77,7 +80,7 @@ const AudioPlayer = withCustomAudio(props => {
         15s
         <img src="/svg/forward15s.svg" alt="" />
       </button>
-      <PlayButton {...props} />
+      {props.big && <p>- {formatDuration(soundCloudAudio.audio.duration)}</p>}
     </AudioPlayerStyle>
   );
 });

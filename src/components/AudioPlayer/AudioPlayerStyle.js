@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const AudioPlayerStyle = styled.div`
   height: ${props => (props.big ? '26%' : '90px')};
-  /* padding-bottom: ${props => props.big && '62.5%'} */
   width: 100vw;
   background: ${props =>
     props.big ? props.theme.colors.black : props.theme.colors.grey};
@@ -33,7 +32,7 @@ export const AudioPlayerStyle = styled.div`
     position: relative;
   }
 
-  button:nth-of-type(2),
+  button:last-of-type,
   button:first-of-type {
     /* BACK/FORWARD 15s BUTTONS */
     display: flex;
@@ -61,6 +60,27 @@ export const AudioPlayerStyle = styled.div`
     div {
       background: ${props => props.theme.colors.orange};
     }
+  }
+
+  p {
+    position: ${props => props.big && 'absolute'};
+    bottom: ${props => props.big && '8px'};
+    font-size: ${props => props.big && '0.625rem'};
+  }
+
+  p:first-of-type {
+    left: ${props => props.big && '2px'};
+  }
+
+  p:last-of-type {
+    right: ${props => props.big && '2px'};
+  }
+
+  aside {
+    position: absolute;
+    color: red;
+    width: 20px;
+    height: 20px;
   }
 
   @keyframes slide-in {

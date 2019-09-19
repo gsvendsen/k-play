@@ -8,7 +8,6 @@ export const VideoContainerStyle = styled.div`
     height: 0;
     overflow: hidden;
     padding-bottom: 62.25%;
-    /* padding: 18px 18px 62.25% 18px; */
   }
 
   iframe {
