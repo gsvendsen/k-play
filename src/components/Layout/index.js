@@ -28,7 +28,7 @@ const Layout = props => {
             <img
               style={{
                 opacity: menuIsOpen ? '0' : '1',
-                transition: 'opacity 0.2s 0.3s ease-in-out'
+                transition: 'opacity 0.20s 0.20s ease-in-out'
               }}
               src="/svg/logo.svg"
               alt="K Play Logo"

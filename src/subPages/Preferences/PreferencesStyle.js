@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NavbarStyle = styled.nav`
+export const PreferencesStyle = styled.nav`
   width: 100vw;
   height: 88vh;
   position: absolute;
@@ -12,7 +12,7 @@ export const NavbarStyle = styled.nav`
   padding: 50px 40px 10px 60px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
 
   p:first-of-type {
     border-bottom: 1px solid ${props => props.theme.colors.white};
