@@ -1,96 +1,112 @@
 import styled from 'styled-components';
 
-export const PreferencesStyle = styled.nav`
+export const PreferencesStyle = styled.section`
   width: 100vw;
-  height: 88vh;
+  height: 94vh;
   position: absolute;
-  right: ${props => (props.isActive ? '0px' : '-100vw')};
-  opacity: ${props => (props.isActive ? '1' : '0')};
-  transition: opacity 0.4s 0.1s ease-in-out, right 0.6s ease-in-out;
-  top: 50px;
-  background: ${props => props.theme.colors.grey};
-  padding: 50px 40px 10px 60px;
+  right: 0;
+  top: 0;
+  background: ${props => props.theme.colors.black};
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
 
-  p:first-of-type {
-    border-bottom: 1px solid ${props => props.theme.colors.white};
-  }
-  p {
-    padding-bottom: 8px;
-    margin-bottom: 25px;
-  }
+  div {
+    padding: 20px;
+    background: ${props => props.theme.colors.grey};
 
-  p,
-  h6 {
-    font-size: 1.125rem;
-    color: ${props => props.theme.colors.white};
-    position: relative;
-    font-weight: normal;
-  }
-
-  p:last-of-type {
-    font-size: 1.125rem;
-    color: ${props => props.theme.colors.white};
-    padding-bottom: 8px;
-    margin-bottom: 25px;
-    position: relative;
-
-    ::after {
-      content: '';
-      display: block;
-      position: absolute;
-      height: 2px;
-      bottom: -5px;
-      bottom: -5px;
-      left: 0;
-      transition: all 0.5s ease-in;
-      width: ${props => (props.isExpanded ? '20%' : '100%')};
-      background: ${props =>
-        props.isExpanded
-          ? props.theme.colors.orange
-          : props.theme.colors.white};
+    img {
+      transform: rotate(90deg);
     }
+  }
+
+  button {
+    align-self: flex-start;
+    color: ${props => props.theme.colors.white};
+    font-size: 0.875rem;
+  }
+
+  > section {
+    padding: 0px 20px 30px 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  h2 {
+    color: ${props => props.theme.colors.white};
+    font-size: 1.25rem;
+    font-weight: normal;
+    padding: 15px 0 10px 0;
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    width: 90%;
   }
 
   li {
+    list-style: none;
     color: ${props => props.theme.colors.white};
-    font-size: 1rem;
-    list-style-type: circle;
-    list-style-position: inside;
-    margin-bottom: 25px;
-    animation: ${props => props.isTouched && 'fade-in 0.7s ease-in-out'};
-  }
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  p > img {
-    position: absolute;
-    transform: ${props =>
-      props.isExpanded ? 'rotateX(180deg)' : 'rotateX(0deg)'};
-
-    transition: transform 0.2s ease-in;
-    right: 0;
-    bottom: 10px;
-  }
-
-  img {
-    bottom: 10px;
-    margin-right: 8px;
   }
 
   article {
-    display: flex;
-    align-items: center;
-    margin-bottom: 25px;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid ${props => props.theme.colors.white};
+  }
+
+  article > input:checked ~ span {
+    background-color: ${props => props.theme.colors.orange};
+  }
+
+  span:after {
+    content: '';
+    position: absolute;
+    display: none;
+  }
+
+  article > input:checked ~ span:after {
+    display: block;
+  }
+
+  article > span:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
   }
 `;
