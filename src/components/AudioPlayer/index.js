@@ -9,8 +9,9 @@ import { AudioPlayerStyle } from './AudioPlayerStyle';
 import { log } from 'util';
 
 const AudioPlayer = withCustomAudio(props => {
-
-    const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')))
+  const [localData, setLocalData] = useState(
+    JSON.parse(localStorage.getItem('userData'))
+  );
 
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   let {
@@ -25,55 +26,59 @@ const AudioPlayer = withCustomAudio(props => {
   } = props;
 
   const [canAutoPlay, setCanAutoPlay] = useState(true);
-  const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === data.id)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === data.id)).progress || null)
+  const [initalStartTime, setInitialStartTime] = useState(
+    localStorage.getItem('userData') &&
+      JSON.parse(localStorage.getItem('userData')).watchHistory &&
+      JSON.parse(localStorage.getItem('userData')).watchHistory.find(
+        video => video.id === data.id
+      )
+      ? JSON.parse(localStorage.getItem('userData')).watchHistory.find(
+          video => video.id === data.id
+        ).progress
+      : null
+  );
 
   useEffect(() => {
-    
     soundCloudAudio.play();
-    
-    if(initalStartTime){
-        soundCloudAudio.audio.currentTime = initalStartTime
+
+    if (initalStartTime) {
+      soundCloudAudio.audio.currentTime = initalStartTime;
     }
 
     setCanAutoPlay(false);
-    
-    setInterval(() => { 
-        if(soundCloudAudio && !soundCloudAudio.audio.paused){
-            if(soundCloudAudio.audio.currentTime > 10 && duration) {
-                console.log('yea')
-                const updatedData = {
-                    watchHistory: [
-                        ...localData.watchHistory.filter((media) => {
-                            return media.id !== data.id
-                        }),
-                        {
-                            id:data.id,
-                            duration:Math.round(duration),
-                            progress:Math.round(soundCloudAudio.audio.currentTime-1)
-                        }
-                    ]
-                } 
 
-                localStorage.setItem('userData', JSON.stringify(updatedData))
+    setInterval(() => {
+      if (soundCloudAudio && !soundCloudAudio.audio.paused) {
+        if (soundCloudAudio.audio.currentTime > 10 && data.duration) {
+          const updatedData = {
+            watchHistory: [
+              ...localData.watchHistory.filter(media => {
+                return media.id !== data.id;
+              }),
+              {
+                id: data.id,
+                duration: Math.round(data.duration / 1000),
+                progress: Math.round(soundCloudAudio.audio.currentTime - 1)
+              }
+            ]
+          };
 
-            }
-
-            if(duration - soundCloudAudio.audio.currentTime < 15) {
-                const updatedData = {
-                    watchHistory: [
-                        ...localData.watchHistory.filter((media) => {
-                            return media.id !== data.id
-                        })
-                    ]
-                }
-
-                localStorage.setItem('userData', JSON.stringify(updatedData))
-
-            }
-
+          localStorage.setItem('userData', JSON.stringify(updatedData));
         }
-    }, 1000)
-        
+
+        if (data.duration - soundCloudAudio.audio.currentTime < 15) {
+          const updatedData = {
+            watchHistory: [
+              ...localData.watchHistory.filter(media => {
+                return media.id !== data.id;
+              })
+            ]
+          };
+
+          localStorage.setItem('userData', JSON.stringify(updatedData));
+        }
+      }
+    }, 1000);
   }, [isReady, canAutoPlay, soundCloudAudio, duration, localData]);
 
   let episodeTitle = data.title.split(' ');

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from './components/Layout';
 import { Route, Switch } from 'react-router';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -21,9 +21,21 @@ import BookmarksPage from './pages/BookmarksPage';
 const data = [playlists, youtube, tracks].flat();
 
 const App = ({ history }) => {
-
   const [notificationMessage, setNotificationMessage] = useState(null);
   const [audioPlayerUrl, setAudioPlayerUrl] = useState(null);
+
+  useEffect(() => {
+    if (!localStorage.getItem('userData')) {
+      console.log('resetting!!');
+      const defaultLocalStorageObject = {
+        watchHistory: []
+      };
+      localStorage.setItem(
+        'userData',
+        JSON.stringify(defaultLocalStorageObject)
+      );
+    }
+  }, []);
 
   return (
     <Router history={history}>
