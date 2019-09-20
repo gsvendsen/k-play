@@ -36,8 +36,6 @@ const EpisodePage = props => {
         
         setInterval(() => { 
             if(videoPlayer && videoPlayer.getPlayerState() === 1){
-                console.log('we good');
-                
                 if(videoPlayer.getCurrentTime() > 10 && videoDuration) {
                     const updatedData = {
                         watchHistory: [

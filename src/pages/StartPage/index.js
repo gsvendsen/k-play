@@ -20,18 +20,20 @@ const StartPage = () => {
 
     // Sets watched videos used from localStorage
     useEffect(() => {
-        setWatchedVideos(miniData.filter((video) => {
-            const matchedVideo = localData.filter((localVideo) => {
-                return localVideo.id === video.id
-            })
-        
-            if(matchedVideo.length > 0 ){
-                return true
-            } else {
-                return false
-            }
-        
-        }))
+        if(localData){
+            setWatchedVideos(miniData.filter((video) => {
+                const matchedVideo = localData.filter((localVideo) => {
+                    return localVideo.id === video.id
+                })
+            
+                if(matchedVideo.length > 0 ){
+                    return true
+                } else {
+                    return false
+                }
+            
+            }))
+        }
     }, [])
 
     // Temporary shuffle function for randomizing data
