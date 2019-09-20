@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LayoutStyle } from './LayoutStyle';
 import AudioPlayer from '../AudioPlayer';
@@ -6,6 +6,7 @@ import NotificationMessages from '../NotificationMessages';
 import HamburgerButton from '../HamburgerButton';
 import { withRouter } from 'react-router';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
+import Navbar from '../Navbar';
 
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
@@ -15,7 +16,7 @@ const Layout = props => {
 
   const videoId = props.location.pathname.split('/')[2] || null;
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
-
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
     <LayoutStyle>
       <header>
@@ -24,10 +25,21 @@ const Layout = props => {
           props.location.pathname !== '/bookmarks' ? (
             <img src="/svg/down-arrow.svg" alt="Go Back" />
           ) : (
-            <img src="/svg/logo.svg" alt="K Play Logo" />
+            <img
+              style={{
+                opacity: menuIsOpen ? '0' : '1',
+                transition: 'opacity 0.2s 0.3s ease-in-out'
+              }}
+              src="/svg/logo.svg"
+              alt="K Play Logo"
+            />
           )}
         </Link>
-        <HamburgerButton />
+        <HamburgerButton
+          menuIsOpen={menuIsOpen}
+          toggle={() => setMenuIsOpen(!menuIsOpen)}
+        />
+        <Navbar open={menuIsOpen} />
       </header>
 
       <section>{props.children}</section>
