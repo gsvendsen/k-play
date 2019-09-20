@@ -9,6 +9,9 @@ import { AudioPlayerStyle } from './AudioPlayerStyle';
 import { log } from 'util';
 
 const AudioPlayer = withCustomAudio(props => {
+
+    const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')))
+
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   let {
     streamUrl,
@@ -20,12 +23,58 @@ const AudioPlayer = withCustomAudio(props => {
     data,
     onFastForward
   } = props;
+
   const [canAutoPlay, setCanAutoPlay] = useState(true);
+  const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === data.id)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === data.id)).progress || null)
 
   useEffect(() => {
+    
     soundCloudAudio.play();
+    
+    if(initalStartTime){
+        soundCloudAudio.audio.currentTime = initalStartTime
+    }
+
     setCanAutoPlay(false);
-  }, [isReady, canAutoPlay, soundCloudAudio]);
+    
+    setInterval(() => { 
+        if(soundCloudAudio && !soundCloudAudio.audio.paused){
+            if(soundCloudAudio.audio.currentTime > 10 && duration) {
+                console.log('yea')
+                const updatedData = {
+                    watchHistory: [
+                        ...localData.watchHistory.filter((media) => {
+                            return media.id !== data.id
+                        }),
+                        {
+                            id:data.id,
+                            duration:Math.round(duration),
+                            progress:Math.round(soundCloudAudio.audio.currentTime-1)
+                        }
+                    ]
+                } 
+
+                localStorage.setItem('userData', JSON.stringify(updatedData))
+
+            }
+
+            if(duration - soundCloudAudio.audio.currentTime < 15) {
+                const updatedData = {
+                    watchHistory: [
+                        ...localData.watchHistory.filter((media) => {
+                            return media.id !== data.id
+                        })
+                    ]
+                }
+
+                localStorage.setItem('userData', JSON.stringify(updatedData))
+
+            }
+
+        }
+    }, 1000)
+        
+  }, [isReady, canAutoPlay, soundCloudAudio, duration, localData]);
 
   let episodeTitle = data.title.split(' ');
   episodeTitle.shift();
@@ -92,8 +141,6 @@ const PodPlayer = (props, { id }) => {
   useEffect(() => {
     setLoading(false);
   }, []);
-
-  const [progress, setProgress] = useState(0);
 
   return (
     <div>

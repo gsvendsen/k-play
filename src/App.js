@@ -27,7 +27,7 @@ const App = ({ history }) => {
 
   return (
     <Router history={history}>
-      <GlobalStyle />
+      <GlobalStyle isAudioActive={audioPlayerUrl !== null} />
       <ThemeProvider theme={theme}>
         <AudioPlayerContext.Provider
           value={{ audioPlayerUrl, setAudioPlayerUrl }}
