@@ -20,7 +20,7 @@ const StartPage = () => {
 
     // Sets watched videos used from localStorage
     useEffect(() => {
-        setWatchedVideos(videos.filter((video) => {
+        setWatchedVideos(miniData.filter((video) => {
             const matchedVideo = localData.filter((localVideo) => {
                 return localVideo.id === video.id
             })
@@ -108,7 +108,7 @@ const StartPage = () => {
                         }))
                         
                     }}
-                    duration={formatDuration(YTDurationToSeconds(video.duration))}
+                    duration={video.type === 'video' ? formatDuration(YTDurationToSeconds(video.duration)) : formatDuration(video.duration/1000)}
                     height="100%"
                     margin="0% 5% 0 0"
                     ></MediaCard>

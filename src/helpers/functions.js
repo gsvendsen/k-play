@@ -1,4 +1,5 @@
 export const YTDurationToSeconds = duration => {
+  
   let a = duration.match(/\d+/g);
 
   if (

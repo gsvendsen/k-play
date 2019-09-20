@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const AudioPlayerStyle = styled.div`
   height: ${props => (props.big ? '26%' : '90px')};
+  border-bottom: ${props => (props.big ? 'none' : 'rgba(0,0,0,0.2) solid 3px')};
   /* padding-bottom: ${props => props.big && '62.5%'} */
   width: 100vw;
   background: ${props =>
@@ -25,9 +26,10 @@ export const AudioPlayerStyle = styled.div`
   button {
     /* PLAYBUTTON */
     color: white;
-    height: 30px;
-    width: 30px;
-    border: ${props => (props.big ? 'none' : '1.5px solid white')};
+    height: 35px;
+    width: 35px;
+    /* border: ${props => (props.big ? 'none' : '1.5px solid white')}; */
+    border: ${props => (props.big ? 'none' : 'none')};
     border-radius: 50%;
     background: inherit;
     position: relative;
@@ -57,9 +59,10 @@ export const AudioPlayerStyle = styled.div`
     bottom: ${props => props.big && '0'};
     left: 0;
     width: 100%;
-    background: ${props => props.big && 'rgba(255, 255, 255, 0.6)'};
+    background: ${props => props.big ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.6)'};
     div {
       background: ${props => props.theme.colors.orange};
+      min-width:2%;
     }
   }
 
@@ -69,7 +72,7 @@ export const AudioPlayerStyle = styled.div`
     }
 
     to {
-      bottom: 48px;
+      bottom: 49px;
     }
   }
 `;

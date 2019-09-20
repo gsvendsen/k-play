@@ -10,20 +10,7 @@ import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
 
-const episodeData = {
-  id: 'Nmf2V55mlgw',
-  title: 'Masterclass med Pia Olby - Vad är skönsång (del 3 av 4)',
-  description:
-    'Kulturakademin och Teateralliansens kursen i sånggestaltning erbjuder professionella skådespelare möjlighet att arbeta med och utveckla sin egen vokala och musikaliska potential - och att utmana sig själva sångmässigt. Här förklarar kursledare Pia Olby vad skönsång är för henne.',
-  url: 'http://youtube.com/watch?w=Nmf2V55mlgw',
-  thumbnail: 'https://i.ytimg.com/vi/Nmf2V55mlgw/hqdefault.jpg',
-  tags: ['dans', 'teater', 'scenkonst', 'koreografi', 'film'],
-  duration: 'PT2M1S',
-  type: 'video'
-};
-
 const EpisodePage = props => {
-
 
   const megaData = [...tracks, ...videos];
 
@@ -32,7 +19,6 @@ const EpisodePage = props => {
     const [videoPlayer, setVideoPlayer] = useState(null)
     const [videoDuration, setVideoDuration] = useState(null)
     const [videoInitiated, setVideoInitiated] = useState(false)
-
 
     const [localData, setLocalData] = useState(JSON.parse(localStorage.getItem('userData')))
 
@@ -47,8 +33,11 @@ const EpisodePage = props => {
     const [initalStartTime, setInitialStartTime] = useState(JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)) && JSON.parse(localStorage.getItem('userData')).watchHistory.find((video => video.id === mediaId)).progress || null)
 
     useEffect(() => {
+        
         setInterval(() => { 
-            if(videoPlayer){
+            if(videoPlayer && videoPlayer.getPlayerState() === 1){
+                console.log('we good');
+                
                 if(videoPlayer.getCurrentTime() > 10 && videoDuration) {
                     const updatedData = {
                         watchHistory: [
