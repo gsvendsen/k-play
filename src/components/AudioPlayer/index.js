@@ -60,7 +60,8 @@ const AudioPlayer = withCustomAudio(props => {
                 duration: Math.round(data.duration / 1000),
                 progress: Math.round(soundCloudAudio.audio.currentTime - 1)
               }
-            ]
+            ],
+            bookmarks: localData.bookmarks
           };
 
           localStorage.setItem('userData', JSON.stringify(updatedData));
@@ -72,7 +73,8 @@ const AudioPlayer = withCustomAudio(props => {
               ...localData.watchHistory.filter(media => {
                 return media.id !== data.id;
               })
-            ]
+            ],
+            bookmarks: localData.bookmarks
           };
 
           localStorage.setItem('userData', JSON.stringify(updatedData));

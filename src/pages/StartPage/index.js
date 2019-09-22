@@ -7,14 +7,18 @@ import MenuOption from '../../components/MenuOption';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 
-import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
+import {NotificationMessagesContext} from '../../contexts/NotificationMessagesContext'
+
+import { formatDuration, YTDurationToSeconds, toggleBookmark} from '../../helpers/functions';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 const miniData = [...videos, ...tracks];
 
 const StartPage = () => {
   const [filterState, setFilterState] = useState('all');
-
+  const { notificationMessage, setNotificationMessage } = useContext(
+    NotificationMessagesContext
+  );
   const [localData, setLocalData] = useState(
     localStorage.getItem('userData')
       ? JSON.parse(localStorage.getItem('userData')).watchHistory
@@ -101,7 +105,7 @@ const StartPage = () => {
         />
       </div>
       {watchedVideos.length > 0 && (
-        <SideScrollContainer label="Forsätt titta">
+        <SideScrollContainer label="Fortsätt spelning">
           {watchedVideos.map(video => {
             return (
               <MediaCard
@@ -144,7 +148,7 @@ const StartPage = () => {
         </SideScrollContainer>
       )}
 
-      <SideScrollContainer label="Mest spelade just nu">
+      <SideScrollContainer label="Nyheter">
         {megaData.map(video => {
           return (
             <MediaCard
@@ -156,7 +160,14 @@ const StartPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={'./svg/bookmark.svg'}
+              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaAction={id => {
+                toggleBookmark(video)
+                setNotificationMessage({
+                    message:'Bokmarkerad',
+                    duration:4
+                })
+              }}
               duration={
                 video.type === 'video'
                   ? formatDuration(YTDurationToSeconds(video.duration))
@@ -169,8 +180,8 @@ const StartPage = () => {
         })}
       </SideScrollContainer>
 
-      <SideScrollContainer label="Mest spelade just nu">
-        {megaData.map(video => {
+      <SideScrollContainer label="Cool!">
+        {shuffle(megaData).map(video => {
           return (
             <MediaCard
               data={video}
@@ -181,7 +192,46 @@ const StartPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={'./svg/bookmark.svg'}
+              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaAction={id => {
+                toggleBookmark(video)
+                setNotificationMessage({
+                    message:'Bokmarkerad',
+                    duration:4
+                })
+              }}
+              duration={
+                video.type === 'video'
+                  ? formatDuration(YTDurationToSeconds(video.duration))
+                  : formatDuration(video.duration / 1000)
+              }
+              height="100%"
+              margin="0% 5% 0 0"
+            ></MediaCard>
+          );
+        })}
+      </SideScrollContainer>
+
+      <SideScrollContainer label="Senaste">
+        {shuffle(megaData).map(video => {
+          return (
+            <MediaCard
+              data={video}
+              key={video.id}
+              id={video.id}
+              title={video.title}
+              url={`/avsnitt/${video.id}`}
+              mediaIcon={
+                video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
+              }
+              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaAction={id => {
+                toggleBookmark(video)
+                setNotificationMessage({
+                    message:'Bokmarkerad',
+                    duration:4
+                })
+              }}
               duration={
                 video.type === 'video'
                   ? formatDuration(YTDurationToSeconds(video.duration))

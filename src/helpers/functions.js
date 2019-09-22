@@ -57,3 +57,28 @@ export const formatDuration = time => {
   ret += '' + secs;
   return ret;
 };
+
+export const toggleBookmark = (data) => {
+
+  let currentLocalData = JSON.parse(localStorage.getItem('userData'))
+  
+  if(currentLocalData.bookmarks.filter(bookmark => bookmark.id === data.id).length === 0){
+    const newUpdatedData = {
+      watchHistory: currentLocalData.watchHistory,
+      bookmarks: [
+        ...currentLocalData.bookmarks,
+        data
+      ]
+    }
+  
+    localStorage.setItem('userData', JSON.stringify(newUpdatedData))  
+  } else {
+    const newUpdatedData = {
+      watchHistory: currentLocalData.watchHistory,
+      bookmarks: currentLocalData.bookmarks.filter(bookmark => bookmark.id !== data.id)
+    }
+  
+    localStorage.setItem('userData', JSON.stringify(newUpdatedData)) 
+  }
+
+}

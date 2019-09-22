@@ -2,14 +2,19 @@ import styled from 'styled-components';
 
 export const MediaCardStyle = styled.div`
   height: ${props => props.height};
-  min-width: 40%;
-  max-width:40%;
+  min-width: ${props => props.vertical ? '100%' : '40%'};
+  max-width: ${props => props.vertical ? '100%' : '40%'};
   margin: ${props => props.margin};
   position: relative;
+
+  & > a {
+    display:${props => props.vertical ? 'flex' : 'block'};
+  }
 
   article {
     position: relative;
     background-color:rgba(0,0,0,0.25);
+    width: ${props => props.vertical && '40%'};
 
     img {
       width: 100%;
@@ -38,6 +43,7 @@ export const MediaCardStyle = styled.div`
       & > div {
         width:${props => props.hasProgress && (props.hasProgress.progress/props.hasProgress.duration)*100+'%' };
         height:100%;
+        padding:0;
         background-color:${props => props.theme.colors.orange}
       }
     }
@@ -49,8 +55,8 @@ export const MediaCardStyle = styled.div`
     height: 28px;
     border-radius: 99%;
     position: absolute;
-    right: -10%;
-    top: -10%;
+    right: ${props => props.vertical ? '59%' : '-10%'};
+    top: ${props => props.vertical ? '-15%' : '-10%'};
     border: none;
     z-index: 5;
 
@@ -61,17 +67,20 @@ export const MediaCardStyle = styled.div`
 
   div {
     display: flex;
-    align-items: center;
+    align-items: ${props => props.vertical ? 'flex-start' : 'center'};
     justify-content: space-between;
-    height: 50px;
-    padding:5px 0 0 0;
+    height: ${props => props.vertical ? '80px' : '50px'};
+    width: ${props => props.vertical && '50%'};
+    flex-direction: ${props => props.vertical ? 'column' : 'row'};
+    padding: ${props => props.vertical ? '10px 5px 0 15px' : '5px 0 0 0'};
 
     img {
       width: 15%;
-      margin-left: 5%;
+      margin-left: ${props => props.vertical ? '0' : '5%'};
+      margin-top: ${props => props.vertical ? '5px' : '0'};
     }
     p {
-      font-size: 0.75rem;
+      font-size: ${props => props.vertical ? '1rem' : '0.75rem'};
       height: 100%;
       overflow: hidden;
     }

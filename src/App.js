@@ -17,6 +17,7 @@ import tracks from './data/tracks.json';
 import StartPage from './pages/StartPage';
 import EpisodePage from './pages/EpisodePage';
 import BookmarksPage from './pages/BookmarksPage';
+import SearchPage from './pages/SearchPage';
 
 const data = [playlists, youtube, tracks].flat();
 
@@ -26,9 +27,9 @@ const App = ({ history }) => {
 
   useEffect(() => {
     if (!localStorage.getItem('userData')) {
-      console.log('resetting!!');
       const defaultLocalStorageObject = {
-        watchHistory: []
+        watchHistory: [],
+        bookmarks: []
       };
       localStorage.setItem(
         'userData',
@@ -52,6 +53,7 @@ const App = ({ history }) => {
                 <Route exact path="/" component={StartPage} />
                 <Route path="/avsnitt" component={EpisodePage} />
                 <Route path="/bookmarks" component={BookmarksPage} />
+                <Route path="/search" component={SearchPage} />
               </Switch>
             </Layout>
           </NotificationMessagesContext.Provider>
