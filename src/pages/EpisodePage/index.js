@@ -8,12 +8,10 @@ import MediaCard from '../../components/MediaCard';
 import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
-import { formatDuration, YTDurationToSeconds } from '../../helpers/functions';
+import { formatDuration, YTDurationToSeconds, toggleBookmark } from '../../helpers/functions';
 
 const EpisodePage = props => {
   const megaData = [...tracks, ...videos];
-
-  console.log(megaData);
 
   const [videoPlayer, setVideoPlayer] = useState(null);
   const [videoDuration, setVideoDuration] = useState(null);
@@ -47,7 +45,7 @@ const EpisodePage = props => {
 
   useEffect(() => {
     setInterval(() => {
-      if (videoPlayer && videoPlayer.getPlayerState() === 1) {
+      if (videoPlayer && videoPlayer.a && videoPlayer.getPlayerState() === 1) {
         if (videoPlayer.getCurrentTime() > 10 && videoDuration) {
           const updatedData = {
             watchHistory: [
@@ -59,7 +57,8 @@ const EpisodePage = props => {
                 duration: videoDuration,
                 progress: Math.round(videoPlayer.getCurrentTime() - 1)
               }
-            ]
+            ],
+            bookmarks: localData.bookmarks
           };
 
           localStorage.setItem('userData', JSON.stringify(updatedData));
@@ -71,7 +70,8 @@ const EpisodePage = props => {
               ...localData.watchHistory.filter(media => {
                 return media.id !== mediaId;
               })
-            ]
+            ],
+            bookmarks: localData.bookmarks
           };
 
           localStorage.setItem('userData', JSON.stringify(updatedData));
@@ -127,11 +127,11 @@ const EpisodePage = props => {
                   alignItems: 'center'
                 }}
                 onClick={() => {
+
                   fetch(
-                    `http://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                    `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
                   ).then(res => {
                     // TEMPORÄR CONTEXT STRUKTUR
-                    console.log(res);
                     setAudioPlayerUrl(null);
 
                     setTimeout(() => {
@@ -151,7 +151,24 @@ const EpisodePage = props => {
                     background: '#1b1b1b',
                     display: 'flex',
                     justifyContent: 'center',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    padding:'1px 4px 0 0'
+                  }}
+
+                  onClick={() => {
+                    fetch(
+                      `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                    ).then(res => {
+                      // TEMPORÄR CONTEXT STRUKTUR
+                      setAudioPlayerUrl(null);
+  
+                      setTimeout(() => {
+                        setAudioPlayerUrl({
+                          audioData: mediaData,
+                          streamUrl: res.url
+                        });
+                      }, 250);
+                    });
                   }}
                 >
                   <img src="/svg/playbutton.svg" alt="Play" />
@@ -162,25 +179,17 @@ const EpisodePage = props => {
           <VideoDescriptionStyle>
             <aside>
               <h1>{mediaData.title}</h1>
-              {!isBookmarkToggled ? (
                 <img
                   onClick={() => {
+                    toggleBookmark(mediaData)
                     setNotificationMessage({
                       message: 'Bookmarked!',
                       duration: 4
                     });
-                    setBookmarkToggle(true);
                   }}
-                  src="/svg/bookmark.svg"
+                  src={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === parseInt(mediaData.id)).length > 0 ? '/svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
                   alt="Bookmark"
                 />
-              ) : (
-                <img
-                  onClick={() => setBookmarkToggle(false)}
-                  src="/svg/bookmark-filled.svg"
-                  alt="Bookmarked"
-                />
-              )}
             </aside>
             <h4>
               Torsdag 12 sep 12.00 -{' '}

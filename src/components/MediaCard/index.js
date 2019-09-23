@@ -13,12 +13,15 @@ const MediaCard = props => {
   );
 
   return (
-    <MediaCardStyle {...props} hasProgress={localData}>
+    <MediaCardStyle {...props} vertical={props.vertical} hasProgress={localData}>
       <button onClick={() => props.ctaAction(props.id)}>
         <img src={props.ctaIcon} alt="" />
       </button>
       <Link to={props.url}>
         <article>
+          <section>
+            <h2>Titel Placeholder</h2>
+          </section>
           <img
             src={
               props.data &&

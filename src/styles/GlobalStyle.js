@@ -23,6 +23,27 @@ const GlobalStyle = createGlobalStyle`
         outline: none;
         border: none;
     }
+
+    /* simple - enter transition 300ms, exit 150ms */
+    .fade-appear,
+    .fade-enter {
+        opacity: 0;
+        z-index: 1;
+    }
+    .fade-appear-active,
+    .fade-enter.fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms linear 150ms;
+    }
+
+    .fade-exit {
+        opacity: 1;
+    }
+
+    .fade-exit.fade-exit-active {
+        opacity: 0;
+        transition: opacity 150ms linear;
+    }
 `;
 
 export default GlobalStyle;

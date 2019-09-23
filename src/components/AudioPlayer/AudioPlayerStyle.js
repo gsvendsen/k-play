@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AudioPlayerStyle = styled.div`
-  height: ${props => (props.big ? '26%' : '90px')};
+  height: ${props => (props.big ? '215px' : '90px')};
   border-bottom: ${props => (props.big ? 'none' : 'rgba(0,0,0,0.2) solid 3px')};
   width: 100vw;
   background: ${props =>
@@ -20,6 +20,24 @@ export const AudioPlayerStyle = styled.div`
   a {
     width: 45%;
     font-size: 12px;
+
+    & > p {
+
+    margin: 0 auto;
+    white-space: nowrap;
+    overflow: hidden;
+
+    & > span {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 8s linear infinite;
+
+        @keyframes marquee {
+        0%   { transform: translate(0, 0); }
+        100% { transform: translate(-100%, 0); }
+        }
+    }
+    }
   }
 
   button {

@@ -12,9 +12,6 @@ import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 
 const Layout = props => {
-  const megaData = [...tracks, ...videos];
-
-  const videoId = props.location.pathname.split('/')[2] || null;
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
@@ -22,7 +19,7 @@ const Layout = props => {
       <header>
         <Link to="/">
           {props.location.pathname !== '/' &&
-          props.location.pathname !== '/bookmarks' ? (
+          props.location.pathname !== '/bookmarks' & props.location.pathname !== '/search' ? (
             <img src="/svg/down-arrow.svg" alt="Go Back" />
           ) : (
             <img
@@ -44,6 +41,8 @@ const Layout = props => {
 
       <section>{props.children}</section>
 
+
+
       {/* Om context variable innehåller stream URL så visa audioplayer */}
       {audioPlayerUrl &&
       props.location.pathname === `/avsnitt/${audioPlayerUrl.audioData.id}` ? (
@@ -64,9 +63,9 @@ const Layout = props => {
           )}
           Hem
         </Link>
-        <Link to="/bookmarks">
+        <Link to="/search">
           {props.history.location.pathname === '/search' ? (
-            <img src="/svg/search-icon-filled.svg" alt="Search" />
+            <img src="/svg/search-icon.svg" alt="Search" />
           ) : (
             <img src="/svg/search-icon.svg" alt="Search" />
           )}
