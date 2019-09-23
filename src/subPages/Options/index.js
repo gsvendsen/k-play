@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { OptionsStyle } from './OptionsStyle';
 import Switch from '../../components/Switch';
+import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
+  const [isLightMode, setIsLightMode] = useState(
+    localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
+  );
+  const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
+  const [rangePosition, setRangePosition] = useState(0);
+
+  useEffect(() => {
+    if (rangePosition <= 25) {
+      setFontSizeState(16);
+    } else if (rangePosition > 25 && rangePosition <= 75) {
+      setFontSizeState(18);
+    } else if (rangePosition > 75) {
+      setFontSizeState(20);
+    }
+  }, [rangePosition]);
+
+  const snapRange = () => {
+    if (rangePosition <= 25) {
+      setRangePosition(0);
+    } else if (rangePosition > 25 && rangePosition <= 75) {
+      setRangePosition(50);
+    } else if (rangePosition > 75) {
+      setRangePosition(100);
+    }
+  };
+
+  useEffect(() => {
+    if (isLightMode) {
+      setIsLightMode(true);
+    }
+  }, []);
   return (
     <OptionsStyle>
       <div>
@@ -25,7 +57,14 @@ const Options = props => {
               Ljuslägg bakgrunden och öka ljustyrkan för ett mer tydligare
               utseende.
             </p>
-            <Switch />
+            <Switch
+              toggled={
+                localStorage.getItem('lightMode')
+                  ? localStorage.getItem('lightMode') === 'true'
+                  : false
+              }
+              localStorage="lightMode"
+            />
           </main>
         </article>
         <hr />
@@ -33,21 +72,33 @@ const Options = props => {
           <h3>Högkontrastläge</h3>
           <main>
             <p>Aktivera ett läge för bättre kontrast.</p>
-            <Switch />
+            <Switch
+              toggled={
+                localStorage.getItem('highContrastMode')
+                  ? localStorage.getItem('highContrastMode') === 'true'
+                  : false
+              }
+              localStorage="highContrastMode"
+            />
           </main>
         </article>
         <hr />
         <article>
           <h3>Textstorlek</h3>
           <p>Ställ in dina preferenser för textstorlek.</p>
-          <ol>
-            <input type="range" min="1" max="3" steps="1" value="1" />
-            <ul>
-              <li>Aa</li>
-              <li>Aa</li>
-              <li>Aa</li>
-            </ul>
-          </ol>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={rangePosition}
+            onChange={e => setRangePosition(e.target.value)}
+            onTouchEnd={e => snapRange(e.target.value)}
+          ></input>
+          <ul>
+            <li onClick={() => setRangePosition(0)}>Aa</li>
+            <li onClick={() => setRangePosition(50)}>Aa</li>
+            <li onClick={() => setRangePosition(100)}>Aa</li>
+          </ul>
         </article>
       </section>
     </OptionsStyle>

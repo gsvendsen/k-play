@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import { PreferencesStyle } from './PreferencesStyle';
 
 const Preferences = props => {
-  const [isChecked, setIsChecked] = useState({
-    first: true,
-    two: false,
-    three: false,
-    four: false
-  });
+  const [isChecked, setIsChecked] = useState(1);
 
-  console.log(isChecked);
   return (
     <PreferencesStyle checked={isChecked}>
       <div>
@@ -25,46 +19,32 @@ const Preferences = props => {
           </p>
         </section>
         <ul>
-          <article
-            onClick={() =>
-              setIsChecked({ ...isChecked, first: !isChecked.first })
-            }
-          >
-            <input type="checkbox" checked={isChecked.first} />
+          <article onClick={() => setIsChecked(1)}>
+            <input type="checkbox" checked={isChecked === 1} />
             <span></span>
             <aside>
               <li>Slumpa innehåll</li>
               <p>Allt material visas </p>
             </aside>
           </article>
-          <article
-            onClick={() => setIsChecked({ ...isChecked, two: !isChecked.two })}
-          >
-            <input type="checkbox" checked={isChecked.two} />
+          <article onClick={() => setIsChecked(2)}>
+            <input type="checkbox" checked={isChecked === 2} />
             <span></span>
             <aside>
               <li>Scenkonst</li>
               <p>Ämnen som teater, dans och opera prioriteras</p>
             </aside>
           </article>
-          <article
-            onClick={() =>
-              setIsChecked({ ...isChecked, three: !isChecked.three })
-            }
-          >
-            <input type="checkbox" checked={isChecked.three} />
+          <article onClick={() => setIsChecked(3)}>
+            <input type="checkbox" checked={isChecked === 3} />
             <span></span>
             <aside>
               <li>Musik</li>
               <p>Ämnen som musik och symfoni prioriteras</p>
             </aside>
           </article>
-          <article
-            onClick={() =>
-              setIsChecked({ ...isChecked, four: !isChecked.four })
-            }
-          >
-            <input type="checkbox" checked={isChecked.four} />
+          <article onClick={() => setIsChecked(4)}>
+            <input type="checkbox" checked={isChecked === 4} />
             <span></span>
             <aside>
               <li>Audiovisuell media </li>
