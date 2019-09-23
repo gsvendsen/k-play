@@ -69,6 +69,7 @@ export const OptionsStyle = styled.section`
     -webkit-appearance: none;
     width: 100%;
     background: ${props => props.theme.colors.white};
+    margin-top: 30px;
   }
 
   input[type='range']::-webkit-slider-runnable-track {
