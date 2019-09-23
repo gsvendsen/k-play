@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 export const OptionsStyle = styled.section`
+  *,
+  & > * {
+    transition: background-color 0.5s ease-in-out;
+  }
   width: 100vw;
   height: 94vh;
   position: absolute;
@@ -34,7 +38,9 @@ export const OptionsStyle = styled.section`
   }
 
   p {
-    color: rgba(255, 255, 255, 0.7);
+    /* color: rgba(255, 255, 255, 0.7); */
+    color: ${props => props.theme.colors.white};
+    opacity: 0.7;
     font-size: 1rem;
     width: 90%;
   }

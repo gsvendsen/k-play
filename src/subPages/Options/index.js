@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { OptionsStyle } from './OptionsStyle';
 import Switch from '../../components/Switch';
 
@@ -6,7 +6,6 @@ const Options = props => {
   const [isLightMode, setIsLightMode] = useState(
     localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
   );
-  console.log(localStorage.getItem('lightMode'));
 
   useEffect(() => {
     if (isLightMode) {

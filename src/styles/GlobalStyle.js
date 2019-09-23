@@ -1,6 +1,6 @@
-import {useContext} from 'react'
+import { useContext } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { AudioPlayerContext } from '../contexts/AudioPlayerContext'
+import { AudioPlayerContext } from '../contexts/AudioPlayerContext';
 
 const GlobalStyle = createGlobalStyle`
     *,*::before,*::after {
@@ -14,9 +14,9 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-    padding: ${props => props.isAudioActive ? '50px 0 150px 0' : '50px 0'};
+    padding: ${props => (props.isAudioActive ? '50px 0 150px 0' : '50px 0')};
     font-family: sans-serif;
-    background-color:#1B1B1B;
+    background-color: ${props => props.theme.colors.black};
     }
 
     button:active, button:focus {
