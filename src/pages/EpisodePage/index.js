@@ -127,8 +127,9 @@ const EpisodePage = props => {
                   alignItems: 'center'
                 }}
                 onClick={() => {
+
                   fetch(
-                    `http://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                    `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
                   ).then(res => {
                     // TEMPORÄR CONTEXT STRUKTUR
                     setAudioPlayerUrl(null);
@@ -152,6 +153,22 @@ const EpisodePage = props => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     padding:'1px 4px 0 0'
+                  }}
+
+                  onClick={() => {
+                    fetch(
+                      `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
+                    ).then(res => {
+                      // TEMPORÄR CONTEXT STRUKTUR
+                      setAudioPlayerUrl(null);
+  
+                      setTimeout(() => {
+                        setAudioPlayerUrl({
+                          audioData: mediaData,
+                          streamUrl: res.url
+                        });
+                      }, 250);
+                    });
                   }}
                 >
                   <img src="/svg/playbutton.svg" alt="Play" />

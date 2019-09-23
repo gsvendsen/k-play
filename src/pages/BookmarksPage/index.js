@@ -35,7 +35,7 @@ const BookmarksPage = () => {
   
 
   return (
-    <div style={{ padding: '30px 0 0 0' }}>
+    <div style={{padding: '30px 0 0 0' }}>
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
           isActive={filterState === 'all'}

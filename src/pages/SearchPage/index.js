@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import MenuOption from '../../components/MenuOption';
 import SearchBar from '../../components/SearchBar';
@@ -8,8 +8,9 @@ import Tag from '../../components/Tag';
 
 import videos from '../../data/youtube.json'
 import tracks from '../../data/tracks.json'
+import {latest, news} from '../../data/startscreen'
 
-import { formatDuration, YTDurationToSeconds, toggleBookmark} from '../../helpers/functions';
+import { formatDuration, YTDurationToSeconds, filterMediaTypes} from '../../helpers/functions';
 
 let megaData = [...videos, ...tracks];
 
@@ -18,6 +19,32 @@ const SearchPage = () => {
   const [filterState, setFilterState] = useState('all');
 
   const [searchValue, setSearchValue] = useState('')
+
+  const [searchResults, setSearchResults] = useState([])
+
+  const [tagResults, setTagResults] = useState([])
+
+  useEffect(() => {
+
+    const filterResults = miniData.filter(item => {
+        return item.title.toLowerCase().includes(searchValue.toLowerCase())
+    })
+
+    setSearchResults(filterResults)
+  
+    let tagArray = miniData.map(item => {
+        return item.tags
+    })
+  
+    let newTags = searchValue !== '' && filterResults.length > 0 ? [...new Set(tagArray.flat())] : []
+
+    newTags.length = 5
+
+    setTagResults(newTags)
+
+    
+
+}, [searchValue])
 
   // Filter Type of media
   let miniData = megaData.filter(item => {
@@ -33,23 +60,10 @@ const SearchPage = () => {
       return true;
     }
   });
-
-  miniData = miniData.filter(item => {
-      return item.title.toLowerCase().includes(searchValue.toLowerCase())
-  })
-
-  let tagArray = miniData.map(item => {
-      return item.tags
-  })
-
-  let goodTags = searchValue !== '' ? [...new Set(tagArray.flat())] : [];
-  goodTags.length = 5
-  console.log(goodTags);
-  
-  
+    
 
   return (
-    <div style={{ padding: '30px 0 0 0' }}>
+    <div style={{padding: '30px 0 0 0' }}>
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
@@ -71,7 +85,7 @@ const SearchPage = () => {
 
       {searchValue !== '' ? (
         <SideScrollContainer label={`Visar resultat för "${searchValue}"`}>
-          {miniData.map(video => {
+          {filterMediaTypes(filterState, searchResults).map(video => {
             return (
               <MediaCard
                 key={video.id}
@@ -99,7 +113,7 @@ const SearchPage = () => {
         </SideScrollContainer>
       ) : 
       <SideScrollContainer label={`Dina tidigare sökningar`}>
-                {megaData.map(video => {
+                {filterMediaTypes(filterState, latest).map(video => {
                     return (
                     <MediaCard
                         key={video.id}
@@ -135,14 +149,14 @@ const SearchPage = () => {
           justifyContent:'flex-start',
           marginBottom:'15px'
       }}>
-          {goodTags.map(tag => {
-              return <Tag searchTag={() => setSearchValue(tag)} title={tag} />
+          {tagResults.map((tag, index) => {
+              return <Tag key={index} searchTag={() => setSearchValue(tag)} title={tag} />
           })}
       </div>
 
         {searchValue !== '' &&
         <SideScrollContainer label={`Andra sökte även efter`}>
-                {megaData.map(video => {
+                {news.map(video => {
                     return (
                     <MediaCard
                         key={video.id}

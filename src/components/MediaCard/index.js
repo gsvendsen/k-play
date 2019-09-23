@@ -19,6 +19,9 @@ const MediaCard = props => {
       </button>
       <Link to={props.url}>
         <article>
+          <section>
+            <h2>Titel Placeholder</h2>
+          </section>
           <img
             src={
               props.data &&
