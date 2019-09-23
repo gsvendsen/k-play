@@ -13,10 +13,12 @@ const BookmarksPage = () => {
     NotificationMessagesContext
   );
 
-  let megaData = JSON.parse(localStorage.getItem('userData')) ? JSON.parse(localStorage.getItem('userData')).bookmarks : []
+  let megaData = JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks  ? JSON.parse(localStorage.getItem('userData')).bookmarks : []
 
   const [filterState, setFilterState] = useState('all');
 
+    console.log(megaData);
+    
 
   // Filter Type of media
   megaData = megaData.filter(item => {
@@ -35,7 +37,7 @@ const BookmarksPage = () => {
   
 
   return (
-    <div style={{padding: '30px 0 0 0' }}>
+    <div style={{minHeight:'100vh', padding: '30px 0 0 0' }}>
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
           isActive={filterState === 'all'}

@@ -81,7 +81,7 @@ const EpisodePage = props => {
   }, [videoPlayer, videoDuration, localData]);
 
   return (
-    <div>
+    <div style={{minHeight:'100vh'}}>
       {mediaData === undefined ? (
         <p
           style={{

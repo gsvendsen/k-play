@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const OptionsStyle = styled.section`
   width: 100vw;
-  height: 94vh;
+  height: 100vh;
   position: absolute;
   right: 0;
   top: 0;
@@ -10,6 +10,7 @@ export const OptionsStyle = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  z-index:999;
 
   > section {
     padding: 0px 20px 30px 20px;
@@ -40,10 +41,11 @@ export const OptionsStyle = styled.section`
   }
 
   div {
-    padding: 20px;
+    padding: 20px 20px 20px 10px;
     background: ${props => props.theme.colors.grey};
 
     img {
+      margin:0 10px;
       transform: rotate(90deg);
     }
   }

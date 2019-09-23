@@ -63,7 +63,7 @@ const SearchPage = () => {
     
 
   return (
-    <div style={{padding: '30px 0 0 0' }}>
+    <div style={{minHeight:'100vh', padding: '30px 0 0 0' }}>
         <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} />
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
@@ -84,6 +84,7 @@ const SearchPage = () => {
       </div>
 
       {searchValue !== '' ? (
+          <div>
         <SideScrollContainer label={`Visar resultat för "${searchValue}"`}>
           {filterMediaTypes(filterState, searchResults).map(video => {
             return (
@@ -110,7 +111,10 @@ const SearchPage = () => {
               ></MediaCard>
             );
           })}
+          {filterMediaTypes(filterState, searchResults).length === 0 && <p style={{color:'white'}}>Inga Resultat</p>}
+
         </SideScrollContainer>
+        </div>
       ) : 
       <SideScrollContainer label={`Dina tidigare sökningar`}>
                 {filterMediaTypes(filterState, latest).map(video => {

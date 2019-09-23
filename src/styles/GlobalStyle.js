@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-    padding: ${props => props.isAudioActive ? '50px 0 150px 0' : '50px 0'};
+    padding: ${props => props.isAudioActive ? '50px 0 140px 0' : '50px 0'};
     font-family: sans-serif;
     background-color:#1B1B1B;
     }
@@ -28,7 +28,6 @@ const GlobalStyle = createGlobalStyle`
     .fade-appear,
     .fade-enter {
         opacity: 0;
-        z-index: 1;
     }
     .fade-appear-active,
     .fade-enter.fade-enter-active {

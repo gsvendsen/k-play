@@ -36,6 +36,28 @@ export const LayoutStyle = styled.div`
         }
     }
 
+    & > header >  article {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: rgba(0,0,0,0.5);
+        z-index:-1;
+        display:${props => props.menuIsOpen ? 'block' : 'none'};
+        animation:fade-in 300ms forwards ease-in-out;
+
+        @keyframes fade-in {
+            from {
+                opacity:0;
+            }
+
+            to {
+                opacity:1;
+            }
+        }
+    }
+
     footer {
         width:100vw;
         height:51px;
@@ -48,7 +70,7 @@ export const LayoutStyle = styled.div`
         justify-content:space-between;
         padding:0 15% 2px 15%;
         box-sizing:border-box;
-        z-index:999;
+        z-index:888;
 
         & > a {
             display:flex;

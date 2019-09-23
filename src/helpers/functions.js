@@ -62,7 +62,7 @@ export const toggleBookmark = (data) => {
 
   let currentLocalData = JSON.parse(localStorage.getItem('userData'))
   
-  if(currentLocalData.bookmarks.filter(bookmark => bookmark.id === data.id).length === 0){
+  if(currentLocalData.bookmarks && currentLocalData.bookmarks.filter(bookmark => bookmark.id === data.id).length === 0){
     const newUpdatedData = {
       watchHistory: currentLocalData.watchHistory,
       bookmarks: [

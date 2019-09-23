@@ -72,10 +72,10 @@ const App = ({ history }) => {
                     classNames="fade"
                   >
                       <Switch>
-                        <Route onUpdate={() => window.scrollTo(0, 0)} exact path="/" component={StartPage} />
-                        <Route onUpdate={() => window.scrollTo(0, 0)} path="/avsnitt" component={EpisodePage} />
-                        <Route onUpdate={() => window.scrollTo(0, 0)} path="/bookmarks" component={BookmarksPage} />
-                        <Route onUpdate={() => window.scrollTo(0, 0)} path="/search" component={SearchPage} />
+                        <Route exact path="/" component={StartPage} />
+                        <Route path="/avsnitt" component={EpisodePage} />
+                        <Route path="/bookmarks" component={BookmarksPage} />
+                        <Route path="/search" component={SearchPage} />
                         <Route component={NotFoundPage}/>
                       </Switch>
                   </CSSTransition>

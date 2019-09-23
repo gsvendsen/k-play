@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const AudioPlayerStyle = styled.div`
-  height: ${props => (props.big ? '215px' : '90px')};
-  border-bottom: ${props => (props.big ? 'none' : 'rgba(0,0,0,0.2) solid 3px')};
+  height: ${props => (props.big ? '215px' : '80px')};
+  border-bottom: ${props => (props.big ? 'none' : 'rgba(0,0,0,0.2) solid 1px')};
   width: 100vw;
   background: ${props =>
     props.big ? props.theme.colors.black : props.theme.colors.grey};

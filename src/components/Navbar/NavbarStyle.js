@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const NavbarStyle = styled.nav`
-  width: 100vw;
-  height: 88vh;
+  width: 90vw;
+  height: 100vh;
   position: absolute;
   right: ${props => (props.isActive ? '0px' : '-100vw')};
   opacity: ${props => (props.isActive ? '1' : '0')};
-  transition: opacity 0.4s 0.1s ease-in-out, right 0.6s ease-in-out;
-  top: 50px;
+  transition: opacity 0.4s 0.1s ease-in-out, right 0.4s ease-in-out;
+  top: 0px;
   background: ${props => props.theme.colors.grey};
-  padding: 50px 40px 10px 60px;
+  padding: 75px 45px 25% 45px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

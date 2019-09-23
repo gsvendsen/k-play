@@ -84,7 +84,7 @@ const StartPage = () => {
                 ctaAction={id => {
                   const updatedData = {
                     watchHistory: [
-                      ...localData.filter(media => {
+                      ...JSON.parse(localStorage.getItem('userData')).watchHistory.filter(media => {
                         return media.id !== id;
                       })
                     ]

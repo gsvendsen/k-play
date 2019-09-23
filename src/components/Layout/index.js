@@ -15,7 +15,7 @@ const Layout = props => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   return (
-    <LayoutStyle>
+    <LayoutStyle menuIsOpen={menuIsOpen}>
       <header>
         <Link to="/">
           {props.location.pathname !== '/' &&
@@ -25,7 +25,7 @@ const Layout = props => {
             <img
               style={{
                 opacity: menuIsOpen ? '0' : '1',
-                transition: 'opacity 0.20s 0.20s ease-in-out'
+                transition: 'opacity 0.20s 0.1s ease-in-out'
               }}
               src="/svg/logo.svg"
               alt="K Play Logo"
@@ -36,6 +36,8 @@ const Layout = props => {
           menuIsOpen={menuIsOpen}
           toggle={() => setMenuIsOpen(!menuIsOpen)}
         />
+        
+        <article />
         <Navbar open={menuIsOpen} />
       </header>
 

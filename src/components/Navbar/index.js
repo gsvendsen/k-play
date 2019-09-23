@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { NavbarStyle } from './NavbarStyle';
 import Options from '../../subPages/Options';
 import Preferences from '../../subPages/Preferences';
+import Events from '../../subPages/Events';
 
 const Navbar = props => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -19,22 +20,10 @@ const Navbar = props => {
           <div
             style={{
               position: 'relative',
-              height: '100%',
               width: '100%'
             }}
           >
-            <div
-              style={{
-                width: '10%',
-                height: '100vh',
-                position: 'absolute',
-                left: '-60px',
-                top: '-100px',
-                background: 'rgba(255,255,255,0.5)',
-                zIndex: '555'
-              }}
-            />
-            <p>Events</p>
+            <p onClick={() => setSelectedPage('events')}>Events</p>
             <p
               onClick={() => {
                 setIsExpanded(!isExpanded);
@@ -71,6 +60,9 @@ const Navbar = props => {
       )}
       {selectedPage === 'preferences' && (
         <Preferences goBack={() => setSelectedPage(null)}></Preferences>
+      )}
+      {selectedPage === 'events' && (
+        <Events goBack={() => setSelectedPage(null)}></Events>
       )}
     </Fragment>
   );

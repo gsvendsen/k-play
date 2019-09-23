@@ -4,6 +4,8 @@ export const HamburgerButtonStyle = styled.div`
   width: 30px;
   height: 18px;
 
+  z-index:888;
+
   cursor: pointer;
 
   & > div {
