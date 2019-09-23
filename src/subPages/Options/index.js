@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { OptionsStyle } from './OptionsStyle';
 import Switch from '../../components/Switch';
 
 const Options = props => {
+  const [isLightMode, setIsLightMode] = useState(
+    localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
+  );
+  console.log(localStorage.getItem('lightMode'));
+
+  useEffect(() => {
+    if (isLightMode) {
+      setIsLightMode(true);
+    }
+  }, []);
   return (
     <OptionsStyle>
       <div>
@@ -25,7 +35,14 @@ const Options = props => {
               Ljuslägg bakgrunden och öka ljustyrkan för ett mer tydligare
               utseende.
             </p>
-            <Switch />
+            <Switch
+              toggled={
+                localStorage.getItem('lightMode')
+                  ? localStorage.getItem('lightMode') === 'true'
+                  : false
+              }
+              localStorage="lightMode"
+            />
           </main>
         </article>
         <hr />
@@ -33,7 +50,14 @@ const Options = props => {
           <h3>Högkontrastläge</h3>
           <main>
             <p>Aktivera ett läge för bättre kontrast.</p>
-            <Switch />
+            <Switch
+              toggled={
+                localStorage.getItem('highContrastMode')
+                  ? localStorage.getItem('highContrastMode') === 'true'
+                  : false
+              }
+              localStorage="highContrastMode"
+            />
           </main>
         </article>
         <hr />

@@ -9,7 +9,6 @@ const Preferences = props => {
     four: false
   });
 
-  console.log(isChecked);
   return (
     <PreferencesStyle checked={isChecked}>
       <div>
