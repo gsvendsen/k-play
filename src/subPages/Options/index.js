@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { OptionsStyle } from './OptionsStyle';
 import Switch from '../../components/Switch';
+import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
   const [isLightMode, setIsLightMode] = useState(
     localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
   );
+  const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
 
   useEffect(() => {
     if (isLightMode) {
@@ -66,9 +68,9 @@ const Options = props => {
           <ol>
             <input type="range" min="1" max="3" steps="1" value="1" />
             <ul>
-              <li>Aa</li>
-              <li>Aa</li>
-              <li>Aa</li>
+              <li onClick={() => setFontSizeState('16')}>Aa</li>
+              <li onClick={() => setFontSizeState('18')}>Aa</li>
+              <li onClick={() => setFontSizeState('20')}>Aa</li>
             </ul>
           </ol>
         </article>
