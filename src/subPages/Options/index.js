@@ -8,6 +8,27 @@ const Options = props => {
     localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
   );
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
+  const [rangePosition, setRangePosition] = useState(0);
+
+  useEffect(() => {
+    if (rangePosition <= 25) {
+      setFontSizeState(16);
+    } else if (rangePosition > 25 && rangePosition <= 75) {
+      setFontSizeState(18);
+    } else if (rangePosition > 75) {
+      setFontSizeState(20);
+    }
+  }, [rangePosition]);
+
+  const snapRange = () => {
+    if (rangePosition <= 25) {
+      setRangePosition(0);
+    } else if (rangePosition > 25 && rangePosition <= 75) {
+      setRangePosition(50);
+    } else if (rangePosition > 75) {
+      setRangePosition(100);
+    }
+  };
 
   useEffect(() => {
     if (isLightMode) {
@@ -65,14 +86,19 @@ const Options = props => {
         <article>
           <h3>Textstorlek</h3>
           <p>Ställ in dina preferenser för textstorlek.</p>
-          <ol>
-            <input type="range" min="1" max="3" steps="1" value="1" />
-            <ul>
-              <li onClick={() => setFontSizeState('16')}>Aa</li>
-              <li onClick={() => setFontSizeState('18')}>Aa</li>
-              <li onClick={() => setFontSizeState('20')}>Aa</li>
-            </ul>
-          </ol>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={rangePosition}
+            onChange={e => setRangePosition(e.target.value)}
+            onTouchEnd={e => snapRange(e.target.value)}
+          ></input>
+          <ul>
+            <li onClick={() => setRangePosition(0)}>Aa</li>
+            <li onClick={() => setRangePosition(50)}>Aa</li>
+            <li onClick={() => setRangePosition(100)}>Aa</li>
+          </ul>
         </article>
       </section>
     </OptionsStyle>

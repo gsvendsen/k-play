@@ -38,7 +38,6 @@ export const OptionsStyle = styled.section`
   }
 
   p {
-    /* color: rgba(255, 255, 255, 0.7); */
     color: ${props => props.theme.colors.white};
     opacity: 0.7;
     font-size: 1rem;
@@ -66,45 +65,40 @@ export const OptionsStyle = styled.section`
     justify-content: space-between;
   }
 
-  ol {
-    position: relative;
+  input[type='range'] {
+    -webkit-appearance: none;
+    width: 100%;
+    background: ${props => props.theme.colors.white};
+  }
+
+  input[type='range']::-webkit-slider-runnable-track {
     width: 100%;
     height: 1px;
-
     background: rgba(255, 255, 255, 0.5);
+    border: none;
+    z-index: 999;
   }
 
-  input {
-    width: 100%;
-    position: absolute;
-    top: 2px;
-    height: 0;
+  input[type='range']::-webkit-slider-thumb {
     -webkit-appearance: none;
-  }
-
-  input::-webkit-slider-thumb,
-  input::-moz-range-thumb,
-  input::-ms-thumb {
-    width: 18px;
-    height: 18px;
-    margin: -8px 0 0;
+    border: none;
+    height: 22px;
+    width: 22px;
     border-radius: 50%;
-    background: #37adbf;
-    cursor: pointer;
-    border: 0 !important;
+    background: ${props => props.theme.colors.white};
+    margin-top: -10px;
   }
 
-  input::-webkit-slider-runnable-track,
-  input::-moz-range-track,
-  input::-ms-track {
-    width: 100%;
-    height: 2px;
-    cursor: pointer;
-    background: #b2b2b2;
+  input[type='range']:focus {
+    outline: none;
+  }
+
+  input[type='range']:focus::-webkit-slider-runnable-track {
+    background: #ccc;
   }
 
   ul {
-    margin: 18px 0 0 0;
+    margin-top: -4px;
     width: 100%;
     padding: 0;
     list-style: none;

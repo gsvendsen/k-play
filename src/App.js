@@ -39,8 +39,6 @@ const App = ({ history }) => {
   );
   const [fontSizeState, setFontSizeState] = useState('16');
 
-  console.log('theme: ', themeState);
-
   useEffect(() => {
     if (!localStorage.getItem('userData')) {
       const defaultLocalStorageObject = {
