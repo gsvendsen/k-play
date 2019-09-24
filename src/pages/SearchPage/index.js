@@ -1,20 +1,27 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 
 import MenuOption from '../../components/MenuOption';
 import SearchBar from '../../components/SearchBar';
 import MediaCard from '../../components/MediaCard';
 import SideScrollContainer from '../../components/SideScrollContainer';
 import Tag from '../../components/Tag';
+import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 
 import videos from '../../data/youtube.json'
 import tracks from '../../data/tracks.json'
 import {latest, news} from '../../data/startscreen'
 
-import { formatDuration, YTDurationToSeconds, filterMediaTypes} from '../../helpers/functions';
+
+
+import { formatDuration, YTDurationToSeconds, filterMediaTypes, toggleBookmark} from '../../helpers/functions';
 
 let megaData = [...videos, ...tracks];
 
 const SearchPage = () => {
+
+    const { notificationMessage, setNotificationMessage } = useContext(
+        NotificationMessagesContext
+    );
 
   const [filterState, setFilterState] = useState('all');
 
@@ -97,10 +104,22 @@ const SearchPage = () => {
                 mediaIcon={
                   video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
                 }
-                ctaIcon={'/svg/bookmark.svg'}
+                ctaIcon={
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                      bookmark => bookmark.id === video.id
+                    ).length > 0
+                      ? '/svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
+                  }
                 ctaAction={id => {
-
-                }}
+                    toggleBookmark(video);
+                    setNotificationMessage({
+                      message: 'Bokmarkerad',
+                      duration: 4
+                    });
+                  }}
                 duration={
                   video.type === 'video'
                     ? formatDuration(YTDurationToSeconds(video.duration))
@@ -130,8 +149,12 @@ const SearchPage = () => {
                         }
                         ctaIcon={'/svg/cross.svg'}
                         ctaAction={id => {
-
-                        }}
+                            toggleBookmark(video);
+                            setNotificationMessage({
+                              message: 'Bokmarkerad',
+                              duration: 4
+                            });
+                          }}
                         duration={
                         video.type === 'video'
                             ? formatDuration(YTDurationToSeconds(video.duration))
@@ -171,10 +194,22 @@ const SearchPage = () => {
                         mediaIcon={
                         video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
                         }
-                        ctaIcon={'/svg/bookmark.svg'}
+                        ctaIcon={
+                            JSON.parse(localStorage.getItem('userData')) &&
+                            JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                            JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                              bookmark => bookmark.id === video.id
+                            ).length > 0
+                              ? '/svg/bookmark-filled.svg'
+                              : '/svg/bookmark.svg'
+                          }
                         ctaAction={id => {
-
-                        }}
+                            toggleBookmark(video);
+                            setNotificationMessage({
+                              message: 'Bokmarkerad',
+                              duration: 4
+                            });
+                          }}
                         duration={
                         video.type === 'video'
                             ? formatDuration(YTDurationToSeconds(video.duration))

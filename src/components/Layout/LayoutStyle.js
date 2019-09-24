@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 export const LayoutStyle = styled.div`
 
+    overflow-y:${props => props.menuIsOpen ? 'hidden' : 'scroll'};
+    height:${props => props.menuIsOpen ? '87vh' : '100%'};
+
+
     & > section {
         padding:0 18px;
     }

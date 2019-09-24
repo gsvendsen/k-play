@@ -17,6 +17,28 @@ export const AudioPlayerStyle = styled.div`
   color: ${props => props.theme.colors.white};
   padding: 0 2%;
 
+  &  > section {
+      position:absolute;
+      width:100%;
+      height:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      z-index:-1;
+
+      & > aside {
+          width:100%;
+          height:100%;
+          background-color:rgba(0,0,0,0.5);
+          position:absolute; 
+      }
+
+      & > img {
+          position:absolute;
+          z-index:-5;
+      }
+  }
+
   a {
     width: 45%;
     font-size: 12px;
@@ -45,10 +67,10 @@ export const AudioPlayerStyle = styled.div`
     color: white;
     height: 35px;
     width: 35px;
+    background:none;
     /* border: ${props => (props.big ? 'none' : '1.5px solid white')}; */
     border: ${props => (props.big ? 'none' : 'none')};
     border-radius: 50%;
-    background: inherit;
     position: relative;
   }
 

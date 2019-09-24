@@ -20,7 +20,10 @@ const Layout = props => {
         <Link to="/">
           {props.location.pathname !== '/' &&
           props.location.pathname !== '/bookmarks' & props.location.pathname !== '/search' ? (
-            <img src="/svg/down-arrow.svg" alt="Go Back" />
+            <img style={{
+                opacity: menuIsOpen ? '0' : '1',
+                transition: 'opacity 0.20s 0.1s ease-in-out'
+              }} src="/svg/down-arrow.svg" alt="Go Back" />
           ) : (
             <img
               style={{

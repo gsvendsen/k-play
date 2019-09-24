@@ -133,6 +133,11 @@ const AudioPlayer = withCustomAudio(props => {
         15s
         <img src="/svg/forward15s.svg" alt="" />
       </button>
+      {props.big && 
+        <section>
+            <aside></aside>
+            <img src={data.thumbnail} alt="Ting" />
+        </section>}
       {props.big && <p>- {formatDuration(soundCloudAudio.audio.duration)}</p>}
     </AudioPlayerStyle>
   );
