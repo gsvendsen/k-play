@@ -14,7 +14,7 @@ export const OptionsStyle = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index:999;
+  z-index: 999;
 
   > section {
     padding: 0px 20px 30px 20px;
@@ -50,7 +50,7 @@ export const OptionsStyle = styled.section`
     background: ${props => props.theme.colors.grey};
 
     img {
-      margin:0 10px;
+      margin: 0 10px;
       transform: rotate(90deg);
     }
   }
@@ -59,6 +59,8 @@ export const OptionsStyle = styled.section`
     align-self: flex-start;
     color: ${props => props.theme.colors.white};
     font-size: 0.875rem;
+    background: ${props => props.theme.colors.grey};
+    border: none;
   }
 
   main {

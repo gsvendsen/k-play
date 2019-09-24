@@ -6,9 +6,9 @@ const Preferences = props => {
 
   return (
     <PreferencesStyle checked={isChecked}>
-      <div>
+      <div onClick={props.goBack}>
         <img src="/svg/down-arrow.svg" alt="" />
-        <button onClick={props.goBack}>Tillbaka till navigation</button>
+        <button>Tillbaka till navigation</button>
       </div>
       <section>
         <section>

@@ -4,9 +4,9 @@ import Switch from '../../components/Switch';
 import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
-  const [isLightMode, setIsLightMode] = useState(
-    localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
-  );
+  // const [isLightMode, setIsLightMode] = useState(
+  //   localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
+  // );
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
   const [rangePosition, setRangePosition] = useState(0);
 
@@ -30,16 +30,16 @@ const Options = props => {
     }
   };
 
-  useEffect(() => {
-    if (isLightMode) {
-      setIsLightMode(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (isLightMode) {
+  //     setIsLightMode(true);
+  //   }
+  // }, []);
   return (
     <OptionsStyle>
-      <div>
+      <div onClick={props.goBack}>
         <img src="/svg/down-arrow.svg" alt="" />
-        <button onClick={props.goBack}>Tillbaka till navigation</button>
+        <button>Tillbaka till navigation</button>
       </div>
       <section>
         <article>
