@@ -7,11 +7,16 @@ import MenuOption from '../../components/MenuOption';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 
-import {news, recommended, latest} from '../../data/startscreen.js'
+import { news, recommended, latest } from '../../data/startscreen.js';
 
-import {NotificationMessagesContext} from '../../contexts/NotificationMessagesContext'
+import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 
-import { formatDuration, YTDurationToSeconds, toggleBookmark, filterMediaTypes} from '../../helpers/functions';
+import {
+  formatDuration,
+  YTDurationToSeconds,
+  toggleBookmark,
+  filterMediaTypes
+} from '../../helpers/functions';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 const miniData = [...videos, ...tracks];
@@ -49,7 +54,7 @@ const StartPage = () => {
   }, [filterState]);
 
   return (
-    <div style={{padding: '30px 0 0 0' }}>
+    <div style={{ padding: '30px 0 0 0' }}>
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
           isActive={filterState === 'all'}
@@ -84,7 +89,9 @@ const StartPage = () => {
                 ctaAction={id => {
                   const updatedData = {
                     watchHistory: [
-                      ...JSON.parse(localStorage.getItem('userData')).watchHistory.filter(media => {
+                      ...JSON.parse(
+                        localStorage.getItem('userData')
+                      ).watchHistory.filter(media => {
                         return media.id !== id;
                       })
                     ]
@@ -123,9 +130,17 @@ const StartPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
                     message:'Bokmarkerad',
                     duration:4,
@@ -156,9 +171,17 @@ const StartPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
                     message:'Bokmarkerad',
                     duration:4,
@@ -189,9 +212,17 @@ const StartPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
                     message:'Bokmarkerad',
                     duration:4,

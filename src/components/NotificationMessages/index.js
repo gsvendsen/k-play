@@ -27,7 +27,7 @@ const NotificationMessages = props => {
           <img
             onClick={() => setNotificationMessage(null)}
             src="/svg/cross.svg"
-            alt="cross"
+            alt="close"
           />
         </Fragment>
       )}

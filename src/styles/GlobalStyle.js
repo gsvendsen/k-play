@@ -3,6 +3,9 @@ import { createGlobalStyle } from 'styled-components';
 import { AudioPlayerContext } from '../contexts/AudioPlayerContext';
 
 const GlobalStyle = createGlobalStyle`
+
+    @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500&display=swap');
+
     *,*::before,*::after {
         box-sizing: border-box;
         padding: 0;
@@ -14,8 +17,8 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-    padding: ${props => props.isAudioActive ? '50px 0 140px 0' : '50px 0'};
-    font-family: sans-serif;
+    padding: ${props => (props.isAudioActive ? '50px 0 140px 0' : '50px 0')};
+    font-family: 'IBM Plex Sans', sans-serif;
     background-color: ${props => props.theme.colors.black};
     }
 

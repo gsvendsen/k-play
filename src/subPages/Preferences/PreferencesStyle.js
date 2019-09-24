@@ -10,14 +10,14 @@ export const PreferencesStyle = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  z-index:999;
+  z-index: 999;
 
   div {
     padding: 20px 20px 20px 10px;
     background: ${props => props.theme.colors.grey};
 
     img {
-      margin:0 10px;
+      margin: 0 10px;
       transform: rotate(90deg);
     }
   }
@@ -26,6 +26,8 @@ export const PreferencesStyle = styled.section`
     align-self: flex-start;
     color: ${props => props.theme.colors.white};
     font-size: 0.875rem;
+    border: none;
+    background: ${props => props.theme.colors.grey};
   }
 
   > section {

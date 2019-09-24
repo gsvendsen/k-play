@@ -19,17 +19,17 @@ export const EventsStyle = styled.section`
     flex-direction: column;
 
     & > article {
-        display:flex;
-        justify-content:space-between;
-        padding:40px 20px;
+      display: flex;
+      justify-content: space-between;
+      padding: 40px 20px;
 
-        border-bottom:1px solid ${props => props.theme.colors.white};
+      border-bottom: 1px solid ${props => props.theme.colors.white};
 
-        & > img {
-            transform:rotate(-90deg);
-        }
+      & > img {
+        transform: rotate(-90deg);
+      }
     }
-}
+  }
 
   h2 {
     color: ${props => props.theme.colors.white};
@@ -65,6 +65,7 @@ export const EventsStyle = styled.section`
     align-self: flex-start;
     color: ${props => props.theme.colors.white};
     font-size: 0.875rem;
+    border: none;
+    background: ${props => props.theme.colors.grey};
   }
-
 `;

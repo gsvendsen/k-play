@@ -4,42 +4,35 @@ import Switch from '../../components/Switch';
 import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
-  const [isLightMode, setIsLightMode] = useState(
-    localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
-  );
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
-  const [rangePosition, setRangePosition] = useState(0);
-
-  useEffect(() => {
-    if (rangePosition <= 25) {
-      setFontSizeState(16);
-    } else if (rangePosition > 25 && rangePosition <= 75) {
-      setFontSizeState(18);
-    } else if (rangePosition > 75) {
-      setFontSizeState(20);
-    }
-  }, [rangePosition]);
+  const [rangePosition, setRangePosition] = useState(
+    fontSizeState === 16
+      ? 0
+      : fontSizeState === 18
+      ? 50
+      : fontSizeState === 20
+      ? 100
+      : 0
+  );
 
   const snapRange = () => {
     if (rangePosition <= 25) {
       setRangePosition(0);
+      setFontSizeState(16);
     } else if (rangePosition > 25 && rangePosition <= 75) {
       setRangePosition(50);
+      setFontSizeState(18);
     } else if (rangePosition > 75) {
       setRangePosition(100);
+      setFontSizeState(20);
     }
   };
 
-  useEffect(() => {
-    if (isLightMode) {
-      setIsLightMode(true);
-    }
-  }, []);
   return (
     <OptionsStyle>
-      <div>
+      <div onClick={props.goBack}>
         <img src="/svg/down-arrow.svg" alt="" />
-        <button onClick={props.goBack}>Tillbaka till navigation</button>
+        <button>Tillbaka till navigation</button>
       </div>
       <section>
         <article>

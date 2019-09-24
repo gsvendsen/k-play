@@ -57,10 +57,23 @@ export const NavbarStyle = styled.nav`
   li {
     color: ${props => props.theme.colors.white};
     font-size: 1rem;
-    list-style-type: circle;
-    list-style-position: inside;
+    list-style:none;
     margin-bottom: 25px;
     animation: ${props => props.isTouched && 'fade-in 0.7s ease-in-out'};
+    position:relative;
+    padding:0 0 0 15px;
+
+    ::before {
+      display:block;
+      content:'';
+      position:absolute;
+      top:6.5px;
+      left:0px;
+      height:8px;
+      width:8px;
+      border:white solid 1px;
+      border-radius:50%;
+    }
   }
 
   @keyframes fade-in {
