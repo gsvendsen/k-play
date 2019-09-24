@@ -27,7 +27,7 @@ export const PreferencesStyle = styled.section`
     color: ${props => props.theme.colors.white};
     font-size: 0.875rem;
     border: none;
-    backgrond: ${props => props.theme.colors.grey};
+    background: ${props => props.theme.colors.grey};
   }
 
   > section {

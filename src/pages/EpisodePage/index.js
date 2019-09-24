@@ -8,7 +8,11 @@ import MediaCard from '../../components/MediaCard';
 import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
-import { formatDuration, YTDurationToSeconds, toggleBookmark } from '../../helpers/functions';
+import {
+  formatDuration,
+  YTDurationToSeconds,
+  toggleBookmark
+} from '../../helpers/functions';
 
 const EpisodePage = props => {
   const megaData = [...tracks, ...videos];
@@ -81,7 +85,7 @@ const EpisodePage = props => {
   }, [videoPlayer, videoDuration, localData]);
 
   return (
-    <div style={{minHeight:'100vh'}}>
+    <div style={{ minHeight: '100vh' }}>
       {mediaData === undefined ? (
         <p
           style={{
@@ -127,7 +131,6 @@ const EpisodePage = props => {
                   alignItems: 'center'
                 }}
                 onClick={() => {
-
                   fetch(
                     `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
                   ).then(res => {
@@ -152,16 +155,15 @@ const EpisodePage = props => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    padding:'1px 4px 0 0'
+                    padding: '1px 4px 0 0'
                   }}
-
                   onClick={() => {
                     fetch(
                       `https://api.soundcloud.com/tracks/${mediaData.id}/stream?client_id=1zsDz22qtfrlBg2rdkko9EahD3GiJ996`
                     ).then(res => {
                       // TEMPORÄR CONTEXT STRUKTUR
                       setAudioPlayerUrl(null);
-  
+
                       setTimeout(() => {
                         setAudioPlayerUrl({
                           audioData: mediaData,
@@ -179,17 +181,25 @@ const EpisodePage = props => {
           <VideoDescriptionStyle>
             <aside>
               <h1>{mediaData.title}</h1>
-                <img
-                  onClick={() => {
-                    toggleBookmark(mediaData)
-                    setNotificationMessage({
-                      message: 'Bookmarked!',
-                      duration: 4
-                    });
-                  }}
-                  src={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === parseInt(mediaData.id)).length > 0 ? '/svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
-                  alt="Bookmark"
-                />
+              <img
+                onClick={() => {
+                  toggleBookmark(mediaData);
+                  setNotificationMessage({
+                    message: 'Bookmarked!',
+                    duration: 4
+                  });
+                }}
+                src={
+                  JSON.parse(localStorage.getItem('userData')) &&
+                  JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                  JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                    bookmark => bookmark.id === mediaData.id
+                  ).length > 0
+                    ? '/svg/bookmark-filled.svg'
+                    : '/svg/bookmark.svg'
+                }
+                alt="Bookmark"
+              />
             </aside>
             <h4>
               Torsdag 12 sep 12.00 -{' '}
@@ -208,8 +218,23 @@ const EpisodePage = props => {
               title={video.title}
               data={video}
               url={`/avsnitt/${video.id}`}
-              mediaIcon={'/svg/video.png'}
-              ctaIcon={'/svg/bookmark.svg'}
+              mediaIcon={'/svg/video.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? '/svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
+              ctaAction={id => {
+                toggleBookmark(video);
+                setNotificationMessage({
+                  message: 'Bokmarkerad',
+                  duration: 4
+                });
+              }}
               duration={formatDuration(YTDurationToSeconds(video.duration))}
               height="100%"
               margin="0% 5% 0 0"
