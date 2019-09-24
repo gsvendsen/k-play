@@ -111,7 +111,7 @@ const SearchPage = () => {
               ></MediaCard>
             );
           })}
-          {filterMediaTypes(filterState, searchResults).length === 0 && <p style={{color:'white'}}>Inga Resultat</p>}
+          {filterMediaTypes(filterState, searchResults).length === 0 && <p style={{color:'#666', fontSize:'0.95rem'}}>Inga resultat.</p>}
 
         </SideScrollContainer>
         </div>

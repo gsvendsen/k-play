@@ -38,7 +38,7 @@ const Layout = props => {
         />
         
         <article />
-        <Navbar open={menuIsOpen} />
+        <Navbar menuIsOpen={{menuIsOpen, setMenuIsOpen}} open={menuIsOpen} />
       </header>
 
       <section>{props.children}</section>

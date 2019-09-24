@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { NavbarStyle } from './NavbarStyle';
 import Options from '../../subPages/Options';
 import Preferences from '../../subPages/Preferences';
@@ -8,6 +9,8 @@ const Navbar = props => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isTouched, setIsTouched] = useState(false);
   const [selectedPage, setSelectedPage] = useState(null);
+
+  const {menuIsOpen, setMenuIsOpen} = props.menuIsOpen
 
   return (
     <Fragment>
@@ -35,11 +38,11 @@ const Navbar = props => {
             </p>
             {isExpanded && (
               <div>
-                <li>Scenkonst</li>
-                <li>Film, Foto och Radio</li>
-                <li>Juridik & Ekonomi</li>
-                <li>Kreativitet och Personlig Utveckling</li>
-                <li>Normer, Genus & Kultur</li>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Scenkonst</li></Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Film, Foto och Radio</li></Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Juridik & Ekonomi</li></Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Kreativitet och Personlig Utveckling</li></Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Normer, Genus & Kultur</li></Link>
               </div>
             )}
           </div>

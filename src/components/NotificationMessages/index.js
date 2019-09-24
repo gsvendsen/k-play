@@ -10,18 +10,20 @@ const NotificationMessages = props => {
 
   useEffect(() => {
     if (notificationMessage) {
-      setTimeout(() => {
+       setTimeout(() => {
         setNotificationMessage(null);
       }, notificationMessage.duration * 1000 + 420);
+
     }
+
   }, [notificationMessage]);
 
   return (
     <NotificationMessagesStyle isActive={notificationMessage}>
       {notificationMessage && (
         <Fragment>
-          <img src="/svg/bookmark.svg" alt="Ikon" />
-          <h3>{notificationMessage.message}</h3>
+          <img src={notificationMessage.icon ? notificationMessage.icon : 'svg/home.svg'} alt="Ikon" />
+          <h3>{notificationMessage.message && notificationMessage.message}</h3>
           <img
             onClick={() => setNotificationMessage(null)}
             src="/svg/cross.svg"

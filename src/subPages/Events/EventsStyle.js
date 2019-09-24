@@ -10,6 +10,7 @@ export const EventsStyle = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  z-index:999;
 
   > section {
     padding: 0px 0px 30px 0px;
@@ -55,7 +56,7 @@ export const EventsStyle = styled.section`
     background: ${props => props.theme.colors.grey};
 
     img {
-        margin:0 10px;
+      margin:0 10px;
       transform: rotate(90deg);
     }
   }

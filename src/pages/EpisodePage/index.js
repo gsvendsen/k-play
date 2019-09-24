@@ -4,6 +4,7 @@ import { NotificationMessagesContext } from '../../contexts/NotificationMessages
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 import VideoContainer from '../../components/VideoContainer';
 import SideScrollContainer from '../../components/SideScrollContainer';
+import RedirectBox from '../../components/RedirectBox';
 import MediaCard from '../../components/MediaCard';
 import { VideoDescriptionStyle } from './VideoDescriptionStyle';
 import videos from '../../data/youtube.json';
@@ -196,6 +197,7 @@ const EpisodePage = props => {
               {videoDuration && formatDuration(videoDuration)}
             </h4>
             <p>{mediaData.description}</p>
+            <RedirectBox title="Kursmaterial" href="https://www.kursmateriallank.se/material" linkTitle="www.kursmateriallank.se/material"></RedirectBox>
           </VideoDescriptionStyle>
         </VideoContainer>
       )}
@@ -208,7 +210,7 @@ const EpisodePage = props => {
               title={video.title}
               data={video}
               url={`/avsnitt/${video.id}`}
-              mediaIcon={'/svg/video.png'}
+              mediaIcon={'/svg/video.svg'}
               ctaIcon={'/svg/bookmark.svg'}
               duration={formatDuration(YTDurationToSeconds(video.duration))}
               height="100%"

@@ -72,13 +72,16 @@ export const toggleBookmark = (data) => {
     }
   
     localStorage.setItem('userData', JSON.stringify(newUpdatedData))  
+
   } else {
+    
     const newUpdatedData = {
       watchHistory: currentLocalData.watchHistory,
       bookmarks: currentLocalData.bookmarks.filter(bookmark => bookmark.id !== data.id)
     }
   
     localStorage.setItem('userData', JSON.stringify(newUpdatedData)) 
+
   }
 
 }

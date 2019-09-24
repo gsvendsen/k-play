@@ -15,9 +15,8 @@ import { formatDuration, YTDurationToSeconds, toggleBookmark, filterMediaTypes} 
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 const miniData = [...videos, ...tracks];
-let megaData = miniData;
 
-const StartPage = () => {
+const CategoryPage = () => {
   const [filterState, setFilterState] = useState('all');
   const { notificationMessage, setNotificationMessage } = useContext(
     NotificationMessagesContext
@@ -67,49 +66,22 @@ const StartPage = () => {
           title="Videos"
         />
       </div>
-      {watchedVideos.length > 0 && (
-        <SideScrollContainer label="Fortsätt spelning">
-          {watchedVideos.map(video => {
-            return (
-              <MediaCard
-                key={video.id}
-                id={video.id}
-                title={video.title}
-                data={video}
-                url={`/avsnitt/${video.id}`}
-                mediaIcon={
-                  video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
-                }
-                ctaIcon={'/svg/cross.svg'}
-                ctaAction={id => {
-                  const updatedData = {
-                    watchHistory: [
-                      ...JSON.parse(localStorage.getItem('userData')).watchHistory.filter(media => {
-                        return media.id !== id;
-                      })
-                    ]
-                  };
 
-                  localStorage.setItem('userData', JSON.stringify(updatedData));
-
-                  setWatchedVideos(
-                    watchedVideos.filter(video => {
-                      return video.id !== id;
-                    })
-                  );
-                }}
-                duration={
-                  video.type === 'video'
-                    ? formatDuration(YTDurationToSeconds(video.duration))
-                    : formatDuration(video.duration / 1000)
-                }
-                height="100%"
-                margin="0% 5% 0 0"
-              ></MediaCard>
-            );
-          })}
-        </SideScrollContainer>
-      )}
+      <h1 style={{
+        fontWeight: '500',
+        fontSize: '20px',
+        lineHeight: '119.5%',
+        letterSpacing: '0.01em',
+        color: '#FFFFFF'
+      }}>Musik och sånggestaltning</h1>
+      <h2 style={{
+        fontWeight: 'normal',
+        fontSize: '18px',
+        lineHeight: '23px',
+        letterSpacing: '0.03em',
+        color: '#FFFFFF',
+        margin:'10px 0 40px 0'
+      }}>Underkategori </h2>
 
       <SideScrollContainer label="Nyheter">
         {filterMediaTypes(filterState, news).map(video => {
@@ -128,8 +100,7 @@ const StartPage = () => {
                 toggleBookmark(video)
                 setNotificationMessage({
                     message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
+                    duration:4
                 })
               }}
               duration={
@@ -144,7 +115,7 @@ const StartPage = () => {
         })}
       </SideScrollContainer>
 
-      <SideScrollContainer label="Senaste">
+      <SideScrollContainer label="Underkategori">
         {filterMediaTypes(filterState, latest).map(video => {
           return (
             <MediaCard
@@ -161,8 +132,7 @@ const StartPage = () => {
                 toggleBookmark(video)
                 setNotificationMessage({
                     message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
+                    duration:4
                 })
               }}
               duration={
@@ -194,8 +164,7 @@ const StartPage = () => {
                 toggleBookmark(video)
                 setNotificationMessage({
                     message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
+                    duration:4
                 })
               }}
               duration={
@@ -213,4 +182,4 @@ const StartPage = () => {
   );
 };
 
-export default StartPage;
+export default CategoryPage;

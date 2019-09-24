@@ -24,6 +24,7 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontSizeContext } from './contexts/FontSizeContext';
+import CategoryPage from './pages/CategoryPage';
 
 const data = [playlists, youtube, tracks].flat();
 
@@ -91,6 +92,7 @@ const App = ({ history }) => {
                       <Route path="/avsnitt" component={EpisodePage} />
                       <Route path="/bookmarks" component={BookmarksPage} />
                       <Route path="/search" component={SearchPage} />
+                      <Route path="/category" component={CategoryPage} />
                       <Route component={NotFoundPage}/>
                     </Switch>
                   </CSSTransition>
