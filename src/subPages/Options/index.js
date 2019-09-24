@@ -5,25 +5,26 @@ import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
-  const [rangePosition, setRangePosition] = useState(0);
-
-  useEffect(() => {
-    if (rangePosition <= 25) {
-      setFontSizeState(16);
-    } else if (rangePosition > 25 && rangePosition <= 75) {
-      setFontSizeState(18);
-    } else if (rangePosition > 75) {
-      setFontSizeState(20);
-    }
-  }, [rangePosition]);
+  const [rangePosition, setRangePosition] = useState(
+    fontSizeState === 16
+      ? 0
+      : fontSizeState === 18
+      ? 50
+      : fontSizeState === 20
+      ? 100
+      : 0
+  );
 
   const snapRange = () => {
     if (rangePosition <= 25) {
       setRangePosition(0);
+      setFontSizeState(16);
     } else if (rangePosition > 25 && rangePosition <= 75) {
       setRangePosition(50);
+      setFontSizeState(18);
     } else if (rangePosition > 75) {
       setRangePosition(100);
+      setFontSizeState(20);
     }
   };
 
@@ -50,7 +51,6 @@ const Options = props => {
               utseende.
             </p>
             <Switch
-              // disabled={localStorage.getItem('highContrastMode') === 'true'}
               toggled={
                 localStorage.getItem('lightMode')
                   ? localStorage.getItem('lightMode') === 'true'
@@ -66,7 +66,6 @@ const Options = props => {
           <main>
             <p>Aktivera ett läge för bättre kontrast.</p>
             <Switch
-              // disabled={localStorage.getItem('lightMode') === 'true'}
               toggled={
                 localStorage.getItem('highContrastMode')
                   ? localStorage.getItem('highContrastMode') === 'true'
