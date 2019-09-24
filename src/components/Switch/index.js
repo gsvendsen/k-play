@@ -20,19 +20,27 @@ const Switch = props => {
     <SwitchStyle
       toggle={isToggled}
       onClick={() => {
-        setIsToggled(!isToggled);
-        if (!isToggled) {
-          setThemeState(
+        if (
+          localStorage.getItem(
             props.localStorage === 'lightMode'
-              ? bright
-              : props.localStorage === 'highContrastMode'
-              ? contrast
-              : main
-          );
-        }
+              ? 'highContrastMode'
+              : 'lightMode'
+          ) === 'false'
+        ) {
+          setIsToggled(!isToggled);
+          if (!isToggled) {
+            setThemeState(
+              props.localStorage === 'lightMode'
+                ? bright
+                : props.localStorage === 'highContrastMode'
+                ? contrast
+                : main
+            );
+          }
 
-        if (isToggled) {
-          setThemeState(main);
+          if (isToggled) {
+            setThemeState(main);
+          }
         }
       }}
     >

@@ -4,9 +4,6 @@ import Switch from '../../components/Switch';
 import { FontSizeContext } from '../../contexts/FontSizeContext';
 
 const Options = props => {
-  // const [isLightMode, setIsLightMode] = useState(
-  //   localStorage.getItem('lightMode') ? localStorage.getItem('ligtMode') : null
-  // );
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
   const [rangePosition, setRangePosition] = useState(0);
 
@@ -30,11 +27,6 @@ const Options = props => {
     }
   };
 
-  // useEffect(() => {
-  //   if (isLightMode) {
-  //     setIsLightMode(true);
-  //   }
-  // }, []);
   return (
     <OptionsStyle>
       <div onClick={props.goBack}>
@@ -58,6 +50,7 @@ const Options = props => {
               utseende.
             </p>
             <Switch
+              // disabled={localStorage.getItem('highContrastMode') === 'true'}
               toggled={
                 localStorage.getItem('lightMode')
                   ? localStorage.getItem('lightMode') === 'true'
@@ -73,6 +66,7 @@ const Options = props => {
           <main>
             <p>Aktivera ett läge för bättre kontrast.</p>
             <Switch
+              // disabled={localStorage.getItem('lightMode') === 'true'}
               toggled={
                 localStorage.getItem('highContrastMode')
                   ? localStorage.getItem('highContrastMode') === 'true'

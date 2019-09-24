@@ -14,7 +14,7 @@ export const SwitchStyle = styled.aside`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #fff;
+    background: ${props => (props.diabled ? '#444' : '#fff')};
     position: absolute;
     padding: 0;
     left: ${props => (props.toggle ? '22px' : '0')};
