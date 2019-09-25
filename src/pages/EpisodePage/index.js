@@ -48,6 +48,14 @@ const EpisodePage = props => {
       : null
   );
 
+  let date = new Date(mediaData.date);
+  let options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+
   useEffect(() => {
     setInterval(() => {
       if (videoPlayer && videoPlayer.a && videoPlayer.getPlayerState() === 1) {
@@ -215,8 +223,12 @@ const EpisodePage = props => {
               />
             </aside>
             <h4>
-              Torsdag 12 sep 12.00 -{' '}
-              {videoDuration && formatDuration(videoDuration)} min
+              {date
+                .toLocaleDateString('sv-SV', options)
+                .charAt(0)
+                .toUpperCase() +
+                date.toLocaleDateString('sv-SV', options).slice(1)}{' '}
+              - {videoDuration && formatDuration(videoDuration)} min
             </h4>
             <p>{mediaData.description}</p>
             <RedirectBox
