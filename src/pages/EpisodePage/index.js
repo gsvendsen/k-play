@@ -186,7 +186,7 @@ const EpisodePage = props => {
                 onClick={() => {
                   toggleBookmark(mediaData);
                   setNotificationMessage({
-                    message: 'Bookmarked!',
+                    message: 'Videon har sparats till ditt bibliotek',
                     duration: 4
                   });
                 }}
@@ -207,7 +207,11 @@ const EpisodePage = props => {
               {videoDuration && formatDuration(videoDuration)}
             </h4>
             <p>{mediaData.description}</p>
-            <RedirectBox title="Kursmaterial" href="https://www.kursmateriallank.se/material" linkTitle="www.kursmateriallank.se/material"></RedirectBox>
+            <RedirectBox
+              title="Kursmaterial"
+              href="https://www.kursmateriallank.se/material"
+              linkTitle="www.kursmateriallank.se/material"
+            ></RedirectBox>
           </VideoDescriptionStyle>
         </VideoContainer>
       )}
@@ -233,7 +237,7 @@ const EpisodePage = props => {
               ctaAction={id => {
                 toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Bokmarkerad',
+                  message: 'Videon har sparats till ditt bibliotek',
                   duration: 4
                 });
               }}

@@ -14,9 +14,6 @@ export const NavbarStyle = styled.nav`
   flex-direction: column;
   justify-content: space-between;
 
-  p:first-of-type {
-    border-bottom: 1px solid ${props => props.theme.colors.white};
-  }
   p {
     padding-bottom: 8px;
     margin-bottom: 25px;
@@ -46,33 +43,77 @@ export const NavbarStyle = styled.nav`
       bottom: -5px;
       left: 0;
       transition: all 0.5s ease-in;
-      width: ${props => (props.isExpanded ? '20%' : '100%')};
+      width: ${props => (props.isExpanded.two ? '20%' : '100%')};
       background: ${props =>
-        props.isExpanded
+        props.isExpanded.two
           ? props.theme.colors.orange
           : props.theme.colors.white};
+    }
+
+    img {
+      position: absolute;
+      transform: ${props =>
+        props.isExpanded.two ? 'rotateX(180deg)' : 'rotateX(0deg)'};
+
+      transition: transform 0.2s ease-in;
+      right: 0;
+      bottom: 10px;
+    }
+  }
+
+  p:first-of-type {
+    font-size: 1.125rem;
+    color: ${props => props.theme.colors.white};
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    position: relative;
+
+    ::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 2px;
+      bottom: -5px;
+      bottom: -5px;
+      left: 0;
+      transition: all 0.5s ease-in;
+      width: ${props => (props.isExpanded.one ? '20%' : '100%')};
+      background: ${props =>
+        props.isExpanded.one
+          ? props.theme.colors.orange
+          : props.theme.colors.white};
+    }
+
+    img {
+      position: absolute;
+      transform: ${props =>
+        props.isExpanded.one ? 'rotateX(180deg)' : 'rotateX(0deg)'};
+
+      transition: transform 0.2s ease-in;
+      right: 0;
+      bottom: 10px;
     }
   }
 
   li {
     color: ${props => props.theme.colors.white};
     font-size: 1rem;
-    list-style:none;
+    list-style: none;
     margin-bottom: 25px;
     animation: ${props => props.isTouched && 'fade-in 0.7s ease-in-out'};
-    position:relative;
-    padding:0 0 0 15px;
+    position: relative;
+    padding: 0 0 0 15px;
 
     ::before {
-      display:block;
-      content:'';
-      position:absolute;
-      top:6.5px;
-      left:0px;
-      height:8px;
-      width:8px;
-      border:white solid 1px;
-      border-radius:50%;
+      display: block;
+      content: '';
+      position: absolute;
+      top: 6.5px;
+      left: 0px;
+      height: 8px;
+      width: 8px;
+      border: white solid 1px;
+      border-radius: 50%;
     }
   }
 
@@ -84,16 +125,6 @@ export const NavbarStyle = styled.nav`
     to {
       opacity: 1;
     }
-  }
-
-  p > img {
-    position: absolute;
-    transform: ${props =>
-      props.isExpanded ? 'rotateX(180deg)' : 'rotateX(0deg)'};
-
-    transition: transform 0.2s ease-in;
-    right: 0;
-    bottom: 10px;
   }
 
   img {
