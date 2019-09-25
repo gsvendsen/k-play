@@ -235,6 +235,10 @@ const EpisodePage = props => {
               min
             </h4>
             <p>{mediaData.description}</p>
+            <p>
+              <img src="/svg/share.svg" alt="" />
+              Dela avsnitt
+            </p>
             <RedirectBox
               title="Kursmaterial"
               href="https://www.kursmateriallank.se/material"
