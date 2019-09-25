@@ -184,10 +184,22 @@ const EpisodePage = props => {
               <h1>{mediaData.title}</h1>
               <img
                 onClick={() => {
-                  toggleBookmark(mediaData);
+                  let bookmarked = toggleBookmark(mediaData);
                   setNotificationMessage({
-                    message: 'Videon har sparats till ditt bibliotek',
-                    duration: 4
+                    message: bookmarked
+                      ? 'Videon har sparats till ditt bibliotek'
+                      : 'Videon har tagits bort från ditt bibliotek',
+                    duration: 4,
+                    icon:
+                      JSON.parse(localStorage.getItem('userData')) &&
+                      JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                      JSON.parse(
+                        localStorage.getItem('userData')
+                      ).bookmarks.filter(
+                        bookmark => bookmark.id === mediaData.id
+                      ).length > 0
+                        ? '/svg/bookmark-filled.svg'
+                        : '/svg/bookmark.svg'
                   });
                 }}
                 src={
@@ -235,10 +247,21 @@ const EpisodePage = props => {
                   : '/svg/bookmark.svg'
               }
               ctaAction={id => {
-                toggleBookmark(video);
+                let bookmarked = toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Videon har sparats till ditt bibliotek',
-                  duration: 4
+                  message: bookmarked
+                    ? 'Videon har sparats till ditt bibliotek'
+                    : 'Videon har tagits bort från ditt bibliotek',
+                  duration: 4,
+                  icon:
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(
+                      localStorage.getItem('userData')
+                    ).bookmarks.filter(bookmark => bookmark.id === video.id)
+                      .length > 0
+                      ? './svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
                 });
               }}
               duration={formatDuration(YTDurationToSeconds(video.duration))}
