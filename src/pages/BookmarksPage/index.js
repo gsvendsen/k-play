@@ -1,24 +1,30 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 
-import MenuOption from '../../components/MenuOption'
-import MediaCard from '../../components/MediaCard'
+import MenuOption from '../../components/MenuOption';
+import MediaCard from '../../components/MediaCard';
 
-import videos from '../../data/youtube.json'
-import { formatDuration, YTDurationToSeconds, toggleBookmark } from '../../helpers/functions';
-import {NotificationMessagesContext} from '../../contexts/NotificationMessagesContext'
+import videos from '../../data/youtube.json';
+import {
+  formatDuration,
+  YTDurationToSeconds,
+  toggleBookmark
+} from '../../helpers/functions';
+import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 
 const BookmarksPage = () => {
-
   const { notificationMessage, setNotificationMessage } = useContext(
     NotificationMessagesContext
   );
 
-  let megaData = JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks  ? JSON.parse(localStorage.getItem('userData')).bookmarks : []
+  let megaData =
+    JSON.parse(localStorage.getItem('userData')) &&
+    JSON.parse(localStorage.getItem('userData')).bookmarks
+      ? JSON.parse(localStorage.getItem('userData')).bookmarks
+      : [];
 
   const [filterState, setFilterState] = useState('all');
 
-    console.log(megaData);
-    
+  console.log(megaData);
 
   // Filter Type of media
   megaData = megaData.filter(item => {
@@ -34,10 +40,9 @@ const BookmarksPage = () => {
       return true;
     }
   });
-  
 
   return (
-    <div style={{minHeight:'100vh', padding: '30px 0 0 0' }}>
+    <div style={{ minHeight: '100vh', padding: '30px 0 0 0' }}>
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
           isActive={filterState === 'all'}
@@ -56,14 +61,16 @@ const BookmarksPage = () => {
         />
       </div>
 
-      
-      <h2 style={{
-        fontSize: '16px',
-        lineHeight: '21px',
-        fontWeight:'normal',
-        color: '#FFFFFF'
-      }}>
-        {megaData.length > 0 ? 'Dina bokmärken' : 'Inga bokmärken fanns'}</h2>
+      <h2
+        style={{
+          fontSize: '16px',
+          lineHeight: '21px',
+          fontWeight: 'normal',
+          color: '#FFFFFF'
+        }}
+      >
+        {megaData.length > 0 ? 'Dina bokmärken' : 'Inga bokmärken fanns'}
+      </h2>
       <div>
         {megaData.map(video => {
           return (
@@ -79,11 +86,11 @@ const BookmarksPage = () => {
               }
               ctaIcon={'/svg/cross.svg'}
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkering Borta!',
-                    duration:4
-                })
+                  message: 'Videon har tagits bort från ditt bibliotek',
+                  duration: 4
+                });
               }}
               duration={
                 video.type === 'video'
@@ -98,6 +105,6 @@ const BookmarksPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default BookmarksPage;

@@ -142,10 +142,18 @@ const StartPage = () => {
               ctaAction={id => {
                 toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4,
+                  icon:
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(
+                      localStorage.getItem('userData')
+                    ).bookmarks.filter(bookmark => bookmark.id === video.id)
+                      .length > 0
+                      ? './svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
+                });
               }}
               duration={
                 video.type === 'video'
@@ -183,10 +191,18 @@ const StartPage = () => {
               ctaAction={id => {
                 toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4,
+                  icon:
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(
+                      localStorage.getItem('userData')
+                    ).bookmarks.filter(bookmark => bookmark.id === video.id)
+                      .length > 0
+                      ? './svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
+                });
               }}
               duration={
                 video.type === 'video'
@@ -224,10 +240,18 @@ const StartPage = () => {
               ctaAction={id => {
                 toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4,
-                    icon: JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4,
+                  icon:
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(
+                      localStorage.getItem('userData')
+                    ).bookmarks.filter(bookmark => bookmark.id === video.id)
+                      .length > 0
+                      ? './svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
+                });
               }}
               duration={
                 video.type === 'video'

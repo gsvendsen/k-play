@@ -38,7 +38,7 @@ const Layout = props => {
           toggle={() => setMenuIsOpen(!menuIsOpen)}
         />
 
-        <article />
+        <article onClick={() => setMenuIsOpen(false)} />
         <Navbar menuIsOpen={{ menuIsOpen, setMenuIsOpen }} open={menuIsOpen} />
       </header>
 
@@ -55,7 +55,7 @@ const Layout = props => {
       {/* Om context variable innehåller data object för pop up messages*/}
       <NotificationMessages />
 
-      <footer>
+      <footer className="footer">
         <Link to="/">
           {props.history.location.pathname === '/' ? (
             <img src="/svg/home-filled.svg" alt="Home" />

@@ -6,11 +6,14 @@ import Preferences from '../../subPages/Preferences';
 import Events from '../../subPages/Events';
 
 const Navbar = props => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState({
+    one: false,
+    two: true
+  });
   const [isTouched, setIsTouched] = useState(false);
   const [selectedPage, setSelectedPage] = useState(null);
 
-  const {menuIsOpen, setMenuIsOpen} = props.menuIsOpen
+  const { menuIsOpen, setMenuIsOpen } = props.menuIsOpen;
 
   return (
     <Fragment>
@@ -26,23 +29,60 @@ const Navbar = props => {
               width: '100%'
             }}
           >
-            <p onClick={() => setSelectedPage('events')}>Events</p>
             <p
               onClick={() => {
-                setIsExpanded(!isExpanded);
+                setIsExpanded({ one: !isExpanded.one, two: isExpanded.two });
+                setIsTouched(true);
+              }}
+            >
+              Events
+              <img src="/svg/down-arrow.svg" alt="" />
+            </p>
+            {isExpanded.one === true && (
+              <div>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Göteborgs Filmfestival 2019</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Scenkonstbiennalen 2019</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>TV Drama Vision 2019</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Nordisk Film & Tv Fond Prize</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Audiovisual days 2018</li>
+                </Link>
+              </div>
+            )}
+            <p
+              onClick={() => {
+                setIsExpanded({ two: !isExpanded.two, one: isExpanded.one });
                 setIsTouched(true);
               }}
             >
               Ämnen
               <img src="/svg/down-arrow.svg" alt="" />
             </p>
-            {isExpanded && (
+            {isExpanded.two === true && (
               <div>
-                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Scenkonst</li></Link>
-                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Film, Foto och Radio</li></Link>
-                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Juridik & Ekonomi</li></Link>
-                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Kreativitet och Personlig Utveckling</li></Link>
-                <Link onClick={() => setMenuIsOpen(false)} to="/category"><li>Normer, Genus & Kultur</li></Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Scenkonst</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Film, Foto och Radio</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Juridik & Ekonomi</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Kreativitet och Personlig Utveckling</li>
+                </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Normer, Genus & Kultur</li>
+                </Link>
               </div>
             )}
           </div>

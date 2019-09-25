@@ -7,11 +7,16 @@ import MenuOption from '../../components/MenuOption';
 import videos from '../../data/youtube.json';
 import tracks from '../../data/tracks.json';
 
-import {news, recommended, latest} from '../../data/startscreen.js'
+import { news, recommended, latest } from '../../data/startscreen.js';
 
-import {NotificationMessagesContext} from '../../contexts/NotificationMessagesContext'
+import { NotificationMessagesContext } from '../../contexts/NotificationMessagesContext';
 
-import { formatDuration, YTDurationToSeconds, toggleBookmark, filterMediaTypes} from '../../helpers/functions';
+import {
+  formatDuration,
+  YTDurationToSeconds,
+  toggleBookmark,
+  filterMediaTypes
+} from '../../helpers/functions';
 import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 const miniData = [...videos, ...tracks];
@@ -48,7 +53,7 @@ const CategoryPage = () => {
   }, [filterState]);
 
   return (
-    <div style={{padding: '30px 0 0 0' }}>
+    <div style={{ padding: '30px 0 0 0' }}>
       <div style={{ display: 'flex', margin: '0 0 20px 0' }}>
         <MenuOption
           isActive={filterState === 'all'}
@@ -67,21 +72,29 @@ const CategoryPage = () => {
         />
       </div>
 
-      <h1 style={{
-        fontWeight: '500',
-        fontSize: '20px',
-        lineHeight: '119.5%',
-        letterSpacing: '0.01em',
-        color: '#FFFFFF'
-      }}>Musik och sånggestaltning</h1>
-      <h2 style={{
-        fontWeight: 'normal',
-        fontSize: '18px',
-        lineHeight: '23px',
-        letterSpacing: '0.03em',
-        color: '#FFFFFF',
-        margin:'10px 0 40px 0'
-      }}>Underkategori </h2>
+      <h1
+        style={{
+          fontWeight: '500',
+          fontSize: '20px',
+          lineHeight: '119.5%',
+          letterSpacing: '0.01em',
+          color: '#FFFFFF'
+        }}
+      >
+        Musik och sånggestaltning
+      </h1>
+      <h2
+        style={{
+          fontWeight: 'normal',
+          fontSize: '18px',
+          lineHeight: '23px',
+          letterSpacing: '0.03em',
+          color: '#FFFFFF',
+          margin: '10px 0 40px 0'
+        }}
+      >
+        Underkategori{' '}
+      </h2>
 
       <SideScrollContainer label="Nyheter">
         {filterMediaTypes(filterState, news).map(video => {
@@ -95,13 +108,21 @@ const CategoryPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4
+                });
               }}
               duration={
                 video.type === 'video'
@@ -127,13 +148,21 @@ const CategoryPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4
+                });
               }}
               duration={
                 video.type === 'video'
@@ -159,13 +188,21 @@ const CategoryPage = () => {
               mediaIcon={
                 video.type === 'video' ? '/svg/video.svg' : '/svg/audio.svg'
               }
-              ctaIcon={JSON.parse(localStorage.getItem('userData')) && JSON.parse(localStorage.getItem('userData')).bookmarks && JSON.parse(localStorage.getItem('userData')).bookmarks.filter(bookmark => bookmark.id === video.id).length > 0 ? './svg/bookmark-filled.svg' : '/svg/bookmark.svg'}
+              ctaIcon={
+                JSON.parse(localStorage.getItem('userData')) &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                JSON.parse(localStorage.getItem('userData')).bookmarks.filter(
+                  bookmark => bookmark.id === video.id
+                ).length > 0
+                  ? './svg/bookmark-filled.svg'
+                  : '/svg/bookmark.svg'
+              }
               ctaAction={id => {
-                toggleBookmark(video)
+                toggleBookmark(video);
                 setNotificationMessage({
-                    message:'Bokmarkerad',
-                    duration:4
-                })
+                  message: 'Videon har sparats till ditt bibliotek',
+                  duration: 4
+                });
               }}
               duration={
                 video.type === 'video'
