@@ -140,9 +140,11 @@ const StartPage = () => {
                   : '/svg/bookmark.svg'
               }
               ctaAction={id => {
-                toggleBookmark(video);
+                let bookmarked = toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Videon har sparats till ditt bibliotek',
+                  message: bookmarked
+                    ? 'Videon har sparats till ditt bibliotek'
+                    : 'Videon har tagits bort från ditt bibliotek',
                   duration: 4,
                   icon:
                     JSON.parse(localStorage.getItem('userData')) &&
@@ -189,9 +191,11 @@ const StartPage = () => {
                   : '/svg/bookmark.svg'
               }
               ctaAction={id => {
-                toggleBookmark(video);
+                let bookmarked = toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Videon har sparats till ditt bibliotek',
+                  message: bookmarked
+                    ? 'Videon har sparats till ditt bibliotek'
+                    : 'Videon har tagits bort från ditt bibliotek',
                   duration: 4,
                   icon:
                     JSON.parse(localStorage.getItem('userData')) &&
@@ -238,9 +242,11 @@ const StartPage = () => {
                   : '/svg/bookmark.svg'
               }
               ctaAction={id => {
-                toggleBookmark(video);
+                let bookmarked = toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Videon har sparats till ditt bibliotek',
+                  message: bookmarked
+                    ? 'Videon har sparats till ditt bibliotek'
+                    : 'Videon har tagits bort från ditt bibliotek',
                   duration: 4,
                   icon:
                     JSON.parse(localStorage.getItem('userData')) &&

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { NavbarStyle } from './NavbarStyle';
 import Options from '../../subPages/Options';
 import Preferences from '../../subPages/Preferences';
-import Events from '../../subPages/Events';
 
 const Navbar = props => {
   const [isExpanded, setIsExpanded] = useState({
@@ -103,9 +102,6 @@ const Navbar = props => {
       )}
       {selectedPage === 'preferences' && (
         <Preferences goBack={() => setSelectedPage(null)}></Preferences>
-      )}
-      {selectedPage === 'events' && (
-        <Events goBack={() => setSelectedPage(null)}></Events>
       )}
     </Fragment>
   );

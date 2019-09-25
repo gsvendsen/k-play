@@ -1,5 +1,4 @@
 export const YTDurationToSeconds = duration => {
-  
   let a = duration.match(/\d+/g);
 
   if (
@@ -58,46 +57,46 @@ export const formatDuration = time => {
   return ret;
 };
 
-export const toggleBookmark = (data) => {
+export const toggleBookmark = data => {
+  let currentLocalData = JSON.parse(localStorage.getItem('userData'));
 
-  let currentLocalData = JSON.parse(localStorage.getItem('userData'))
-  
-  if(currentLocalData.bookmarks && currentLocalData.bookmarks.filter(bookmark => bookmark.id === data.id).length === 0){
+  if (
+    currentLocalData.bookmarks &&
+    currentLocalData.bookmarks.filter(bookmark => bookmark.id === data.id)
+      .length === 0
+  ) {
     const newUpdatedData = {
       watchHistory: currentLocalData.watchHistory,
-      bookmarks: [
-        ...currentLocalData.bookmarks,
-        data
-      ]
-    }
-  
-    localStorage.setItem('userData', JSON.stringify(newUpdatedData))  
+      bookmarks: [...currentLocalData.bookmarks, data]
+    };
 
+    localStorage.setItem('userData', JSON.stringify(newUpdatedData));
+    return true;
   } else {
-    
     const newUpdatedData = {
       watchHistory: currentLocalData.watchHistory,
-      bookmarks: currentLocalData.bookmarks.filter(bookmark => bookmark.id !== data.id)
-    }
-  
-    localStorage.setItem('userData', JSON.stringify(newUpdatedData)) 
+      bookmarks: currentLocalData.bookmarks.filter(
+        bookmark => bookmark.id !== data.id
+      )
+    };
 
+    localStorage.setItem('userData', JSON.stringify(newUpdatedData));
+    return false;
   }
-
-}
+};
 
 export const filterMediaTypes = (filterState, array) => {
   return array.filter(item => {
-      if (filterState === 'all') {
+    if (filterState === 'all') {
       return true;
-      }
+    }
 
-      if (item.type === 'video' && filterState === 'video') {
+    if (item.type === 'video' && filterState === 'video') {
       return true;
-      }
+    }
 
-      if (item.type === 'podcast' && filterState === 'podcast') {
+    if (item.type === 'podcast' && filterState === 'podcast') {
       return true;
-      }
+    }
   });
-}
+};

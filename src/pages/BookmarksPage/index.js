@@ -69,7 +69,7 @@ const BookmarksPage = () => {
           color: '#FFFFFF'
         }}
       >
-        {megaData.length > 0 ? 'Dina bokmärken' : 'Inga bokmärken fanns'}
+        {megaData.length > 0 ? 'Dina bokmärken' : 'Inga bokmärken finns'}
       </h2>
       <div>
         {megaData.map(video => {

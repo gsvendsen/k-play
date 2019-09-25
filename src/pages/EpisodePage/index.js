@@ -48,6 +48,14 @@ const EpisodePage = props => {
       : null
   );
 
+  let date = new Date(mediaData.date);
+  let options = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+
   useEffect(() => {
     setInterval(() => {
       if (videoPlayer && videoPlayer.a && videoPlayer.getPlayerState() === 1) {
@@ -184,10 +192,22 @@ const EpisodePage = props => {
               <h1>{mediaData.title}</h1>
               <img
                 onClick={() => {
-                  toggleBookmark(mediaData);
+                  let bookmarked = toggleBookmark(mediaData);
                   setNotificationMessage({
-                    message: 'Videon har sparats till ditt bibliotek',
-                    duration: 4
+                    message: bookmarked
+                      ? 'Videon har sparats till ditt bibliotek'
+                      : 'Videon har tagits bort från ditt bibliotek',
+                    duration: 4,
+                    icon:
+                      JSON.parse(localStorage.getItem('userData')) &&
+                      JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                      JSON.parse(
+                        localStorage.getItem('userData')
+                      ).bookmarks.filter(
+                        bookmark => bookmark.id === mediaData.id
+                      ).length > 0
+                        ? '/svg/bookmark-filled.svg'
+                        : '/svg/bookmark.svg'
                   });
                 }}
                 src={
@@ -203,10 +223,22 @@ const EpisodePage = props => {
               />
             </aside>
             <h4>
-              Torsdag 12 sep 12.00 -{' '}
-              {videoDuration && formatDuration(videoDuration)}
+              {date
+                .toLocaleDateString('sv-SV', options)
+                .charAt(0)
+                .toUpperCase() +
+                date.toLocaleDateString('sv-SV', options).slice(1)}{' '}
+              -{' '}
+              {mediaData.type === 'video'
+                ? videoDuration && formatDuration(videoDuration)
+                : formatDuration(mediaData.duration / 1000)}{' '}
+              min
             </h4>
             <p>{mediaData.description}</p>
+            <p>
+              <img src="/svg/share.svg" alt="" />
+              Dela avsnitt
+            </p>
             <RedirectBox
               title="Kursmaterial"
               href="https://www.kursmateriallank.se/material"
@@ -235,10 +267,21 @@ const EpisodePage = props => {
                   : '/svg/bookmark.svg'
               }
               ctaAction={id => {
-                toggleBookmark(video);
+                let bookmarked = toggleBookmark(video);
                 setNotificationMessage({
-                  message: 'Videon har sparats till ditt bibliotek',
-                  duration: 4
+                  message: bookmarked
+                    ? 'Videon har sparats till ditt bibliotek'
+                    : 'Videon har tagits bort från ditt bibliotek',
+                  duration: 4,
+                  icon:
+                    JSON.parse(localStorage.getItem('userData')) &&
+                    JSON.parse(localStorage.getItem('userData')).bookmarks &&
+                    JSON.parse(
+                      localStorage.getItem('userData')
+                    ).bookmarks.filter(bookmark => bookmark.id === video.id)
+                      .length > 0
+                      ? './svg/bookmark-filled.svg'
+                      : '/svg/bookmark.svg'
                 });
               }}
               duration={formatDuration(YTDurationToSeconds(video.duration))}
