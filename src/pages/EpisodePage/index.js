@@ -228,7 +228,11 @@ const EpisodePage = props => {
                 .charAt(0)
                 .toUpperCase() +
                 date.toLocaleDateString('sv-SV', options).slice(1)}{' '}
-              - {videoDuration && formatDuration(videoDuration)} min
+              -{' '}
+              {mediaData.type === 'video'
+                ? videoDuration && formatDuration(videoDuration)
+                : formatDuration(mediaData.duration / 1000)}{' '}
+              min
             </h4>
             <p>{mediaData.description}</p>
             <RedirectBox
