@@ -88,9 +88,30 @@ const Options = props => {
             onTouchEnd={e => snapRange(e.target.value)}
           ></input>
           <ul>
-            <li onClick={() => setRangePosition(0)}>Aa</li>
-            <li onClick={() => setRangePosition(50)}>Aa</li>
-            <li onClick={() => setRangePosition(100)}>Aa</li>
+            <li
+              onClick={() => {
+                setRangePosition(0);
+                setFontSizeState(16);
+              }}
+            >
+              Aa
+            </li>
+            <li
+              onClick={() => {
+                setRangePosition(50);
+                setFontSizeState(18);
+              }}
+            >
+              Aa
+            </li>
+            <li
+              onClick={() => {
+                setRangePosition(100);
+                setFontSizeState(20);
+              }}
+            >
+              Aa
+            </li>
           </ul>
         </article>
       </section>

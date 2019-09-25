@@ -27,6 +27,7 @@ export const LayoutStyle = styled.div`
         padding:0 20px;
         box-sizing:border-box;
         z-index:999;
+        transition: background-color 0.5s ease-in-out;
 
         & > img {
             height:24px;

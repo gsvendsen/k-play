@@ -19,7 +19,7 @@ const Layout = props => {
       <header>
         <Link to="/">
           {props.location.pathname !== '/' &&
-          props.location.pathname !== '/bookmarks' & props.location.pathname !== '/search' ? (
+          props.location.pathname !== '/bookmarks' && props.location.pathname !== '/search' ? (
             <img style={{
                 opacity: menuIsOpen ? '0' : '1',
                 transition: 'opacity 0.20s 0.1s ease-in-out'
@@ -39,14 +39,12 @@ const Layout = props => {
           menuIsOpen={menuIsOpen}
           toggle={() => setMenuIsOpen(!menuIsOpen)}
         />
-        
+
         <article />
-        <Navbar menuIsOpen={{menuIsOpen, setMenuIsOpen}} open={menuIsOpen} />
+        <Navbar menuIsOpen={{ menuIsOpen, setMenuIsOpen }} open={menuIsOpen} />
       </header>
 
       <section>{props.children}</section>
-
-
 
       {/* Om context variable innehåller stream URL så visa audioplayer */}
       {audioPlayerUrl &&
@@ -66,15 +64,23 @@ const Layout = props => {
           ) : (
             <img src="/svg/home.svg" alt="Home" />
           )}
-          Hem
+          {props.history.location.pathname === '/' ? (
+            <p style={{ opacity: '1' }}>Hem</p>
+          ) : (
+            <p style={{ opacity: '0.7' }}>Hem</p>
+          )}
         </Link>
         <Link to="/search">
           {props.history.location.pathname === '/search' ? (
-            <img src="/svg/search-icon.svg" alt="Search" />
+            <img src="/svg/search-icon-filled.svg" alt="Search" />
           ) : (
             <img src="/svg/search-icon.svg" alt="Search" />
           )}
-          Search
+          {props.history.location.pathname === '/search' ? (
+            <p style={{ opacity: '1' }}>Search</p>
+          ) : (
+            <p style={{ opacity: '0.7' }}>Search</p>
+          )}
         </Link>
         <Link to="/bookmarks">
           {props.history.location.pathname === '/bookmarks' ? (
@@ -82,7 +88,11 @@ const Layout = props => {
           ) : (
             <img src="/svg/bookmark.svg" alt="Bookmark" />
           )}
-          Sparade
+          {props.history.location.pathname === '/bookmarks' ? (
+            <p style={{ opacity: '1' }}>Sparade</p>
+          ) : (
+            <p style={{ opacity: '0.7' }}>Sparade</p>
+          )}
         </Link>
       </footer>
     </LayoutStyle>
