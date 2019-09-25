@@ -216,7 +216,7 @@ const EpisodePage = props => {
             </aside>
             <h4>
               Torsdag 12 sep 12.00 -{' '}
-              {videoDuration && formatDuration(videoDuration)}
+              {videoDuration && formatDuration(videoDuration)} min
             </h4>
             <p>{mediaData.description}</p>
             <RedirectBox
