@@ -92,7 +92,11 @@ const Navbar = props => {
               <h6>Mina preferenser</h6>
             </article>
             <article onClick={() => setSelectedPage('options')}>
-              <img src="/svg/accessbility.svg" alt="" />
+              <img
+                src="/svg/accessability.svg"
+                alt=""
+                style={{ width: '25px' }}
+              />
               <h6>Tillgänglighet</h6>
             </article>
           </aside>
