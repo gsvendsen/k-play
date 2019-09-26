@@ -41,7 +41,7 @@ export const AudioPlayerStyle = styled.div`
 
   a {
     width: 45%;
-    font-size: 12px;
+    font-size: 0.75rem;
 
     & > p {
 

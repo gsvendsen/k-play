@@ -12,7 +12,7 @@ export const MenuOptionStyle = styled.div`
     border: none;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 23px;
     display: flex;
     align-items: flex-end;

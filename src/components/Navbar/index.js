@@ -10,9 +10,10 @@ const Navbar = props => {
     two: true
   });
   const [isTouched, setIsTouched] = useState(false);
-  const [selectedPage, setSelectedPage] = useState(null);
 
   const { menuIsOpen, setMenuIsOpen } = props.menuIsOpen;
+
+  const { selectedPage, setSelectedPage } = props.selectedPage;
 
   return (
     <Fragment>
@@ -91,7 +92,11 @@ const Navbar = props => {
               <h6>Mina preferenser</h6>
             </article>
             <article onClick={() => setSelectedPage('options')}>
-              <img src="/svg/cog.svg" alt="" />
+              <img
+                src="/svg/accessability.svg"
+                alt=""
+                style={{ width: '25px' }}
+              />
               <h6>Tillgänglighet</h6>
             </article>
           </aside>

@@ -1,24 +1,25 @@
 import styled from 'styled-components';
 
 export const NotificationMessagesStyle = styled.div`
-
-  position:fixed;
-  width:100vw;
-  bottom:50px;
-  height:40px;
-  border-bottom:1px solid ${props => props.theme.colors.grey};
-  background-color:${props => props.theme.colors.orange};
-  display:${props => props.isActive ? 'flex' : 'none'};
-  align-items:center;
-  justify-content:space-between;
-  padding:0 25px;
-  animation:slide-up forwards 0.42s ease-in-out, slide-down forwards 0.42s ${props => props.isActive && props.isActive.duration+'s'};
-  z-index:888;
+  position: fixed;
+  width: 100vw;
+  bottom: 50px;
+  height: 40px;
+  border-bottom: 1px solid ${props => props.theme.colors.grey};
+  background-color: ${props => props.theme.colors.orange};
+  display: ${props => (props.isActive ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 25px;
+  animation: slide-up forwards 0.42s ease-in-out,
+    slide-down forwards 0.42s
+      ${props => props.isActive && props.isActive.duration + 's'};
+  z-index: 888;
 
   & > h3 {
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 0.875rem;
     line-height: 18px;
     display: flex;
     align-items: flex-end;
@@ -27,22 +28,22 @@ export const NotificationMessagesStyle = styled.div`
   }
 
   @keyframes slide-up {
-      from {
-          bottom:10px;
-      }
+    from {
+      bottom: 10px;
+    }
 
-      to {
-          bottom:50px;
-      }
+    to {
+      bottom: 50px;
+    }
   }
 
   @keyframes slide-down {
-      from {
-          bottom:50px;
-      }
+    from {
+      bottom: 50px;
+    }
 
-      to {
-        bottom:5px;
-      }
+    to {
+      bottom: 5px;
+    }
   }
 `;
