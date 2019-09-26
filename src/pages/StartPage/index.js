@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SideScrollContainer from '../../components/SideScrollContainer';
 import MediaCard from '../../components/MediaCard';
+import HeaderCard from '../../components/HeaderCard';
 import MenuOption from '../../components/MenuOption';
 
 import videos from '../../data/youtube.json';
@@ -72,6 +73,11 @@ const StartPage = () => {
           title="Videos"
         />
       </div>
+      {filterState === 'video' || filterState === 'all' ?
+      <HeaderCard title='Johanna koljonen – “Do or die”' imageUrl="https://i.imgur.com/8YPH96x.png" url="/avsnitt/arPKOLILtkk" /> :
+      <HeaderCard title='Europeiska Samarbetsprojekt' imageUrl="https://i.imgur.com/wVkiw4a.png" url="/avsnitt/624108684" />
+      }
+      
       {watchedVideos.length > 0 && (
         <SideScrollContainer label="Fortsätt spelning">
           {watchedVideos.map(video => {
