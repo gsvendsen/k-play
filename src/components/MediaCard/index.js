@@ -19,11 +19,12 @@ const MediaCard = props => {
       </button>
       <Link to={props.url}>
         <article>
-          <section>
+          {props.data.custom !== true && <section>
             <h2>Titel Placeholder</h2>
-          </section>
+          </section>}
           <img
             src={
+              props.data && props.data.custom ? props.data.thumbnail :
               props.data &&
               (props.data.type === 'video'
                 ? `https://img.youtube.com/vi/${props.id}/maxresdefault.jpg`

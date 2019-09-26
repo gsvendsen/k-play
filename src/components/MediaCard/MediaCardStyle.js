@@ -16,7 +16,7 @@ export const MediaCardStyle = styled.div`
     width: ${props => props.vertical && '45%'};
 
     & > section {
-      background: linear-gradient(to right top, rgba(240,122,15,0.7), #051937);
+      background: linear-gradient(to right top,rgba(190,93,15,0.7),#051937);
       position:absolute;
       width:100%;
       height:107px;

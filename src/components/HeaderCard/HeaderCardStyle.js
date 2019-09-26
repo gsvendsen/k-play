@@ -11,6 +11,13 @@ export const HeaderCardStyle = styled.div`
     margin-bottom:30px;
     position:relative;
 
+    a {
+        height:100%;
+        display:flex;
+        flex-direction:column;
+        justify-content:flex-end;   
+    }
+
     h2 {
         font-family: IBM Plex Sans;
         font-style: normal;

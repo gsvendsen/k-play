@@ -74,7 +74,7 @@ const StartPage = () => {
         />
       </div>
       {filterState === 'video' || filterState === 'all' ?
-      <HeaderCard title='Johanna koljonen – “Do or die”' imageUrl="https://i.imgur.com/8YPH96x.png" url="/avsnitt/arPKOLILtkk" /> :
+      <HeaderCard title='Johanna Koljonen – “Do or die”' imageUrl="https://i.imgur.com/8YPH96x.png" url="/avsnitt/arPKOLILtkk" /> :
       <HeaderCard title='Europeiska Samarbetsprojekt' imageUrl="https://i.imgur.com/wVkiw4a.png" url="/avsnitt/624108684" />
       }
       
