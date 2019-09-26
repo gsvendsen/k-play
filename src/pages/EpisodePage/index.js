@@ -240,9 +240,13 @@ const EpisodePage = props => {
               Dela avsnitt
             </p>
             <RedirectBox
-              title="Kursmaterial"
+              title="Fysiska kurser"
+              description="Kulturakademin och Teateralliansens erbjuder en kurs i sånggestaltning. "
               href="https://www.kursmateriallank.se/material"
-              linkTitle="www.kursmateriallank.se/material"
+              linkTitle="Läs mer och ansök"
+              titleMaterial="Kursmaterial"
+              descriptionMaterial="Till seminariet finns ett diskussionsmaterial. Ladda ned det via länken. "
+              btnTitle="Ladda ned"
             ></RedirectBox>
           </VideoDescriptionStyle>
         </VideoContainer>

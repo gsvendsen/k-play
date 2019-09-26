@@ -4,7 +4,8 @@ export const main = {
     grey: '#343434',
     orange: '#F07A0F',
     lightorange: '#E79874',
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    lightgrey: '#6F6F6F'
   }
 };
 
