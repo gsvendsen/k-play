@@ -98,38 +98,58 @@ const Layout = props => {
       <footer className="footer">
         <Link to="/">
           {props.history.location.pathname === '/' ? (
-            <img src="/svg/home-filled.svg" alt="Home" />
+            <img
+              src="/svg/home-filled.svg"
+              alt="Home"
+              style={{ opacity: '1' }}
+            />
           ) : (
-            <img src="/svg/home.svg" alt="Home" />
+            <img src="/svg/home.svg" alt="Home" style={{ opacity: '0.6' }} />
           )}
           {props.history.location.pathname === '/' ? (
             <p style={{ opacity: '1' }}>Hem</p>
           ) : (
-            <p style={{ opacity: '0.7' }}>Hem</p>
+            <p style={{ opacity: '0.6' }}>Hem</p>
           )}
         </Link>
         <Link to="/search">
           {props.history.location.pathname === '/search' ? (
-            <img src="/svg/search-icon-filled.svg" alt="Search" />
+            <img
+              src="/svg/search-icon-filled.svg"
+              alt="Search"
+              style={{ opacity: '1' }}
+            />
           ) : (
-            <img src="/svg/search-icon.svg" alt="Search" />
+            <img
+              src="/svg/search-icon.svg"
+              alt="Search"
+              style={{ opacity: '0.6' }}
+            />
           )}
           {props.history.location.pathname === '/search' ? (
             <p style={{ opacity: '1' }}>Search</p>
           ) : (
-            <p style={{ opacity: '0.7' }}>Search</p>
+            <p style={{ opacity: '0.6' }}>Search</p>
           )}
         </Link>
         <Link to="/bookmarks">
           {props.history.location.pathname === '/bookmarks' ? (
-            <img src="/svg/bookmark-filled.svg" alt="Bookmark" />
+            <img
+              src="/svg/bookmark-filled.svg"
+              alt="Bookmark"
+              style={{ opacity: '1' }}
+            />
           ) : (
-            <img src="/svg/bookmark.svg" alt="Bookmark" />
+            <img
+              src="/svg/bookmark.svg"
+              alt="Bookmark"
+              style={{ opacity: '0.6' }}
+            />
           )}
           {props.history.location.pathname === '/bookmarks' ? (
             <p style={{ opacity: '1' }}>Sparade</p>
           ) : (
-            <p style={{ opacity: '0.7' }}>Sparade</p>
+            <p style={{ opacity: '0.6' }}>Sparade</p>
           )}
         </Link>
       </footer>
