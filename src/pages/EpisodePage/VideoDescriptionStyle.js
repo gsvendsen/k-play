@@ -17,7 +17,7 @@ export const VideoDescriptionStyle = styled.div`
     & > h1 {
       font-style: normal;
       font-weight: 500;
-      font-size: 20px;
+      font-size: 1.25rem;
       line-height: 119.5%;
       letter-spacing: 0.01em;
       color: #ffffff;
@@ -38,7 +38,7 @@ export const VideoDescriptionStyle = styled.div`
   h4 {
     font-style: normal;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 0.75rem;
     line-height: 150%;
     color: #ffffff;
     margin: 30px 0 0 0;
@@ -47,7 +47,7 @@ export const VideoDescriptionStyle = styled.div`
   p {
     font-style: normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 150%;
     color: #ffffff;
     margin: 20px 0 0 0;
