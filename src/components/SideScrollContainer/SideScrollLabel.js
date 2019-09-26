@@ -8,7 +8,8 @@ export const SideScrollLabel = styled.div`
 
   > section {
     overflow-x: auto;
-    width: 100%;
+    width: auto;
+    margin:0 -18px;
   }
 
   section::-webkit-scrollbar {
