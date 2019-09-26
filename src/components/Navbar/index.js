@@ -91,7 +91,7 @@ const Navbar = props => {
               <h6>Mina preferenser</h6>
             </article>
             <article onClick={() => setSelectedPage('options')}>
-              <img src="/svg/cog.svg" alt="" />
+              <img src="/svg/accessbility.svg" alt="" />
               <h6>Tillgänglighet</h6>
             </article>
           </aside>
