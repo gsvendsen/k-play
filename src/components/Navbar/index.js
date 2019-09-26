@@ -10,9 +10,10 @@ const Navbar = props => {
     two: true
   });
   const [isTouched, setIsTouched] = useState(false);
-  const [selectedPage, setSelectedPage] = useState(null);
 
   const { menuIsOpen, setMenuIsOpen } = props.menuIsOpen;
+
+  const { selectedPage, setSelectedPage } = props.selectedPage;
 
   return (
     <Fragment>

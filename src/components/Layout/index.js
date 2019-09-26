@@ -14,16 +14,23 @@ import tracks from '../../data/tracks.json';
 const Layout = props => {
   const { audioPlayerUrl, setAudioPlayerUrl } = useContext(AudioPlayerContext);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const [selectedPage, setSelectedPage] = useState(null);
+
   return (
     <LayoutStyle menuIsOpen={menuIsOpen}>
       <header>
         <Link to="/">
           {props.location.pathname !== '/' &&
-          props.location.pathname !== '/bookmarks' && props.location.pathname !== '/search' ? (
-            <img style={{
+          props.location.pathname !== '/bookmarks' &&
+          props.location.pathname !== '/search' ? (
+            <img
+              style={{
                 opacity: menuIsOpen ? '0' : '1',
                 transition: 'opacity 0.20s 0.1s ease-in-out'
-              }} src="/svg/down-arrow.svg" alt="Go Back" />
+              }}
+              src="/svg/down-arrow.svg"
+              alt="Go Back"
+            />
           ) : (
             <img
               style={{
@@ -41,7 +48,11 @@ const Layout = props => {
         />
 
         <article onClick={() => setMenuIsOpen(false)} />
-        <Navbar menuIsOpen={{ menuIsOpen, setMenuIsOpen }} open={menuIsOpen} />
+        <Navbar
+          selectedPage={{ selectedPage, setSelectedPage }}
+          menuIsOpen={{ menuIsOpen, setMenuIsOpen }}
+          open={menuIsOpen}
+        />
       </header>
 
       <section>{props.children}</section>
@@ -56,6 +67,33 @@ const Layout = props => {
 
       {/* Om context variable innehåller data object för pop up messages*/}
       <NotificationMessages />
+
+      <main>
+        <button onClick={() => setSelectedPage('options')}>
+          <img src="/svg/accessability.svg" alt="" />
+          Tillgänglighet
+        </button>
+        <div>
+          <div>
+            <p>kulturakademin.se</p>
+            <p>+46 (0) 72 326 42 44</p>
+          </div>
+          <div>
+            <p>Fysiska kurser ></p>
+            <p>info@kulturakademin.se</p>
+          </div>
+          <hr />
+          <div>
+            <article>
+              <p>Kulturakademin</p>
+            </article>
+            <article>
+              <p>© Kulturakademin</p>
+              <p>All rights reserved</p>
+            </article>
+          </div>
+        </div>
+      </main>
 
       <footer className="footer">
         <Link to="/">

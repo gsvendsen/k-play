@@ -83,6 +83,48 @@ export const LayoutStyle = styled.div`
     }
   }
 
+  & > main {
+    width: 375px;
+    height: 290px;
+    padding: 40px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    button {
+      width: 100%;
+      height: 20%;
+      background: ${props => props.theme.colors.orange};
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+
+      img {
+        filter: invert(1);
+        margin-right: 10px;
+      }
+    }
+    & > div {
+      display: flex;
+      flex-direction: column;
+      color: ${props => props.theme.colors.white};
+      font-size: 0.875rem;
+
+      & > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      & > div:last-of-type {
+        margin-top: 20px;
+        align-items: flex-end;
+      }
+    }
+  }
+
   & > section > div > div > div > input:active ~ footer {
     display: none;
   }
