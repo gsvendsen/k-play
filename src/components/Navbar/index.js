@@ -31,7 +31,7 @@ const Navbar = props => {
           >
             <p
               onClick={() => {
-                setIsExpanded({ one: !isExpanded.one, two: isExpanded.two });
+                setIsExpanded({ one: !isExpanded.one, two: false });
                 setIsTouched(true);
               }}
             >
@@ -59,7 +59,7 @@ const Navbar = props => {
             )}
             <p
               onClick={() => {
-                setIsExpanded({ two: !isExpanded.two, one: isExpanded.one });
+                setIsExpanded({ two: !isExpanded.two, one: false });
                 setIsTouched(true);
               }}
             >
@@ -89,7 +89,7 @@ const Navbar = props => {
           <aside>
             <article onClick={() => setSelectedPage('preferences')}>
               <img src="/svg/cog.svg" alt="" />
-              <h6>Mina preferenser</h6>
+              <h6>Prioritera material</h6>
             </article>
             <article onClick={() => setSelectedPage('options')}>
               <img
