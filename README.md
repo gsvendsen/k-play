@@ -16,6 +16,15 @@ The current prototype was built for mobile first and therefore is not fully opti
     <img alt="Prototype" title="Prototypes" src="https://i.imgur.com/5Uw24kD.png">
 </p>
 
+### Functionality
+
+- Navigation for finding video or podcast media
+- Working embedded Youtube player and custom audioplayer using Soundcloud as a media source
+- Accessability functionality (dark/light mode, high contrast mode, larger font size alternatives)
+- Local storage tracking of video and audio progress, displayed on start screen
+- Possibility to bookmark video and audio episodes, displayed on bookmarks page
+
+
 ### Installation
 1. Clone the repository
 ```
