@@ -30,7 +30,11 @@ The current prototype was built for mobile first and therefore is not fully opti
 ```
 $ git clone https://github.com/gsvendsen/k-play.git
 ```
-2. Start running the project from the root k-play folder
+2. Install dependencies and packages
+```
+npm install
+```
+3. Start running the project from the root k-play folder
 ```
 npm run
 ```
