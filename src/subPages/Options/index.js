@@ -2,8 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { OptionsStyle } from './OptionsStyle';
 import Switch from '../../components/Switch';
 import { FontSizeContext } from '../../contexts/FontSizeContext';
+import { ThemeContext } from '../../contexts/ThemeContext';
+import { main } from '../../styles/theme';
 
 const Options = props => {
+
+  const { themeState, setThemeState } = useContext(ThemeContext);
+
   const { fontSizeState, setFontSizeState } = useContext(FontSizeContext);
   const [rangePosition, setRangePosition] = useState(
     fontSizeState === 16
@@ -30,7 +35,14 @@ const Options = props => {
 
   return (
     <OptionsStyle>
-      <div onClick={props.goBack}>
+      <div onClick={() => {
+        localStorage.setItem('lightMode', 'false')
+        localStorage.setItem('highContrastMode', 'false')
+        setThemeState(main)
+        
+        props.goBack()
+
+        }}>
         <img src="/svg/down-arrow.svg" alt="" />
         <button>Tillbaka till navigation</button>
       </div>
@@ -38,8 +50,7 @@ const Options = props => {
         <article>
           <h2>Tillgänglighet / Accessibility</h2>
           <p>
-            A place to unite front-end developers and designers and celebrate
-            the language.
+            Här kan du anpassa K-Plays utseende efter dina behov.
           </p>
         </article>
         <hr />

@@ -18,10 +18,8 @@ import {
   toggleBookmark,
   filterMediaTypes
 } from '../../helpers/functions';
-import { AudioPlayerContext } from '../../contexts/AudioPlayerContext';
 
 const miniData = [...videos, ...tracks];
-let megaData = miniData;
 
 const StartPage = () => {
   const [filterState, setFilterState] = useState('all');
@@ -52,6 +50,7 @@ const StartPage = () => {
         })
       );
     }
+
   }, [filterState]);
 
   return (
@@ -60,12 +59,12 @@ const StartPage = () => {
         <MenuOption
           isActive={filterState === 'all'}
           onSelect={() => setFilterState('all')}
-          title="Visa Alla"
+          title="Visa alla"
         />
         <MenuOption
           isActive={filterState === 'podcast'}
           onSelect={() => setFilterState('podcast')}
-          title="Podcasts"
+          title="Ljud"
         />
         <MenuOption
           isActive={filterState === 'video'}
@@ -74,12 +73,12 @@ const StartPage = () => {
         />
       </div>
       {filterState === 'video' || filterState === 'all' ?
-      <HeaderCard title='Johanna Koljonen – “Do or die”' imageUrl="https://i.imgur.com/8YPH96x.png" url="/avsnitt/arPKOLILtkk" /> :
+      <HeaderCard title='Johanna Koljonen – “Do or Die”' imageUrl="https://i.imgur.com/eQ5vJvb.png" url="/avsnitt/arPKOLILtkk" /> :
       <HeaderCard title='Europeiska Samarbetsprojekt' imageUrl="https://i.imgur.com/wVkiw4a.png" url="/avsnitt/624108684" />
       }
       
       {watchedVideos.length > 0 && (
-        <SideScrollContainer label="Fortsätt spelning">
+        <SideScrollContainer label="Fortsätt uppspelning">
           {watchedVideos.map(video => {
             return (
               <MediaCard
@@ -100,7 +99,8 @@ const StartPage = () => {
                       ).watchHistory.filter(media => {
                         return media.id !== id;
                       })
-                    ]
+                    ],
+                    bookmarks: JSON.parse(localStorage.getItem('userData')).bookmarks
                   };
 
                   localStorage.setItem('userData', JSON.stringify(updatedData));
@@ -175,8 +175,10 @@ const StartPage = () => {
         })}
       </SideScrollContainer>
 
-      <SideScrollContainer label="Senaste">
+      <SideScrollContainer label="Populärast just nu">
         {filterMediaTypes(filterState, latest).map(video => {
+            console.log(video.title)
+            
           return (
             <MediaCard
               data={video}

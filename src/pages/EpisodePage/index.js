@@ -92,6 +92,7 @@ const EpisodePage = props => {
       }
     }, 1000);
   }, [videoPlayer, videoDuration, localData]);
+console.log(audioPlayerUrl);
 
   return (
     <div style={{ minHeight: '100vh' }}>
@@ -125,7 +126,7 @@ const EpisodePage = props => {
                   }
                 }}
               />
-            ) : (
+            ) : (audioPlayerUrl && audioPlayerUrl.audioData.id) !== mediaData.id && (
               <div
                 style={{
                   top: '0',
@@ -133,7 +134,7 @@ const EpisodePage = props => {
                   width: '100%',
                   position: 'absolute',
                   left: '0',
-                  height: '100%',
+                  height: '34vh',
                   border: '15px solid #1b1b1b',
                   display: 'flex',
                   justifyContent: 'center',

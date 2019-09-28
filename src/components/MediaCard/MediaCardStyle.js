@@ -108,8 +108,10 @@ export const MediaCardStyle = styled.div`
     }
     p {
       font-size: ${props => (props.vertical ? '0.9rem' : '0.75rem')};
+      line-height:${props => (!props.vertical && '1.05rem')};
       display: -webkit-box;
-      -webkit-line-clamp: ${props => (props.vertical ? '3' : '2')};
+      margin:${props => (props.vertical ? '0' : props.hasProgress ? '20px 0 0 0' : '10px 0 0 0')};
+      -webkit-line-clamp: ${props => (props.vertical ? '3' : '3')};
       -webkit-box-orient: vertical;
       overflow: hidden;
     }

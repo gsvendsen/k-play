@@ -69,10 +69,6 @@ const Layout = props => {
       <NotificationMessages />
 
       <main>
-        <button onClick={() => setSelectedPage('options')}>
-          <img src="/svg/accessability.svg" alt="" />
-          Tillgänglighet
-        </button>
         <div>
           <div>
             <p>kulturakademin.se</p>
@@ -127,9 +123,9 @@ const Layout = props => {
             />
           )}
           {props.history.location.pathname === '/search' ? (
-            <p style={{ opacity: '1' }}>Search</p>
+            <p style={{ opacity: '1' }}>Sök</p>
           ) : (
-            <p style={{ opacity: '0.6' }}>Search</p>
+            <p style={{ opacity: '0.6' }}>Sök</p>
           )}
         </Link>
         <Link to="/bookmarks">
@@ -143,7 +139,7 @@ const Layout = props => {
             <img
               src="/svg/bookmark.svg"
               alt="Bookmark"
-              style={{ opacity: '0.6' }}
+              style={{ opacity: '0.25' }}
             />
           )}
           {props.history.location.pathname === '/bookmarks' ? (

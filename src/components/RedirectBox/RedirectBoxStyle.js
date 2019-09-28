@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const RedirectBoxStyle = styled.div`
-  width: 111%;
+  width: 100vw;
   background: ${props => props.theme.colors.grey};
   height: 425px;
   margin: 15px -18px;

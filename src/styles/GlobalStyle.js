@@ -17,9 +17,11 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-    padding: ${props => (props.isAudioActive ? '50px 0 140px 0' : '50px 0')};
-    font-family: 'IBM Plex Sans', sans-serif;
-    background-color: ${props => props.theme.colors.black};
+        padding: ${props => (props.isAudioActive ? '50px 0 140px 0' : '50px 0')};
+        font-family: 'IBM Plex Sans', sans-serif;
+        background-color: ${props => props.theme.colors.black};
+        width:100vw;
+        overflow-x:hidden;
     }
 
     button:active, button:focus {

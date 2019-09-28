@@ -74,12 +74,12 @@ const SearchPage = () => {
         <MenuOption
           isActive={filterState === 'all'}
           onSelect={() => setFilterState('all')}
-          title="Visa Alla"
+          title="Visa alla"
         />
         <MenuOption
           isActive={filterState === 'podcast'}
           onSelect={() => setFilterState('podcast')}
-          title="Podcasts"
+          title="Ljud"
         />
         <MenuOption
           isActive={filterState === 'video'}

@@ -83,6 +83,9 @@ const Navbar = props => {
                 <Link onClick={() => setMenuIsOpen(false)} to="/category">
                   <li>Normer, Genus & Kultur</li>
                 </Link>
+                <Link onClick={() => setMenuIsOpen(false)} to="/category">
+                  <li>Musik</li>
+                </Link>
               </div>
             )}
           </div>

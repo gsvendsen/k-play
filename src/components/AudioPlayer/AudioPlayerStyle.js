@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AudioPlayerStyle = styled.div`
-  height: ${props => (props.big ? '215px' : '80px')};
+  height: ${props => (props.big ? '34vh' : '80px')};
   border-bottom: ${props => (props.big ? 'none' : 'rgba(0,0,0,0.2) solid 1px')};
   width: 100vw;
   background: ${props =>
@@ -36,6 +36,7 @@ export const AudioPlayerStyle = styled.div`
       & > img {
           position:absolute;
           z-index:-5;
+          height:60%;
       }
   }
 
