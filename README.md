@@ -45,3 +45,25 @@ npm run
 
 #### License
 The [MIT](https://github.com/gsvendsen/k-play/blob/master/LICENSE) License
+
+# Code Review by Group 2
+- Destructure component props
+- [NotificationMessages#11](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/NotificationMessages/index.js#L11) - Clear timeout on unmount
+- [Navbar#71](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/Navbar/index.js#L71) - DRY, create reusable link component that closes menu
+- [AudioPlayer#11](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/AudioPlayer/index.js#L11) - Destructure props directly instead of doing it on line #17
+- [AudioPlayer#146](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/AudioPlayer/index.js#L146) - Maybe put PodPlayer in separate file for readability
+- [Navbar#9](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/Navbar/index.js#L9) - Hard to understand what “one” & “two” means without reading the rest of the code.
+- [BookmarksPage#30](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/pages/BookmarksPage/index.js#L30) - Put filter logic inside useEffect that triggers on filterState change. Otherwise it will run on every re-render.
+- [BookmarksPage#18](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/pages/BookmarksPage/index.js#L19) - Similar to the one above. Currently data from local storage gets fetched on every re-render. Could probably do this only on mount with useEffect.
+- Some `console.log()` ’s has been left behind
+- [MenuOption#10](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/MenuOption/index.js#L10) - `onClick={()=>props.onSelect()}` can be reduced to `onClick={props.onSelect}`.
+- Could create more styled components instead of using large inline styling in some cases. Ex: [EpisodePage#131](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/pages/EpisodePage/index.js#L131)
+- Fetch from local storage data in useEffect to reduce logic in the JSX. Ex: [SearchPage#123](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/pages/SearchPage/index.js#L123)
+- A lot of empty  `alt=“”`
+- [Navbar#44](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/Navbar/index.js#L44) - <li> tags outside of <ol> or <ul>
+- [Manifest](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/public/manifest.json#L21) - Invalid `start_url`, should be “/“
+- Could probably move all context related functionality to one file. Maybe make a general provider component that combines all providers to reduce code in App.js.
+- [AudioPlayer#150](https://github.com/gsvendsen/k-play/blob/7ca15bccc6979de26e9e93024cfd2eb8116d788f/src/components/AudioPlayer/index.js#L150) - Unnecessary loading state, immediately gets set to false
+- Use `target=“_blank”` for external links
+- Netlify redirects/rewrites not working. Visiting a url other than start page directly causes 404 error. _redirects file is missing [Redirects | Netlify](https://www.netlify.com/docs/redirects/#rewrites-and-proxying)
+- The `!important` keyword is considered bad practice and can probably be avoided.
